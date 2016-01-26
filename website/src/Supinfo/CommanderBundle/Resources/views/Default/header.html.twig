@@ -3,5 +3,30 @@
 <head>
     <meta charset="utf-8"/>
     <title>{{ page_title }}</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Common CSS and javascfript files -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/style.css') }}"/>
 </head>
-<body>  
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navabr-header">
+            <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
+                <li><a href="/help"><span class="glyphicon glyphicon-flag"></span> Help</a> </li>
+            </ul>
+        </div>
+    </div>
+</nav>
