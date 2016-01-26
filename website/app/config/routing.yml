@@ -1,0 +1,3 @@
+supinfo_commander:
+    resource: "@SupinfoCommanderBundle/Resources/config/routing.yml"
+    prefix:   /
