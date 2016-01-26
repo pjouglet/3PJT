@@ -1,0 +1,11 @@
+body{
+    background-image: url("../img/photo-1437623889155-075d40e2e59f.png");
+}
+
+.main-container{
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #18125D;
+    font-size: 20px;
+    padding-right: 50px;
+    padding-left: 50px;
+}
