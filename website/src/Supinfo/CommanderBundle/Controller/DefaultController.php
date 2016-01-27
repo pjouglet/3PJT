@@ -4,6 +4,8 @@ namespace Supinfo\CommanderBundle\Controller;
 
 use Supinfo\CommanderBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\User;
 
 class DefaultController extends Controller
 {
@@ -14,22 +16,35 @@ class DefaultController extends Controller
         ));
     }
 
-    public function loginAction(){
-        $entityManager = $this->getDoctrine()->getManager();
+    public function loginAction(Request $request){
+        $param = array("page_title" => "login");
 
-        /*$user = new Users();
-        $user->setFirstname("Pierre");
-        $user->setLastname("JOUGLET");
-        $user->setPassword("test");
-        $user->setEmail("Pierre.JOUGLET@supinfo.com");
-        $user->setNewletter(1);
+        //l'utilisateur se connecte
+        if($request->get("login_button")){
 
-        $entityManager->persist($user);
-        $entityManager->flush();*/
+        }
 
-        return $this->render('SupinfoCommanderBundle:Default:login.html.twig', array(
-            'page_title' => "login"
-        ));
+        //L'utilisateur s'enregistre
+        if($request->get("signup_button")){
+
+            if($request->get("password") == $request->get("password_confirmation")){
+                $entityManager = $this->getDoctrine()->getManager();
+                $user = new Users();
+                $user->setFirstname($request->get("firstname"));
+                $user->setLastname($request->get("lastname"));
+                $user->setPassword(sha1($request->get("password")));
+                $user->setEmail($request->get("email"));
+                if($request->get("newsletter"))
+                    $user->setNewletter(1);
+                else
+                    $user->setNewletter(0);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+
+        }
+
+        return $this->render('SupinfoCommanderBundle:Default:login.html.twig', $param);
     }
 
     public function helpAction()
