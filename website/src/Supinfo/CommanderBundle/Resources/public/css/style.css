@@ -8,4 +8,12 @@ body{
     font-size: 20px;
     padding-right: 50px;
     padding-left: 50px;
+    padding-top: 50px;
+    -webkit-border-radius: 1%;
+    -moz-border-radius: 1%;
+    border-radius: 1%;
+}
+
+.label_checkbox{
+    font-size: 15px;
 }

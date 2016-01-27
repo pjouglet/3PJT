@@ -1,10 +1,67 @@
 {% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
 <div class="container main-container">
     <div class="row">
-        <div class=" col-*-*">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur cum deleniti dolore ducimus error eum eveniet exercitationem expedita impedit labore laboriosam nostrum, nulla officiis quas quasi ratione recusandae sunt.
+        <div class="col-sm-5">
+            <p>
+                Déjà inscrit ? Connectez-vous et profitez de l'emsemble de nos services.
+            </p>
+            <form role="form" method="post">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="email_login">Adresse E-Mail :</label>
+                        <input type="email" class="form-control" id="email_login">
+                    </div>
+                    <div class="form-group">
+                        <label for="password_login">Mot de passe :</label>
+                        <input type="password" class="form-control" id="password_login">
+                    </div>
+                    <div class="form-group">
+                        <label><span class="label_checkbox">Rester connecté</span> <input type="checkbox" id="stay_logged"></label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" id="login_button">Se connecter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+            <p>
+                Inscrivez-vous afin de pouvoir utiliser pleinement nos services comme le suivi de commandes ou la reservation de billets !
+            </p>
+            <form role="form" method="post">
+                <div class="form-group">
+                    <label for="email">Adresse E-Mail :</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Confirmation du mot de passe :</label>
+                    <input type="password" class="form-control" id="password_confirmation">
+                </div>
+                <div class="form-group">
+                    <label for="firstname">Prénom :</label>
+                    <input type="text" class="form-control" id="firstname">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Nom :</label>
+                    <input type="text" class="form-control" id="lastname">
+                </div>
+                <div class="form-group">
+                    <label><span class="label_checkbox">S'inscrire à la newletter</span> <input type="checkbox" id="newsletter"></label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default" id="signup_button">S'inscrire</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<!-- javascript pour la page de login -->
+<script type="text/javascript" src="{{ asset("bundle/supinfocommander/js/login.js") }}"/>
 
 {% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}

@@ -17,7 +17,7 @@ class DefaultController extends Controller
     public function loginAction(){
         $entityManager = $this->getDoctrine()->getManager();
 
-        $user = new Users();
+        /*$user = new Users();
         $user->setFirstname("Pierre");
         $user->setLastname("JOUGLET");
         $user->setPassword("test");
@@ -25,7 +25,7 @@ class DefaultController extends Controller
         $user->setNewletter(1);
 
         $entityManager->persist($user);
-        $entityManager->flush();
+        $entityManager->flush();*/
 
         return $this->render('SupinfoCommanderBundle:Default:login.html.twig', array(
             'page_title' => "login"
