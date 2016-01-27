@@ -4,8 +4,9 @@ namespace Supinfo\CommanderBundle\Controller;
 
 use Supinfo\CommanderBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -21,7 +22,26 @@ class DefaultController extends Controller
 
         //l'utilisateur se connecte
         if($request->get("login_button")){
+            $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
+            $user = $repo->findOneBy(array('email' => $request->get("email_login")));
 
+            if($user && (sha1($request->get('password_login')) == $user->getPassword())){
+                //User connecté
+                $session = $request->getSession();
+                $session->set("email", $request->get("email_login"));
+
+                //L'utilisateur reste connecté
+                if($request->get("stay_logged")){
+                    $cookie = new Cookie('commander_cookie_login', $request->get('email_login'));
+                    $response = new Response();
+                    $response->headers->setCookie($cookie);
+                    $response->send();
+                }
+            }
+            else{
+                //Erreur de connection (L'utilisateur n'existe pas ou les mots de passes ne correspondent pas)
+                $param["login_error"] = "true";
+            }
         }
 
         //L'utilisateur s'enregistre
