@@ -14,3 +14,7 @@ supinfo_commander_logout:
     path:     /logout
     defaults: { _controller: SupinfoCommanderBundle:Default:logout }
 
+supinfo_commander_cart:
+    path:     /cart
+    defaults: { _controller: SupinfoCommanderBundle:Default:cart }
+

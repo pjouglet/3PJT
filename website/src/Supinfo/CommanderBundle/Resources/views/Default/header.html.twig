@@ -33,6 +33,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if app.session.get('email') is defined and app.session.get('email') != "" %}
+                    <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a> </li>
                     <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a> </li>
                 {% else %}
                     <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>

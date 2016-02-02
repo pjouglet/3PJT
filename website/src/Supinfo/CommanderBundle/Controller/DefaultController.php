@@ -93,6 +93,14 @@ class DefaultController extends Controller
         return $this->redirect("/");
     }
 
+    public function cartAction(Request $request){
+        $this->checkCookie();
+
+        return $this->render("SupinfoCommanderBundle:Default:cart.html.twig", array(
+            'page_title' => "Panier"
+        ));
+    }
+
     private function checkCookie(){
         $request = $this->get('request');
         $cookies = $request->cookies;
