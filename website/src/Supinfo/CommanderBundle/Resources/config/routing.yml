@@ -10,3 +10,7 @@ supinfo_commander_login:
     path:     /login
     defaults: { _controller: SupinfoCommanderBundle:Default:login }
 
+supinfo_commander_logout:
+    path:     /logout
+    defaults: { _controller: SupinfoCommanderBundle:Default:logout }
+

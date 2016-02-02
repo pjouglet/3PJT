@@ -12,12 +12,20 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $this->checkCookie();
         return $this->render('SupinfoCommanderBundle:Default:index.html.twig', array(
             'page_title' => "index"
         ));
     }
 
     public function loginAction(Request $request){
+        $this->checkCookie();
+        $session = $request->getSession();
+
+        //Si l'utilisateur est connecté, on le redirige sur la page d'accueil
+        if($session->get('email')){
+            return $this->redirect("/");
+        }
         $param = array("page_title" => "login");
 
         //l'utilisateur se connecte
@@ -27,7 +35,6 @@ class DefaultController extends Controller
 
             if($user && (sha1($request->get('password_login')) == $user->getPassword())){
                 //User connecté
-                $session = $request->getSession();
                 $session->set("email", $request->get("email_login"));
 
                 //L'utilisateur reste connecté
@@ -37,6 +44,7 @@ class DefaultController extends Controller
                     $response->headers->setCookie($cookie);
                     $response->send();
                 }
+                return $this->redirect("/");
             }
             else{
                 //Erreur de connection (L'utilisateur n'existe pas ou les mots de passes ne correspondent pas)
@@ -69,8 +77,28 @@ class DefaultController extends Controller
 
     public function helpAction()
     {
+        $this->checkCookie();
         return $this->render('SupinfoCommanderBundle:Default:help.html.twig', array(
             'page_title' => "help"
         ));
+    }
+
+    public function logoutAction(Request $request){
+        $session = $request->getSession();
+        $session->invalidate();
+
+        $response = new Response();
+        $response->headers->clearCookie('commander_cookie_login');
+        $response->send();
+        return $this->redirect("/");
+    }
+
+    private function checkCookie(){
+        $request = $this->get('request');
+        $cookies = $request->cookies;
+        if($cookies->has('commander_cookie_login')){
+            $session = $this->get('session');
+            $session->set("email", $cookies->get('commander_cookie_login'));
+        }
     }
 }
