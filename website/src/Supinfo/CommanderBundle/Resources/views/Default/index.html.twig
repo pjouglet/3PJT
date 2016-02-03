@@ -1,10 +1,27 @@
 {% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim exercitationem harum id illum itaque laboriosam molestiae neque nisi numquam odit quaerat quidem quo quod, sint sunt totam ut veritatis!
+<div class="container main-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="input-group">
+                <label for="gare_depart">Gare de départ :</label>
+                <input type="text" class="form-control" id="gare_depart" name="gare_depart">
+            </div>
+            <div class="input-group">
+                <label for="gare_arrivee">Gare d'arrivée :</label>
+                <input type="text" class="form-control" id="gare_arrivee" name="gare_arrivee">
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <label>Indiquez la date de départ et la date d'arrivée</label>
+            <div class="input-group input-daterange" id="date_voyage">
+                <input type="text" class="form-control" name="date_depart"/>
+                <span class="input-group-addon">→</span>
+                <input type="text" class="form-control" name="date_arrivee"/>
+            </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/index.js') }}"></script>
 {% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}
