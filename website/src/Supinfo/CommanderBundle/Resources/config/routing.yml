@@ -18,3 +18,7 @@ supinfo_commander_cart:
     path:     /cart
     defaults: { _controller: SupinfoCommanderBundle:Default:cart }
 
+supinfo_commander_accept_cookies:
+    path:     /accept_cookie
+    defaults: { _controller: SupinfoCommanderBundle:CookieLaw:acceptLawCookie }
+

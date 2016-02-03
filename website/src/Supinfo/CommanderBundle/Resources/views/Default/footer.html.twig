@@ -1,7 +1,28 @@
+<!-- Informations sur les cookies -->
+{% if app.request.cookies.get("cookie_law") == false %}
+<div class="cookies_law">
+    <form method="post" action="/accept_cookie">
+        <div class="clear clearfix" style="display:table; margin:0 auto;">
+            En naviguant sur ce site, vous acceptez l'utilisation des cookies.
+            <div class="cookies_button">
+                <input type="hidden" name="currrent_location" value="{{ app.request.attributes.get('_route') }}"/>
+                <input name="accept_cookies" class="btn btn-default" type="submit" value="J'accepte">
+                <a class="button btn btn-default" target="1" href="/" >Plus d'informations</a>
+            </div>
+            <div class="close_button">
+                <img src="{{ asset('bundles/supinfocommander/img/close.png') }}" class="close_banner_btn"/>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endif %}
+
+
 <!-- javascript for header animation -->
+<!-- surement a virer -->
 <script>
     (function() {
-
         "use strict";
 
         var toggles = document.querySelectorAll(".c-hamburger");
@@ -20,8 +41,6 @@
 
     })();
 </script>
-
-<link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/style.css') }}"/>
 <script type="text/javascript" src="{{ asset("bundles/supinfocommander/js/main.js") }}"/>
 
 </body>

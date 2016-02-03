@@ -21,4 +21,10 @@ $(document).ready(function(){
         }
     });
 
+
+    //cookie law
+    $('.cookies_law .close_banner_btn').click(function(){
+        $(".cookies_law").hide();
+    });
+
 })

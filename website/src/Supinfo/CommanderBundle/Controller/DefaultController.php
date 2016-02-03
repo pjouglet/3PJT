@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $this->checkCookie();
         return $this->render('SupinfoCommanderBundle:Default:index.html.twig', array(
@@ -39,7 +39,7 @@ class DefaultController extends Controller
 
                 //L'utilisateur reste connecté
                 if($request->get("stay_logged")){
-                    $cookie = new Cookie('commander_cookie_login', $request->get('email_login'));
+                    $cookie = new Cookie('commander_cookie_login', $request->get('email_login'), time() + 3600 * 24 * 365);
                     $response = new Response();
                     $response->headers->setCookie($cookie);
                     $response->send();
