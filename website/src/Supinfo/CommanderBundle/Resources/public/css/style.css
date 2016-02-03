@@ -20,8 +20,41 @@ body{
 
 .cookies_law{
     position: fixed;
-    bottom: 30px;
+    bottom: 0px;
     width: 100%;
+    height: 60px;
+    background-color: #000000;
+    border-color: #000000;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    z-index: 9999;
+    padding: 13px;
+    -webkit-box-shadow: 0px 1px 5px 0px #000000;
+    -moz-box-shadow: 0px 1px 5px 0px #000000;
+    box-shadow: 0px 1px 5px 0px #000000;
+    opacity: 0.8;
+}
+
+.cookies_law input{
+    background-color: #8BC954;
+    borde-color: #8BC954;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.cookies_law input:hover{
+    background-color: #8BC954;
+    borde-color: #8BC954;
+    color: #FFFFFF;
+}
+
+.cookies_law > form a{
+    background-color: #5BC0DE;
+    border-color: #5BC0DE;
+    color: #FFFFFF;
+    text-align: center;
 }
 
 .cookies_law .cookies_button, .close_button{
@@ -32,4 +65,41 @@ body{
     position: relative;
     top: -5px;
     right: -15px;
+}
+
+.page-heading{
+    text-transform: uppercase;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #AEA9A9;
+}
+
+.cart-summary{
+    border: 1px solid #AEA9A9;
+    font-size: 22px;
+    padding: 1px 20px 25px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 50px;
+}
+
+.cart-summary h4{
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-summary button{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.cart-totals{
+    color: #5F59A4;
+}
+
+.cart-totals th{
+    font-weight: 400;
 }
