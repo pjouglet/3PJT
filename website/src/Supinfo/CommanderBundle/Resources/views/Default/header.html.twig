@@ -19,6 +19,24 @@
     <!-- Bootstrap datepicker -->
     <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/bootstrap-datepicker.min.css') }}">
     <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/bootstrap-datepicker.min.js') }}"></script>
+    <!-- SDK Facebook -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '838894079590826',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/fr_FR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-default">

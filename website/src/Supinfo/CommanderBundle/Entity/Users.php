@@ -56,7 +56,6 @@ class Users
      */
     private $newsletter;
 
-
     /**
      * Get id
      *
