@@ -1,0 +1,20 @@
+body{
+    background-color: #EFF1F2;
+}
+
+#login_button{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.login-container{
+    margin-top: 10%;
+}
+
+.login-container .col-sm-6{
+    padding: 40px;
+}
+
+#shop-name{
+    text-align: center;
+}
