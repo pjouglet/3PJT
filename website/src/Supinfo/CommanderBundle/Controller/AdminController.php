@@ -15,7 +15,30 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
-    public function indexAction(){
+    public function loginAction(Request $request){
+        $session = $request->getSession();
+        if($session->get('email_admin')){
+            return $this->redirect("/gestion/index");
+        }
+
+        //Lorsqu'on se connecte
+        if($request->get("login_button")){
+            $repo = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Employees");
+            $user = $repo->findOneBy(array('email' => $request->get('email')));
+
+            if($user && (sha1($request->get('password')) == $user->getPassword())){
+                $session->set("email_admin", $request->get("email"));
+                return $this->redirect("/gestion/index");
+            }
+        }
         return $this->render('SupinfoCommanderBundle:Gestion:login.html.twig');
+    }
+
+    public function indexAction(Request $request){
+        $session = $request->getSession();
+        if(!$session->get('email_admin')){
+            return $this->redirect("/gestion");
+        }
+        return $this->render('SupinfoCommanderBundle:Gestion:index.html.twig', array('page_title' => "bite"));
     }
 }

@@ -10,6 +10,12 @@ namespace Supinfo\CommanderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Users
+ *
+ * @ORM\Table(name="employee")
+ * @ORM\Entity(repositoryClass="Supinfo\CommanderBundle\Repository\UsersRepository")
+ */
 class Employees
 {
     /**

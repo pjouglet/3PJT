@@ -22,7 +22,10 @@ supinfo_commander_accept_cookies:
     path:     /accept_cookie
     defaults: { _controller: SupinfoCommanderBundle:CookieLaw:acceptLawCookie }
 
-supinfo_commander_admin:
+supinfo_commander_admin_login:
     path:     /gestion
-    defaults: { _controller: SupinfoCommanderBundle:Admin:index }
+    defaults: { _controller: SupinfoCommanderBundle:Admin:login }
 
+supinfo_commander_admin:
+    path:     /gestion/index
+    defaults: { _controller: SupinfoCommanderBundle:Admin:index }
