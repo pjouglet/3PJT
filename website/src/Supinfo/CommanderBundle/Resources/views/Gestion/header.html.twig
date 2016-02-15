@@ -15,3 +15,57 @@
     <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/admin/style.css') }}"/>
 </head>
 <body>
+<nav class="navbar nav-sidebar" role="navigation">
+    <ul class="menu">
+        <li class="maintab" id="admin-dashboard">
+            <a href="/gestion/index" class="title">
+                <i class="glyphicon glyphicon-dashboard"></i>
+                <span>Tableau de bord</span>
+            </a>
+        </li>
+
+        <li class="maintab has_submenu" id="customer">
+            <a href="/gestion/customers" class="title">
+                <i class="glyphicon glyphicon-user"></i>
+                <span>Clients</span>
+            </a>
+            <ul class="submenu">
+                <li class="customer_customer"><a href="/gestion/customers">Clients (a faire)</a></li>
+                <li class="customer_addresses"><a href="/gestion/customers/adresses">Adresses (a faire)</a></li>
+                <li class="customer_carts"><a href="/gestion/customers/carts">Paniers ( a faire)</a></li>
+            </ul>
+        </li>
+
+        <li class="maintab" id="gares">
+            <a href="/gestion/gares" class="title">
+                <i class="glyphicon glyphicon-road"></i>
+                <span>Gares (a faire)</span>
+            </a>
+        </li>
+
+        <li class="maintab has_submenu" id="settings">
+            <a href="/gestion/settings" class="title">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span>Paramètres</span>
+            </a>
+            <ul class="submenu">
+                <li class="settings_infos"><a href="/gestion/settings/informations">Informations (a faire)</a></li>
+                <li class="settings_emails"><a href="/gestion/settings/emails">Emails (a faire)</a></li>
+                <li class="settings_bdd"><a href="/gestion/settings/database">Base de données (a faire)</a></li>
+                <li class="settings_logs"><a href="/gestion/settings/logs">Logs (a faire)</a></li>
+                <li class="settings_webservice"><a href="/gestion/settings/webservice">Webservice (a faire)</a></li>
+            </ul>
+        </li>
+
+        <li class="maintab has_submenu" id="admin">
+            <a href="/gestion/admin" class="title">
+                <i class="glyphicon glyphicon-alert"></i>
+                <span>Administration</span>
+            </a>
+            <ul class="submenu">
+                <li class="admin_employees"><a href="/gestion/admin/employees">Employés (a faire)</a></li>
+                <li class="admin_maintenance"><a href="/gestion/admin/maintenace">Maintenance (a faire)</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

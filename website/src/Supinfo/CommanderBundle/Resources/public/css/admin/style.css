@@ -2,6 +2,9 @@ body{
     background-color: #EFF1F2;
 }
 
+/**
+* Page de login
+*/
 #login_button{
     width: 50%;
     margin-left: 25%;
@@ -17,4 +20,84 @@ body{
 
 #shop-name{
     text-align: center;
+}
+
+/*
+* Menu à gauche
+*/
+
+.nav-sidebar{
+    position: fixed;
+    width: 210px;
+    height: 100%;
+    z-index: 500;
+    background-color: #363A41;
+    left: 0;
+}
+
+.nav-sidebar ul.menu{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.nav-sidebar ul.menu li.maintab{
+    position: relative;
+}
+
+
+
+.nav-sidebar ul.menu li.maintab>a.title{
+    display: block;
+    position: relative;
+    padding: 0 0.35em;
+    color: #BEBEBE;
+    font-size: 12px;
+    height: 28px;
+    line-height: 28px;
+    -webkit-transition-property: background-color;
+    transition-property: background-color;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.nav-sidebar ul.menu li.maintab>a:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #282b30;
+}
+
+.nav-sidebar ul.menu li.active>a{
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #282b30;
+}
+
+.nav-sidebar ul.menu li.maintab>a.title span{
+    padding-left: 10px;
+}
+
+.nav-sidebar .submenu{
+    display: none;
+    color: #BEBEBE;
+    width: 80%;
+}
+
+.nav-sidebar ul.submenu{
+    list-style-type: none;
+}
+
+.nav-sidebar ul.submenu>li{
+    width: 133%;
+    line-height: 27px;
+    height: 27px;
+    padding-left: 15px;
+}
+
+.nav-sidebar ul.submenu>li:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #282b30;
 }
