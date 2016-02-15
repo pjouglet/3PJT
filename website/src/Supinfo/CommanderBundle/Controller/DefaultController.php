@@ -24,7 +24,7 @@ class DefaultController extends Controller
 
         //Si l'utilisateur est connecté, on le redirige sur la page d'accueil
         if($session->get('email')){
-            return $this->redirect("/");
+            return $this->redirectToRoute("/");
         }
         $param = array("page_title" => "login");
 

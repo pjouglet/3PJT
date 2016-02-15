@@ -29,3 +29,7 @@ supinfo_commander_admin_login:
 supinfo_commander_admin:
     path:     /gestion/index
     defaults: { _controller: SupinfoCommanderBundle:Admin:index }
+
+supinfo_commander_settings_infos:
+    path:     /gestion/settings/informations
+    defaults: { _controller: SupinfoCommanderBundle:Settings:informations }

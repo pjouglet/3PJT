@@ -1,0 +1,97 @@
+{% include 'SupinfoCommanderBundle:Gestion:header.html.twig' %}
+<div id="content">
+    <div class="page-head">
+        <h2 class="page-title">Informations</h2>
+    </div>
+
+    <div class="row main">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <span>Informations sur votre serveur</span>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <strong>Version du serveur :</strong> {{ server_infos }}
+                            </p>
+                            <p>
+                                <strong>Version de PHP :</strong> {{ php }}
+                            </p>
+                            <p>
+                                <strong>Limite de mémoire :</strong> {{ memory_limit }}
+                            </p>
+                            <p>
+                                <strong>Temps d'exécution maximal :</strong> {{ max_execution_time }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <span>Informations sur la base de données</span>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <strong>Driver de la base de données :</strong> {{ bdd_driver }}
+                            </p>
+                            <p>
+                                <strong>Adresse du serveur :</strong> {{ bdd_server }}
+                            </p>
+                            <p>
+                                <strong>Port :</strong> {{ bdd_port }}
+                            </p>
+                            <p>
+                                <strong>Nom de la base de données :</strong> {{ bdd_name}}
+                            </p>
+                            <p>
+                                <strong>Nom d'utilisateur :</strong> {{bdd_user }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <span>Informations sur configuration e-mail</span>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <strong>Mailer transport :</strong> {{ mail_transport }}
+                            </p>
+                            <p>
+                                <strong>Mailer host :</strong> {{ mail_host }}
+                            </p>
+                            <p>
+                                <strong>Mailer user :</strong> {{ mail_user }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <span>Vos informations de connexion</span>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <strong>Votre navigateur :</strong> {{ navigateur }}
+                            </p>
+                            <p>
+                                <strong>Votre adresse :</strong> {{ user_host }}
+                            </p>
+                            <p>
+                                <strong>Votre port :</strong> {{ user_port }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'SupinfoCommanderBundle:Gestion:footer.html.twig' %}
