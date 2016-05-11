@@ -1,0 +1,41 @@
+{% include 'SupinfoCommanderBundle:Gestion:header.html.twig' %}
+<div id="content">
+    <div class="page-head">
+        <h2 class="page-title">Maintenance</h2>
+    </div>
+
+    <div class="row main">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Paramètres de maintenance
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-wrapper">
+                                <form method="post" id="maintenance_form">
+                                    <div class="form-group">
+                                        <label class="col-lg-3">Activer le site</label>
+                                        <div class="col-lg-9">
+                                            <button class="btn btn-primary" name="btn_activate" value="true">OUI</button>
+                                            <button class="btn btn-danger" name="btn_desactivate" value="true">NON</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3">IPs de maintenance</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" id="ip_list" name="ip_list"/>
+                                            <button type="submit" class="btn btn-default" id="add_ip">Ajouter mon ip</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'SupinfoCommanderBundle:Gestion:footer.html.twig' %}
