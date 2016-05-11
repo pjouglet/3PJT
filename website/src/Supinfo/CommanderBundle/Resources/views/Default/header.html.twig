@@ -57,12 +57,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if app.session.get('email') is defined and app.session.get('email') != "" %}
-                    <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a> </li>
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a> </li>
+                    <li><a href="{{ path('supinfo_commander_cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a> </li>
+                    <li><a href="{{ path('supinfo_commander_logout') }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a> </li>
                 {% else %}
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
+                    <li><a href="{{ path('supinfo_commander_login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
                 {% endif %}
-                <li><a href="/help"><span class="glyphicon glyphicon-flag"></span> Help</a> </li>
+                <li><a href="{{ path('supinfo_commander_help') }}"><span class="glyphicon glyphicon-flag"></span> Help</a> </li>
             </ul>
         </div>
     </div>
