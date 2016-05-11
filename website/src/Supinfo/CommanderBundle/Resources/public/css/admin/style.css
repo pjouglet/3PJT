@@ -138,3 +138,15 @@ body{
 .main{
     padding-top: 150px;
 }
+
+.form-group .col-lg-3{
+    text-align: right;
+}
+
+#maintenance_form .form-group{
+    padding-bottom: 30px;
+}
+
+#maintenance_form #add_ip{
+    margin-top: 15px;
+}

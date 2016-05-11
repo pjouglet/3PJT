@@ -33,3 +33,7 @@ supinfo_commander_admin:
 supinfo_commander_settings_infos:
     path:     /gestion/settings/informations
     defaults: { _controller: SupinfoCommanderBundle:Settings:informations }
+
+supinfo_commander_administration_maintenance:
+    path:     /gestion/admin/maintenance
+    defaults: { _controller: SupinfoCommanderBundle:Administration:maintenance }

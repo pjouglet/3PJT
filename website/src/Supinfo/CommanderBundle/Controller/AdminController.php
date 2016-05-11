@@ -37,6 +37,6 @@ class AdminController extends Controller
         if(!$session->get('email_admin')){
             return $this->redirect("/gestion");
         }
-        return $this->render('SupinfoCommanderBundle:Gestion:index.html.twig', array('page_title' => "bite"));
+        return $this->render('SupinfoCommanderBundle:Gestion:index.html.twig', array('page_title' => "Panneau d'administration"));
     }
 }
