@@ -19,14 +19,14 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="email_login">Adresse E-Mail :</label>
-                        <input type="email" class="form-control" id="email_login" name="email_login">
+                        {{ form_widget(login_form.email_login, { 'id': 'email_login' }) }}
                     </div>
                     <div class="form-group">
                         <label for="password_login">Mot de passe :</label>
-                        <input type="password" class="form-control" id="password_login" name="password_login">
+                        {{ form_widget(login_form.password_login, { 'id': 'password_login' }) }}
                     </div>
                     <div class="form-group">
-                        <label><span class="label_checkbox">Rester connecté</span> <input type="checkbox" id="stay_logged" name="stay_logged"></label>
+                        <label><span class="label_checkbox">Rester connecté</span> {{ form_widget(login_form.stay_logged, { 'id': 'stay_logged' }) }}</label>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default" id="login_button" name="login_button" value="true">Se connecter</button>
@@ -42,26 +42,26 @@
             <form role="form" method="post">
                 <div class="form-group">
                     <label for="email">Adresse E-Mail :</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    {{ form_widget(register_form.email, { 'id': 'email' }) }}
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe :</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    {{ form_widget(register_form.password, { 'id': 'password' }) }}
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">Confirmation du mot de passe :</label>
-                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                    {{ form_widget(register_form.password_confirmation, { 'id': 'password_confirmation' }) }}
                 </div>
                 <div class="form-group">
                     <label for="firstname">Prénom :</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname">
+                    {{ form_widget(register_form.firstname, { 'id': 'firstname' }) }}
                 </div>
                 <div class="form-group">
                     <label for="lastname">Nom :</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname">
+                    {{ form_widget(register_form.lastname, { 'id': 'lastname' }) }}
                 </div>
                 <div class="form-group">
-                    <label><span class="label_checkbox">S'inscrire à la newletter</span> <input type="checkbox" id="newsletter" name="newsletter"></label>
+                    <label><span class="label_checkbox">S'inscrire à la newletter</span> {{ form_widget(register_form.newsletter, { 'id': 'newsletter' }) }}</label>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default" id="signup_button" name="signup_button" value="true">S'inscrire</button>

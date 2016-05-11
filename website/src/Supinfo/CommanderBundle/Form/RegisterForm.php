@@ -8,7 +8,7 @@ class RegisterForm extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("email", "text", array(
+        $builder->add("email", "email", array(
             "block_name" => "email",
             "attr" => array(
                 "class" => "form-control"
@@ -33,6 +33,9 @@ class RegisterForm extends AbstractType{
             'attr' => array(
                 "class" => "form-control"
             )
+        ))->add("newsletter", 'checkbox', array(
+            "block_name" => 'newsletter',
+            'required' => false
         ));
     }
 

@@ -3,6 +3,8 @@
 namespace Supinfo\CommanderBundle\Controller;
 
 use Supinfo\CommanderBundle\Entity\Users;
+use Supinfo\CommanderBundle\Form\LoginForm;
+use Supinfo\CommanderBundle\Form\RegisterForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,20 +28,32 @@ class DefaultController extends Controller
         if($session->get('email')){
             return $this->redirectToRoute("/");
         }
-        $param = array("page_title" => "login");
+
+        $registerForm = $this->createForm(new RegisterForm());
+        $registerForm->handleRequest($request);
+
+        $loginForm = $this->createForm(new LoginForm());
+        $loginForm->handleRequest($request);
+
+        $param = array(
+            "page_title" => "login",
+            "register_form" => $registerForm->createView(),
+            'login_form' => $loginForm->createView()
+        );
+
 
         //l'utilisateur se connecte
-        if($request->get("login_button")){
+        if($loginForm->isSubmitted()){
             $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
-            $user = $repo->findOneBy(array('email' => $request->get("email_login")));
+            $user = $repo->findOneBy(array('email' => $loginForm->get("email_login")->getData()));
 
-            if($user && (sha1($request->get('password_login')) == $user->getPassword())){
+            if($user && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword())){
                 //User connecté
-                $session->set("email", $request->get("email_login"));
+                $session->set("email", $loginForm->get("email_login")->getData());
 
                 //L'utilisateur reste connecté
-                if($request->get("stay_logged")){
-                    $cookie = new Cookie('commander_cookie_login', $request->get('email_login'), time() + 3600 * 24 * 365);
+                if($loginForm->get("stay_logged")->getData()){
+                    $cookie = new Cookie('commander_cookie_login', $loginForm->get('email_login')->getData(), time() + 3600 * 24 * 365);
                     $response = new Response();
                     $response->headers->setCookie($cookie);
                     $response->send();
@@ -53,25 +67,23 @@ class DefaultController extends Controller
         }
 
         //L'utilisateur s'enregistre
-        if($request->get("signup_button")){
-
-            if($request->get("password") == $request->get("password_confirmation")){
+        if($registerForm->isSubmitted()){
+            // $form->get("contact_mail")->getData();
+            if($registerForm->get("password")->getData() == $registerForm->get("password_confirmation")->getData()){
                 $entityManager = $this->getDoctrine()->getManager();
                 $user = new Users();
-                $user->setFirstname($request->get("firstname"));
-                $user->setLastname($request->get("lastname"));
-                $user->setPassword(sha1($request->get("password")));
-                $user->setEmail($request->get("email"));
-                if($request->get("newsletter"))
+                $user->setFirstname($registerForm->get("firstname")->getData());
+                $user->setLastname($registerForm->get("lastname")->getData());
+                $user->setPassword(sha1($registerForm->get("password")->getData()));
+                $user->setEmail($registerForm->get("email")->getData());
+                if($registerForm->get("newsletter")->getData())
                     $user->setNewletter(1);
                 else
                     $user->setNewletter(0);
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
-
         }
-
         return $this->render('SupinfoCommanderBundle:Default:login.html.twig', $param);
     }
 
