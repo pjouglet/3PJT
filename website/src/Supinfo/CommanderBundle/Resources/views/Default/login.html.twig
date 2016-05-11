@@ -11,6 +11,16 @@
                 </div>
             </div>
         {% endif %}
+        {% if user_exist is defined %}
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <p>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        Un utilisateur existe déjà avec cette adresse email.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
         <div class="col-sm-5 login">
             <p>
                 Déjà inscrit ? Connectez-vous et profitez de l'emsemble de nos services.

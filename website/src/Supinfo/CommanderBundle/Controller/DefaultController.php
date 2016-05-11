@@ -68,20 +68,25 @@ class DefaultController extends Controller
 
         //L'utilisateur s'enregistre
         if($registerForm->isSubmitted()){
-            // $form->get("contact_mail")->getData();
             if($registerForm->get("password")->getData() == $registerForm->get("password_confirmation")->getData()){
                 $entityManager = $this->getDoctrine()->getManager();
-                $user = new Users();
-                $user->setFirstname($registerForm->get("firstname")->getData());
-                $user->setLastname($registerForm->get("lastname")->getData());
-                $user->setPassword(sha1($registerForm->get("password")->getData()));
-                $user->setEmail($registerForm->get("email")->getData());
-                if($registerForm->get("newsletter")->getData())
-                    $user->setNewletter(1);
-                else
-                    $user->setNewletter(0);
-                $entityManager->persist($user);
-                $entityManager->flush();
+                $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
+                if(!$repo->findOneBy(array('email' => $registerForm->get('email')->getData()))){
+                    $user = new Users();
+                    $user->setFirstname($registerForm->get("firstname")->getData());
+                    $user->setLastname($registerForm->get("lastname")->getData());
+                    $user->setPassword(sha1($registerForm->get("password")->getData()));
+                    $user->setEmail($registerForm->get("email")->getData());
+                    if($registerForm->get("newsletter")->getData())
+                        $user->setNewletter(1);
+                    else
+                        $user->setNewletter(0);
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                }
+                else{
+                    $param["user_exist"] = "true";
+                }
             }
         }
         return $this->render('SupinfoCommanderBundle:Default:login.html.twig', $param);
