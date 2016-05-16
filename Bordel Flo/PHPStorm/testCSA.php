@@ -6,51 +6,51 @@
  * Time: 15:26
  */
 
-Class Station
-{
-    public $id;
-    public $name;
-    public $isCapital;
-    public $zone;
+//Class Station
+//{
+//    public $id;
+//    public $name;
+//    public $isCapital;
+//    public $zone;
+//
+//    /**
+//     * Station constructor.
+//     * @param $id
+//     * @param $name
+//     * @param $isCapital
+//     * @param $zone
+//     */
+//    public function __construct($id, $name, $isCapital, $zone)
+//    {
+//        $this->id = $id;
+//        $this->name = $name;
+//        $this->isCapital = $isCapital;
+//        $this->zone = $zone;
+//    }
+//}
 
-    /**
-     * Station constructor.
-     * @param $id
-     * @param $name
-     * @param $isCapital
-     * @param $zone
-     */
-    public function __construct($id, $name, $isCapital, $zone)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->isCapital = $isCapital;
-        $this->zone = $zone;
-    }
-}
-
-Class Connection
-{
-    public $startStation;
-    public $arrivalStation;
-    public $startTimestamp;
-    public $arrivalTimestamp;
-
-    /**
-     * Connection constructor.
-     * @param $startStation
-     * @param $arrivalStation
-     * @param $startTimestamp
-     * @param $arrivalTimestamp
-     */
-    public function __construct($startStation, $arrivalStation, $startTimestamp, $arrivalTimestamp)
-    {
-        $this->startStation = $startStation;
-        $this->arrivalStation = $arrivalStation;
-        $this->startTimestamp = $startTimestamp;
-        $this->arrivalTimestamp = $arrivalTimestamp;
-    }
-}
+//Class Connection
+//{
+//    public $startStation;
+//    public $arrivalStation;
+//    public $startTimestamp;
+//    public $arrivalTimestamp;
+//
+//    /**
+//     * Connection constructor.
+//     * @param $startStation
+//     * @param $arrivalStation
+//     * @param $startTimestamp
+//     * @param $arrivalTimestamp
+//     */
+//    public function __construct($startStation, $arrivalStation, $startTimestamp, $arrivalTimestamp)
+//    {
+//        $this->startStation = $startStation;
+//        $this->arrivalStation = $arrivalStation;
+//        $this->startTimestamp = $startTimestamp;
+//        $this->arrivalTimestamp = $arrivalTimestamp;
+//    }
+//}
 
 
 
