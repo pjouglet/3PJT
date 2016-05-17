@@ -1,27 +1,37 @@
-{% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
-<div class="container main-container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="input-group">
-                <label for="gare_depart">Gare de départ :</label>
-                <input type="text" class="form-control" id="gare_depart" name="gare_depart">
-            </div>
-            <div class="input-group">
-                <label for="gare_arrivee">Gare d'arrivée :</label>
-                <input type="text" class="form-control" id="gare_arrivee" name="gare_arrivee">
-            </div>
-        </div>
+{% extends 'layout.html.twig' %}
 
-        <div class="col-sm-3">
-            <label>Indiquez la date de départ et la date d'arrivée</label>
-            <div class="input-group input-daterange" id="date_voyage">
-                <input type="text" class="form-control" name="date_depart"/>
-                <span class="input-group-addon">→</span>
-                <input type="text" class="form-control" name="date_arrivee"/>
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <label for="gare_depart">Gare de départ :</label>
+                    <input type="text" class="form-control" id="gare_depart" name="gare_depart">
+                </div>
+                <div class="input-group">
+                    <label for="gare_arrivee">Gare d'arrivée :</label>
+                    <input type="text" class="form-control" id="gare_arrivee" name="gare_arrivee">
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <label>Indiquez la date de départ et la date d'arrivée</label>
+                <div class="input-group input-daterange" id="date_voyage">
+                    <input type="text" class="form-control" name="date_depart"/>
+                    <span class="input-group-addon">→</span>
+                    <input type="text" class="form-control" name="date_arrivee"/>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/index.js') }}"></script>
-{% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/index.js') }}"></script>
+
+{% endblock content %}
+
+{#{% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
+{% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}#}

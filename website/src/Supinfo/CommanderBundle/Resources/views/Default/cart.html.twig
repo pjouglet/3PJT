@@ -1,84 +1,90 @@
-{% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
-<div class="container main-container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h4 class="page-heading">Récapitulatif de votre commande</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th class="col">Voyage</th>
-                    <th class="col">Dates</th>
-                    <th class="col">Prix</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="col">Paris - Lille</td>
-                        <td class="col">
-                            <div class="arrival">
-                                <p>
-                                    Départ le : 03/02/2016 à 14h38
-                                </p>
-                            </div>
-                            <div class="departure">
-                                <p>
-                                    Arrivée le : 03/02/2016 à 17h32
-                                </p>
-                            </div>
-                        </td>
-                        <td class="col"><span class="trip_price">72</span>€</td>
-                        <td class="col"><span class="glyphicon glyphicon-trash"></span> </td>
-                    </tr>
-                    <tr>
-                        <td class="col">Paris - Lille</td>
-                        <td class="col">
-                            <div class="arrival">
-                                <p>
-                                    Départ le : 03/02/2016 à 14h38
-                                </p>
-                            </div>
-                            <div class="departure">
-                                <p>
-                                    Arrivée le : 03/02/2016 à 17h32
-                                </p>
-                            </div>
-                        </td>
-                        <td class="col"><span class="trip_price">72</span>€</td>
-                        <td class="col"><span class="glyphicon glyphicon-trash"></span> </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+{% extends "layout.html.twig" %}
 
-        <div class="col-sm-4">
-            <div class="cart-summary">
-                <h4>Total</h4>
-                <div class="cart-totals">
-                    <table class="table totals>">
-                        <tbody>
-                        <tr class="totals subtotals">
-                            <th>Sous-total</th>
-                            <td class="amount"></td>
-                        </tr>
-                        <tr class="totals tax">
-                            <th>Taxes</th>
-                            <td class="amount"></td>
-                        </tr>
-                        <tr class="grand total">
-                            <th><strong>Total</strong></th>
-                            <td class="amount"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-heading">Récapitulatif de votre commande</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col">Voyage</th>
+                        <th class="col">Dates</th>
+                        <th class="col">Prix</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="col">Paris - Lille</td>
+                        <td class="col">
+                            <div class="arrival">
+                                <p>
+                                    Départ le : 03/02/2016 à 14h38
+                                </p>
+                            </div>
+                            <div class="departure">
+                                <p>
+                                    Arrivée le : 03/02/2016 à 17h32
+                                </p>
+                            </div>
+                        </td>
+                        <td class="col"><span class="trip_price">72</span>€</td>
+                        <td class="col"><span class="glyphicon glyphicon-trash"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="col">Paris - Lille</td>
+                        <td class="col">
+                            <div class="arrival">
+                                <p>
+                                    Départ le : 03/02/2016 à 14h38
+                                </p>
+                            </div>
+                            <div class="departure">
+                                <p>
+                                    Arrivée le : 03/02/2016 à 17h32
+                                </p>
+                            </div>
+                        </td>
+                        <td class="col"><span class="trip_price">72</span>€</td>
+                        <td class="col"><span class="glyphicon glyphicon-trash"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="cart-summary">
+                    <h4>Total</h4>
+                    <div class="cart-totals">
+                        <table class="table totals>">
+                            <tbody>
+                            <tr class="totals subtotals">
+                                <th>Sous-total</th>
+                                <td class="amount"></td>
+                            </tr>
+                            <tr class="totals tax">
+                                <th>Taxes</th>
+                                <td class="amount"></td>
+                            </tr>
+                            <tr class="grand total">
+                                <th><strong>Total</strong></th>
+                                <td class="amount"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-primary">Valider la commande</button>
                 </div>
-                <button type="button" class="btn btn-primary">Valider la commande</button>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/cart.js') }}"></script>
-{% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/cart.js') }}"></script>
+{% endblock content %}

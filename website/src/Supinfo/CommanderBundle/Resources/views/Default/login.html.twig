@@ -1,87 +1,101 @@
-{% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
-<div class="container main-container">
-    <div class="row">
-        {% if login_error is defined %}
-            <div class="col-sm-12">
-                <div class="alert alert-danger">
-                    <p>
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        Une erreur est survenue, assurez vous que les identifiants entrés sont corrects.
-                    </p>
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            {% if login_error is defined %}
+                <div class="col-sm-12">
+                    <div class="alert alert-danger">
+                        <p>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            Une erreur est survenue, assurez vous que les identifiants entrés sont corrects.
+                        </p>
+                    </div>
                 </div>
+            {% endif %}
+            {% if user_exist is defined %}
+                <div class="col-sm-12">
+                    <div class="alert alert-danger">
+                        <p>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            Un utilisateur existe déjà avec cette adresse email.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="col-sm-5 login">
+                <p>
+                    Déjà inscrit ? Connectez-vous et profitez de l'emsemble de nos services.
+                </p>
+                <form role="form" method="post">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="email_login">Adresse E-Mail :</label>
+                            {{ form_widget(login_form.email_login, { 'id': 'email_login' }) }}
+                        </div>
+                        <div class="form-group">
+                            <label for="password_login">Mot de passe :</label>
+                            {{ form_widget(login_form.password_login, { 'id': 'password_login' }) }}
+                        </div>
+                        <div class="form-group">
+                            <label><span
+                                        class="label_checkbox">Rester connecté</span> {{ form_widget(login_form.stay_logged, { 'id': 'stay_logged' }) }}
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default" id="login_button" name="login_button"
+                                    value="true">Se connecter
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        {% endif %}
-        {% if user_exist is defined %}
-            <div class="col-sm-12">
-                <div class="alert alert-danger">
-                    <p>
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        Un utilisateur existe déjà avec cette adresse email.
-                    </p>
-                </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-5 register">
+                <p>
+                    Inscrivez-vous afin de pouvoir utiliser pleinement nos services comme le suivi de commandes ou la
+                    reservation de billets !
+                </p>
+                <form role="form" method="post">
+                    <div class="form-group">
+                        <label for="email">Adresse E-Mail :</label>
+                        {{ form_widget(register_form.email, { 'id': 'email' }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe :</label>
+                        {{ form_widget(register_form.password, { 'id': 'password' }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirmation du mot de passe :</label>
+                        {{ form_widget(register_form.password_confirmation, { 'id': 'password_confirmation' }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">Prénom :</label>
+                        {{ form_widget(register_form.firstname, { 'id': 'firstname' }) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Nom :</label>
+                        {{ form_widget(register_form.lastname, { 'id': 'lastname' }) }}
+                    </div>
+                    <div class="form-group">
+                        <label><span
+                                    class="label_checkbox">S'inscrire à la newletter</span> {{ form_widget(register_form.newsletter, { 'id': 'newsletter' }) }}
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" id="signup_button" name="signup_button"
+                                value="true">S'inscrire
+                        </button>
+                    </div>
+                </form>
             </div>
-        {% endif %}
-        <div class="col-sm-5 login">
-            <p>
-                Déjà inscrit ? Connectez-vous et profitez de l'emsemble de nos services.
-            </p>
-            <form role="form" method="post">
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="email_login">Adresse E-Mail :</label>
-                        {{ form_widget(login_form.email_login, { 'id': 'email_login' }) }}
-                    </div>
-                    <div class="form-group">
-                        <label for="password_login">Mot de passe :</label>
-                        {{ form_widget(login_form.password_login, { 'id': 'password_login' }) }}
-                    </div>
-                    <div class="form-group">
-                        <label><span class="label_checkbox">Rester connecté</span> {{ form_widget(login_form.stay_logged, { 'id': 'stay_logged' }) }}</label>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default" id="login_button" name="login_button" value="true">Se connecter</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-5 register">
-            <p>
-                Inscrivez-vous afin de pouvoir utiliser pleinement nos services comme le suivi de commandes ou la reservation de billets !
-            </p>
-            <form role="form" method="post">
-                <div class="form-group">
-                    <label for="email">Adresse E-Mail :</label>
-                    {{ form_widget(register_form.email, { 'id': 'email' }) }}
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe :</label>
-                    {{ form_widget(register_form.password, { 'id': 'password' }) }}
-                </div>
-                <div class="form-group">
-                    <label for="password_confirmation">Confirmation du mot de passe :</label>
-                    {{ form_widget(register_form.password_confirmation, { 'id': 'password_confirmation' }) }}
-                </div>
-                <div class="form-group">
-                    <label for="firstname">Prénom :</label>
-                    {{ form_widget(register_form.firstname, { 'id': 'firstname' }) }}
-                </div>
-                <div class="form-group">
-                    <label for="lastname">Nom :</label>
-                    {{ form_widget(register_form.lastname, { 'id': 'lastname' }) }}
-                </div>
-                <div class="form-group">
-                    <label><span class="label_checkbox">S'inscrire à la newletter</span> {{ form_widget(register_form.newsletter, { 'id': 'newsletter' }) }}</label>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default" id="signup_button" name="signup_button" value="true">S'inscrire</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
-<!-- javascript pour la page de login -->
-<script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/login.js') }}"></script>
-
-{% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}
+    <!-- javascript pour la page de login -->
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/login.js') }}"></script>
+{% endblock content %}

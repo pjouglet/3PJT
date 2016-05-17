@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/sweetalert.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/sweetalert.min.js') }}"></script>
+    <!-- Common CSS and javascfript files -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/style.css') }}"/>
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/jquery-ui.min.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/jquery-ui.min.js') }}"></script>
+    <!-- Bootstrap datepicker -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/bootstrap-datepicker.min.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/bootstrap-datepicker.min.js') }}"></script>
+    <!-- SDK Facebook -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '838894079590826',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/fr_FR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar_content">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar_content">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if app.session.get('email') is defined and app.session.get('email') != "" %}
+                    <li><a href="{{ path('supinfo_commander_cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a> </li>
+                    <li><a href="{{ path('supinfo_commander_logout') }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a> </li>
+                {% else %}
+                    <li><a href="{{ path('supinfo_commander_login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
+                {% endif %}
+                <li><a href="{{ path('supinfo_commander_help') }}"><span class="glyphicon glyphicon-flag"></span> Help</a> </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+{% endblock content %}
+
+<!-- Informations sur les cookies -->
+{% if app.request.cookies.get("cookie_law") == false %}
+    <div class="cookies_law">
+        <form method="post" action="/accept_cookie">
+            <div class="clear clearfix" style="display:table; margin:0 auto;">
+                En naviguant sur ce site, vous acceptez l'utilisation des cookies.
+                <div class="cookies_button">
+                    <input type="hidden" name="currrent_location" value="{{ app.request.attributes.get('_route') }}"/>
+                    <input name="accept_cookies" class="btn btn-default" type="submit" value="J'accepte">
+                    <a class="button btn btn-default" target="1" href="/" >Plus d'informations</a>
+                </div>
+                <div class="close_button">
+                    <img src="{{ asset('bundles/supinfocommander/img/close.png') }}" class="close_banner_btn"/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endif %}
+
+
+<!-- javascript for header animation -->
+<!-- surement a virer -->
+<script>
+    (function() {
+        "use strict";
+        var toggles = document.querySelectorAll(".c-hamburger");
+        for (var i = toggles.length - 1; i >= 0; i--) {
+            var toggle = toggles[i];
+            toggleHandler(toggle);
+        };
+        function toggleHandler(toggle) {
+            toggle.addEventListener( "click", function(e) {
+                e.preventDefault();
+                (this.classList.contains("is-active") === true) ? this.classList.remove("is-active") : this.classList.add("is-active");
+            });
+        }
+    })();
+</script>
+<script type="text/javascript" src="{{ asset("bundles/supinfocommander/js/main.js") }}"/>
+
+</body>
+</html>
