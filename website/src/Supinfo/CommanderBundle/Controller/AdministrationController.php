@@ -13,6 +13,11 @@ class AdministrationController extends Controller
             return $this->redirect("/gestion");
         }
 
-        return $this->render('SupinfoCommanderBundle:Gestion:maintenance.html.twig', array('page_title' => 'Maintenance'));
+        $param = array(
+            'page_title' => 'Maintenance',
+            'user_ip' => $_SERVER['REMOTE_ADDR']
+        );
+
+        return $this->render('SupinfoCommanderBundle:Gestion:maintenance.html.twig', $param);
     }
 }
