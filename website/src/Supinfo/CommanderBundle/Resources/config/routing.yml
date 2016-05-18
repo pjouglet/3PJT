@@ -37,3 +37,19 @@ supinfo_commander_settings_infos:
 supinfo_commander_administration_maintenance:
     path:     /gestion/admin/maintenance
     defaults: { _controller: SupinfoCommanderBundle:Administration:maintenance }
+
+supinfo_commander_administration_employees:
+    path:   /gestion/admin/employees
+    defaults: { _controller: SupinfoCommanderBundle:Employees:employees }
+
+supinfo_commander_administration_add_employee:
+    path:   /gestion/admin/employee/add
+    defaults: { _controller: SupinfoCommanderBundle:Employees:addEmployee }
+
+supinfo_commander_administration_delete_employee:
+    path: /gestion/user/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Employees:deleteEmployee }
+
+supinfo_commander_administration_edit_employee:
+    path: /gestion/user/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Employees:editEmployee }

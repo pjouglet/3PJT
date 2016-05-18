@@ -132,7 +132,7 @@ body{
 
 .row{
     margin-left: -5px;
-    margin-right: -5px;
+    margin-right: 0;
 }
 
 .main{
@@ -149,4 +149,11 @@ body{
 
 #maintenance_form #add_ip{
     margin-top: 15px;
+}
+
+/* page employés*/
+
+.add_employee{
+    float: right;
+    margin-bottom: 10px;
 }

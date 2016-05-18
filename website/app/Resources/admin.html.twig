@@ -18,7 +18,7 @@
 <nav class="navbar nav-sidebar" role="navigation">
     <ul class="menu">
         <li class="maintab" id="admin-dashboard">
-            <a href="/gestion/index" class="title">
+            <a href="{{ path('supinfo_commander_admin') }}" class="title">
                 <i class="glyphicon glyphicon-dashboard"></i>
                 <span>Tableau de bord</span>
             </a>
@@ -49,7 +49,7 @@
                 <span>Paramètres</span>
             </a>
             <ul class="submenu">
-                <li class="settings_infos"><a href="/gestion/settings/informations">Informations</a></li>
+                <li class="settings_infos"><a href="{{ path('supinfo_commander_settings_infos') }}">Informations</a></li>
                 <li class="settings_emails"><a href="/gestion/settings/emails">Emails (a faire)</a></li>
                 <li class="settings_bdd"><a href="/gestion/settings/database">Base de données (a faire)</a></li>
                 <li class="settings_logs"><a href="/gestion/settings/logs">Logs (a faire)</a></li>
@@ -63,8 +63,8 @@
                 <span>Administration</span>
             </a>
             <ul class="submenu">
-                <li class="admin_employees"><a href="/gestion/admin/employees">Employés (a faire)</a></li>
-                <li class="admin_maintenance"><a href="/gestion/admin/maintenance">Maintenance (a faire)</a></li>
+                <li class="admin_employees"><a href="/gestion/admin/employees">Employés</a></li>
+                <li class="admin_maintenance"><a href="{{ path('supinfo_commander_administration_maintenance') }}">Maintenance (a faire)</a></li>
             </ul>
         </li>
     </ul>
