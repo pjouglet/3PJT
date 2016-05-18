@@ -1,4 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^api/[station(s)?|journey(s)?](/.*)?$ testCSA2.php
+    RewriteRule ^(station|user)/[0-9]+(/.*)?$ testCSA2.php
+    RewriteRule ^journey/(time|cost)(/[0-9]+){3}(/.*)?$ testCSA2.php
+    #RewriteRule ^(station(s)?|journey(s)?)(/.*)?$ testCSA2.php
 </IfModule>
