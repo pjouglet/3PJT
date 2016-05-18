@@ -43,6 +43,7 @@ body{
 
 .nav-sidebar ul.menu li.maintab{
     position: relative;
+    margin-bottom: 10px;
 }
 
 
@@ -52,7 +53,7 @@ body{
     position: relative;
     padding: 0 0.35em;
     color: #BEBEBE;
-    font-size: 12px;
+    font-size: 15px;
     height: 28px;
     line-height: 28px;
     -webkit-transition-property: background-color;
@@ -94,6 +95,10 @@ body{
     line-height: 27px;
     height: 27px;
     padding-left: 15px;
+}
+
+.nav-sidebar ul.submenu>li a{
+    text-decoration: none;
 }
 
 .nav-sidebar ul.submenu>li:hover{
