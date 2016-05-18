@@ -8,6 +8,7 @@
 
 namespace Supinfo\CommanderBundle\Controller;
 
+use Supinfo\CommanderBundle\Form\AdminLoginForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,21 +16,29 @@ class AdminController extends Controller
 {
     public function loginAction(Request $request){
         $session = $request->getSession();
+
         if($session->get('email_admin')){
             return $this->redirect($this->generateUrl('supinfo_commander_admin'));
         }
 
-        //Lorsqu'on se connecte
-        if($request->get("login_button")){
-            $repo = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Employees");
-            $user = $repo->findOneBy(array('email' => $request->get('email')));
+        $loginForm = $this->createForm(new AdminLoginForm());
+        $loginForm->handleRequest($request);
 
-            if($user && (sha1($request->get('password')) == $user->getPassword())){
-                $session->set("email_admin", $request->get("email"));
+
+        $param = array('login_form' => $loginForm->createView());
+
+        //Lorsqu'on se connecte
+        if($loginForm->isSubmitted()){
+            $repo = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Employees");
+            $user = $repo->findOneBy(array('email' => $loginForm->get('email')->getData()));
+            if($user && (sha1($loginForm->get('password')->getData()) == $user->getPassword())){
+                $session->set("email_admin", $loginForm->get('email')->getData());
                 return $this->redirect($this->generateUrl('supinfo_commander_admin'));
             }
+            $param['login_error'] = true;
         }
-        return $this->render('SupinfoCommanderBundle:Gestion:login.html.twig');
+
+        return $this->render('SupinfoCommanderBundle:Gestion:login.html.twig', $param);
     }
 
     public function indexAction(Request $request){
