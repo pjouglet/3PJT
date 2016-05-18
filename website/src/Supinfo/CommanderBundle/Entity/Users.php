@@ -57,6 +57,13 @@ class Users
     private $newsletter;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="active", type="integer")
+     */
+    private $active;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -166,6 +173,7 @@ class Users
      */
     public function setNewletter($newsletter){
         $this->newsletter = $newsletter;
+        return $this;
     }
 
     /**
@@ -174,6 +182,28 @@ class Users
      * @return integer
      */
     public function getNewsletter(){
-        return $this->newsletter();
+        return $this->newsletter;
     }
+
+    /**
+     * Set active
+     *
+     * @param integer $active
+     * @return Users
+     */
+    public function setActive($active){
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return integer
+     */
+    public function getActive(){
+        return $this->active;
+    }
+
+
 }

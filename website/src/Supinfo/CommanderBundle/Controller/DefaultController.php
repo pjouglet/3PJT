@@ -47,7 +47,7 @@ class DefaultController extends Controller
             $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
             $user = $repo->findOneBy(array('email' => $loginForm->get("email_login")->getData()));
 
-            if($user && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword())){
+            if($user && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword()) && $user->getActive() == 1){
                 //User connecté
                 $session->set("email", $loginForm->get("email_login")->getData());
 
