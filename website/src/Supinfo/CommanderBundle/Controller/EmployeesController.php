@@ -4,6 +4,7 @@ namespace Supinfo\CommanderBundle\Controller;
 
 use Supinfo\CommanderBundle\Entity\Employees;
 use Supinfo\CommanderBundle\Form\AddEmployeeForm;
+use Supinfo\CommanderBundle\SupinfoCommanderBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -94,7 +95,7 @@ class EmployeesController extends Controller{
         $param = array(
             'page_title' => "Ajouter un employé",
         );
-        
+        $password = $user->getpassword();
         $form = $this->createForm(new AddEmployeeForm(), $user);
         $form->handleRequest($request);
 
@@ -102,6 +103,7 @@ class EmployeesController extends Controller{
             $user->setFirstname($form->get('firstname')->getData());
             $user->setLastname($form->get('lastname')->getData());
             $user->setEmail($form->get('email')->getData());
+            $user->setPassword($password);
             $this->getDoctrine()->getManager()->flush();
             $param['user_edited'] = 'true';
         }
