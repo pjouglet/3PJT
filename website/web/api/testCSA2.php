@@ -274,6 +274,13 @@ function putConnectionsInJourney($journey, $connections)
     return $journey;
 }
 
+echo $_SERVER['REQUEST_URI'];
+$uri = explode("/", $_SERVER['REQUEST_URI']);
+foreach ($uri as $key => $item){
+    if($key == 0 || $key == 1 || $key == count($uri)-1)
+        continue;
+    var_dump($item);
+}
 
 findQuickestJourney(1, 34, 0);
 
