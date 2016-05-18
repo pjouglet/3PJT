@@ -83,6 +83,7 @@ class DefaultController extends Controller
                         $user->setNewletter(0);
                     $entityManager->persist($user);
                     $entityManager->flush();
+                    $param["user_created"] = "true";
                 }
                 else{
                     $param["user_exist"] = "true";

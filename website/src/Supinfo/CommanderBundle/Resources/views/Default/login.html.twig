@@ -27,6 +27,16 @@
                     </div>
                 </div>
             {% endif %}
+            {% if user_created is defined %}
+                <div class="col-sm-12">
+                    <div class="alert alert-success">
+                        <p>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            Votre compte a été créé avec succès.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
             <div class="col-sm-5 login">
                 <p>
                     Déjà inscrit ? Connectez-vous et profitez de l'emsemble de nos services.

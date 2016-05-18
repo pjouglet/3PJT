@@ -1,3 +1,9 @@
-{% include 'SupinfoCommanderBundle:Gestion:header.html.twig' %}
-page d'index
-{% include 'SupinfoCommanderBundle:Gestion:footer.html.twig' %}
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock admin_title %}
+
+{% block admin_content %}
+    page d'index
+{% endblock admin_content %}
