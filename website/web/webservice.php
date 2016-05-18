@@ -19,6 +19,7 @@ $server = new SoapServer(NULL, $options);
 $server->setClass("WebService");
 $server->handle();
 
+echo 'coucou';
 /*
   /*test web-API
 
