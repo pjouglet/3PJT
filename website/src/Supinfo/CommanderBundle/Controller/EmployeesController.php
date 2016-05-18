@@ -4,7 +4,6 @@ namespace Supinfo\CommanderBundle\Controller;
 
 use Supinfo\CommanderBundle\Entity\Employees;
 use Supinfo\CommanderBundle\Form\AddEmployeeForm;
-use Supinfo\CommanderBundle\SupinfoCommanderBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
