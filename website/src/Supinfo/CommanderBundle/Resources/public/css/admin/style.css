@@ -2,6 +2,14 @@ body{
     background-color: #EFF1F2;
 }
 
+.warning{
+    color: darkred;
+}
+
+.success{
+    color: darkgreen;
+}
+
 /**
 * Page de login
 */

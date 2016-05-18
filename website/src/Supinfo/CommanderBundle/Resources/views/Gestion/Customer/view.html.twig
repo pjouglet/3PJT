@@ -1,0 +1,41 @@
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block admin_content %}
+    <div id="content">
+        <div class="page-head">
+            <h2 class="page-title">Informations du client</h2>
+        </div>
+
+        <div class="row main">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                <span>Informations principales</span>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                <span>Commandes passées</span>
+                            </div>
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock admin_content %}

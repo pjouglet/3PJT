@@ -26,6 +26,7 @@ supinfo_commander_admin_login:
     path:     /gestion
     defaults: { _controller: SupinfoCommanderBundle:Admin:login }
 
+#admin
 supinfo_commander_admin:
     path:     /gestion/index
     defaults: { _controller: SupinfoCommanderBundle:Admin:index }
@@ -42,6 +43,7 @@ supinfo_commander_administration_maintenance:
     path:     /gestion/admin/maintenance
     defaults: { _controller: SupinfoCommanderBundle:Administration:maintenance }
 
+#Employés
 supinfo_commander_administration_employees:
     path:   /gestion/admin/employees
     defaults: { _controller: SupinfoCommanderBundle:Employees:employees }
@@ -57,3 +59,21 @@ supinfo_commander_administration_delete_employee:
 supinfo_commander_administration_edit_employee:
     path: /gestion/user/edit/{id}
     defaults: { _controller: SupinfoCommanderBundle:Employees:editEmployee }
+
+#Clients
+
+supinfo_commander_administration_customers:
+    path:   /gestion/customers
+    defaults: { _controller: SupinfoCommanderBundle:Customer:customers }
+
+supinfo_commander_administration_delete_customer:
+    path:   /gestion/customers/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Customer:deleteCustomer }
+
+supinfo_commander_administration_activate_customer:
+    path:   /gestion/customers/activate/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Customer:activateCustomer }
+
+supinfo_commander_administration_view_customer:
+    path:   /gestion/customers/view/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Customer:viewCustomer }
