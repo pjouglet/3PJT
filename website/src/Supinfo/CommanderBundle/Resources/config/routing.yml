@@ -30,6 +30,10 @@ supinfo_commander_admin:
     path:     /gestion/index
     defaults: { _controller: SupinfoCommanderBundle:Admin:index }
 
+supinfo_commander_back_website:
+    path:     /gestion/website
+    defaults: { _controller: SupinfoCommanderBundle:Admin:website }
+
 supinfo_commander_settings_infos:
     path:     /gestion/settings/informations
     defaults: { _controller: SupinfoCommanderBundle:Settings:informations }

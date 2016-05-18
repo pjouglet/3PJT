@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function loginAction(Request $request){
         $session = $request->getSession();
         if($session->get('email_admin')){
-            return $this->redirect("/gestion/index");
+            return $this->redirect($this->generateUrl('supinfo_commander_admin'));
         }
 
         //Lorsqu'on se connecte
@@ -26,7 +26,7 @@ class AdminController extends Controller
 
             if($user && (sha1($request->get('password')) == $user->getPassword())){
                 $session->set("email_admin", $request->get("email"));
-                return $this->redirect("/gestion/index");
+                return $this->redirect($this->generateUrl('supinfo_commander_admin'));
             }
         }
         return $this->render('SupinfoCommanderBundle:Gestion:login.html.twig');
@@ -35,8 +35,14 @@ class AdminController extends Controller
     public function indexAction(Request $request){
         $session = $request->getSession();
         if(!$session->get('email_admin')){
-            return $this->redirect("/gestion");
+            return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
         }
         return $this->render('SupinfoCommanderBundle:Gestion:index.html.twig', array('page_title' => "Panneau d'administration"));
+    }
+
+    public function websiteAction(Request $request){
+        $session = $request->getSession();
+        $session->set("email_admin", null);
+        return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
     }
 }
