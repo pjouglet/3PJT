@@ -25,8 +25,8 @@ Class Station
 
 Class Connection
 {
-    public $startStation;
-    public $arrivalStation;
+    public $startStationId;
+    public $arrivalStationId;
     public $startTime;
     public $arrivalTime;
     public $pathId;
@@ -41,10 +41,10 @@ Class Connection
      * @param $pathId
      * @param $price
      */
-    public function __construct($startStation, $arrivalStation, $startTime, $arrivalTime, $pathId, $price)
+    public function __construct($startStationId, $arrivalStationId, $startTime, $arrivalTime, $pathId, $price)
     {
-        $this->startStation = $startStation;
-        $this->arrivalStation = $arrivalStation;
+        $this->startStationId = $startStationId;
+        $this->arrivalStationId = $arrivalStationId;
         $this->startTime = $startTime;
         $this->arrivalTime = $arrivalTime;
         $this->pathId = $pathId;
