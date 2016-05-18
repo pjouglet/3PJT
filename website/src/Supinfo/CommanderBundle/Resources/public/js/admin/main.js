@@ -18,7 +18,8 @@ $(document).ready(function(){
             closeOnConfirm: false
         },
         function (isConfirm) {
-            window.location.href = url;
+           if(isConfirm)
+               window.location.href = url;
         });
         return false;
     })
