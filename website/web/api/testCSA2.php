@@ -29,12 +29,29 @@ function findQuickestJourney($startStationId, $arrivalStationId, $startTime)
     $results = $db->prepare("SELECT * FROM stations WHERE id = :station;");
     $results->execute(array('station' => $startStationId));
     $result = $results->fetch();
-    $startStation = new Station($result["id"], $result["name"], $result["is_national"], $result["zoneid"]);
+    if ($result == null)
+    {
+        return null;
+    }
+    else
+    {
+        $startStation = new Station($result["id"], $result["name"], $result["is_national"], $result["zoneid"]);
+    }
+
 
     // Get arrival station
     $results->execute(array('station' => $arrivalStationId));
     $result = $results->fetch();
-    $arrivalStation = new Station($result["id"], $result["name"], $result["is_national"], $result["zoneid"]);
+    if ($result == null)
+    {
+        return null;
+    }
+    else
+    {
+        $arrivalStation = new Station($result["id"], $result["name"], $result["is_national"], $result["zoneid"]);
+    }
+
+
 
     //$startStation = new Station(0, "Valenciennes", 0, 0);
     //$arrivalStation = new Station(2, "Lille", 1, 0);
@@ -97,7 +114,7 @@ function findQuickestJourney($startStationId, $arrivalStationId, $startTime)
         return null;
     }
 
-    var_dump($journey);
+    //var_dump($journey);
     return ($journey);
 }
 
@@ -168,7 +185,7 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
     // Sort connections by start time. Needed for algorithm.
     usort($timetable, "compareConnectionsByStartTime");
 
-    var_dump($timetable);
+    //var_dump($timetable);
 
     // Main algorithm
     foreach($timetable as $cID => $c)
@@ -183,7 +200,7 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
     if ($inConnection[$arrivalStation->id] === PHP_INT_MAX)
     {
         echo "NO SOLUTION\n";
-        return;
+        return null;
     }
 
 
@@ -198,9 +215,9 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
     } ;
     foreach (array_reverse($route) as $row)
     {
-        printf("%s to %s : %d %d<br />", $row->startStationId, $row->arrivalStationId, $row->startTime, $row->arrivalTime);
+        //printf("%s to %s : %d %d<br />", $row->startStationId, $row->arrivalStationId, $row->startTime, $row->arrivalTime);
     }
-    echo "\n";
+    //echo "\n";
 
     return (array_reverse($route));
 }
@@ -274,13 +291,7 @@ function putConnectionsInJourney($journey, $connections)
     return $journey;
 }
 
-echo $_SERVER['REQUEST_URI'];
-$uri = explode("/", $_SERVER['REQUEST_URI']);
-foreach ($uri as $key => $item){
-    if($key == 0 || $key == 1 || $key == count($uri)-1)
-        continue;
-    var_dump($item);
-}
+
 
 findQuickestJourney(1, 34, 0);
 
