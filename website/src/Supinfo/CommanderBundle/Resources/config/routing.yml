@@ -77,3 +77,9 @@ supinfo_commander_administration_activate_customer:
 supinfo_commander_administration_view_customer:
     path:   /gestion/customers/view/{id}
     defaults: { _controller: SupinfoCommanderBundle:Customer:viewCustomer }
+
+#Paniers
+
+supinfo_commander_administration_view_carts:
+    path:   /gestion/carts
+    defaults: { _controller: SupinfoCommanderBundle:Cart:viewAllCarts }
