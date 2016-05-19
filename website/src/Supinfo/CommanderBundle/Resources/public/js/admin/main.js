@@ -29,7 +29,7 @@ $(document).ready(function(){
         var url = $(this).children('span').text();
         swal({
                 title: "Attention",
-                text: "L'utilisateur ne sera pas supprimé, son compte sera juste désactiver. Continuer ?",
+                text: "L'utilisateur ne sera pas supprimé, son compte sera juste désactivé. Continuer ?",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
