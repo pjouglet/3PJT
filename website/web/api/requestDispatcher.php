@@ -1,6 +1,7 @@
 <?php
 
 require_once "testCSA2.php";
+require_once "dbAccessFunctions.php";
 
 header("Content-Type: application/json");
 
@@ -40,7 +41,7 @@ else if ($uri[0] == "station")
 }
 else if ($uri[0] == "stations")
 {
-
+    $data = getAllStations();
 }
 else if ($uri[0] == "user")
 {

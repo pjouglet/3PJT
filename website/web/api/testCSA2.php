@@ -293,6 +293,6 @@ function putConnectionsInJourney($journey, $connections)
 
 
 
-findQuickestJourney(1, 34, 0);
+// findQuickestJourney(1, 34, 0);
 
 ?>
