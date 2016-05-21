@@ -5,7 +5,7 @@ function getAllStations()
     global $db;
     $data = array();
 
-    $results = $db->query("SELECT * FROM stations;");
+    $results = $db->query("SELECT id, name FROM stations;");
 
     if ($results == null)
         return null;
@@ -37,5 +37,43 @@ function getUserById($id)
         return $result;
     }
 }
+
+
+
+function getHistoriesByUserId($id)
+{
+    global $db;
+    $data = array();
+
+    $results = $db->prepare("SELECT cost, start_time, end_time, start_station, end_station FROM users WHERE userid = :id;");
+    $results->execute(array('id' => $id));
+
+    if ($results == null)
+        return null;
+
+    foreach ($results as $result)
+    {
+        $data[] = new History($result["start_station"], $result["end_station"], $result["start_time"], $result["end_time"], $result["cost"]);
+    }
+
+    return $data;
+}
+
+
+
+function saveHistory($history)
+{
+
+}
+
+
+
+function isUserAllowed($user)
+{
+
+}
+
+
+
 
 ?>
