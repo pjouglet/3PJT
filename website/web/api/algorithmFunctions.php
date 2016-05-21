@@ -13,6 +13,22 @@ function getDBData()
 
 
 
+
+function findQuickestJourneys($startStationId, $arrivalStationId, $startTime)
+{
+    $journeys = null;
+
+    for ($i = 0; $i < 3; $i++)
+    {
+        $journeys[] = findQuickestJourney($startStationId, $arrivalStationId, $startTime);
+    }
+
+    return ($journeys);
+}
+
+
+
+
 function findQuickestJourney($startStationId, $arrivalStationId, $startTime)
 {
     // First test

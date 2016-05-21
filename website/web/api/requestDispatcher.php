@@ -1,6 +1,6 @@
 <?php
 
-require_once "testCSA2.php";
+require_once "algorithmFunctions.php";
 require_once "dbAccessFunctions.php";
 
 header("Content-Type: application/json");
@@ -33,7 +33,10 @@ if ($uri[0] == "journey")
 }
 else if ($uri[0] == "journeys")
 {
-
+    if ($uri[1] == "time")
+    {
+        $data = findQuickestJourneys($uri[2], $uri[3], $uri[4]);
+    }
 }
 else if ($uri[0] == "station")
 {
