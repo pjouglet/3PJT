@@ -83,3 +83,12 @@ supinfo_commander_administration_view_customer:
 supinfo_commander_administration_view_carts:
     path:   /gestion/carts
     defaults: { _controller: SupinfoCommanderBundle:Cart:viewAllCarts }
+
+#Gares
+supinfo_commander_administration_view_stations:
+    path: /gestion/stations
+    defaults: { _controller: SupinfoCommanderBundle:Stations:viewAllStations }
+
+supinfo_commander_administration_add_station:
+    path: /gestion/station/add
+    defaults: { _controller: SupinfoCommanderBundle:Stations:addStation }
