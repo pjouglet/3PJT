@@ -117,3 +117,8 @@ supinfo_commander_administration_delete_zone:
 supinfo_commander_administration_edit_zone:
     path: /gestion/zone/edit/{id}
     defaults: { _controller: SupinfoCommanderBundle:Admin:editZone }
+
+#Trajets
+supinfo_commander_administration_view_travels:
+    path: /gestion/travels
+    defaults: { _controller: SupinfoCommanderBundle:Travels:viewTravels }

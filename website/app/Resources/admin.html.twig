@@ -38,7 +38,6 @@
             </a>
             <ul class="submenu">
                 <li class="customer_customer"><a href="{{ path('supinfo_commander_administration_customers') }}">Clients</a></li>
-                <li class="customer_addresses"><a href="/gestion/customers/adresses">Adresses (a faire)</a></li>
                 <li class="customer_carts"><a href="{{ path('supinfo_commander_administration_view_carts') }}">Paniers</a></li>
             </ul>
         </li>
@@ -50,13 +49,13 @@
             </a>
             <ul class="submenu">
                 <li class="customer_customer"><a href="{{ path('supinfo_commander_administration_view_stations') }}">Stations</a></li>
-                <li class="customer_travels"><a href="">Trajets</a></li>
+                <li class="customer_travels"><a href="{{ path('supinfo_commander_administration_view_travels') }}">Trajets</a></li>
                 <li class="customer_zones"><a href="{{ path('supinfo_commander_administration_view_zones') }}">Zones</a></li>
             </ul>
         </li>
 
         <li class="maintab has_submenu" id="settings">
-            <a href="/gestion/settings" class="title">
+            <a href="" class="title">
                 <i class="glyphicon glyphicon-cog"></i>
                 <span>Paramètres</span>
             </a>
@@ -70,12 +69,12 @@
         </li>
 
         <li class="maintab has_submenu" id="admin">
-            <a href="/gestion/admin" class="title">
+            <a href="" class="title">
                 <i class="glyphicon glyphicon-alert"></i>
                 <span>Administration</span>
             </a>
             <ul class="submenu">
-                <li class="admin_employees"><a href="/gestion/admin/employees">Employés</a></li>
+                <li class="admin_employees"><a href="{{ path('supinfo_commander_administration_employees') }}">Employés</a></li>
                 <li class="admin_maintenance"><a href="{{ path('supinfo_commander_administration_maintenance') }}">Maintenance (a faire)</a></li>
             </ul>
         </li>
