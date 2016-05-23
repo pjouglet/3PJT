@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="zone")
  * @ORM\Entity(repositoryClass="Supinfo\CommanderBundle\Repository\UsersRepository")
  */
-class Zone{
+class Zones{
     /**
      * @var int
      *

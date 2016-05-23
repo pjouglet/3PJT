@@ -8,6 +8,8 @@
 
 namespace Supinfo\CommanderBundle\Controller;
 
+use Supinfo\CommanderBundle\Entity\Zones;
+use Supinfo\CommanderBundle\Form\AddZoneForm;
 use Supinfo\CommanderBundle\Form\AdminLoginForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,5 +55,100 @@ class AdminController extends Controller
         $session = $request->getSession();
         $session->set("email_admin", null);
         return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
+    }
+
+    public function viewZonesAction(Request $request){
+        $session = $request->getSession();
+        if(!$session->get('email_admin')){
+            return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
+        }
+
+        $param = array(
+            'page_title' => "Zones",
+            'zones_list' =>  $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Zones")->findAll()
+        );
+
+        return $this->render('SupinfoCommanderBundle:Gestion:zone/zones.html.twig', $param);
+    }
+
+    public function addZoneAction(Request $request){
+        $session = $request->getSession();
+        if(!$session->get('email_admin')){
+            return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
+        }
+
+        $form = $this->createForm(new AddZoneForm());
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()){
+            $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Zones");
+            if(!$repo->findOneBy(array('label' => $form->get("label")->getData()))){
+                $entityManager = $this->getDoctrine()->getManager();
+
+                $zone = new Zones();
+                $zone->setLabel($form->get('label')->getData());
+
+                $entityManager->persist($zone);
+                $entityManager->flush();
+                return $this->redirect($this->generateUrl('supinfo_commander_administration_view_zones'));
+            }
+            else{
+                $param['zone_exist'] = true;
+            }
+        }
+
+        $param = array(
+            'page_title' => "Ajouter une zone",
+            'form' => $form->createView()
+        );
+
+        return $this->render('SupinfoCommanderBundle:Gestion:zone/add.html.twig', $param);
+    }
+
+    public function deleteZoneAction($id, Request $request){
+        $session = $request->getSession();
+        if(!$session->get('email_admin')){
+            return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
+        }
+
+        $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Zones");
+        $zone = $repo->findOneBy(array('id'=> $id));
+        if($zone){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($zone);
+            $entityManager->flush();
+        }
+
+        return $this->redirect($this->generateUrl('supinfo_commander_administration_view_zones'));
+    }
+
+    public function editZoneAction($id, Request $request){
+        $session = $request->getSession();
+        if(!$session->get('email_admin')){
+            return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
+        }
+
+        $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Zones");
+        $zone = $repo->findOneBy(array('id'=> $id));
+
+        if(!$zone)
+            return $this->redirect($this->generateUrl("supinfo_commander_administration_view_zones"));
+
+        $param = array(
+            'page_title' => "Modifier une zone",
+        );
+
+        $form = $this->createForm(new AddZoneForm(), $zone);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $zone->setLabel($form->get('label')->getData());
+            $this->getDoctrine()->getManager()->flush();
+            $param['label_edited'] = 'true';
+        }
+
+        $param['form'] = $form->createView();
+
+        return $this->render('SupinfoCommanderBundle:Gestion:zone/edit.html.twig', $param);
     }
 }

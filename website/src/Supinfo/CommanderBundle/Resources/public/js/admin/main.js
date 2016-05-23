@@ -58,4 +58,22 @@ $(document).ready(function(){
             });
         return false;
     });
+
+    //page zone
+    $(".delete_zone").click(function(){
+        var url = $(this).children('span').text();
+        swal({
+                title: "Attention",
+                text: "Une zone supprimée ne pourra plus être récupérée. Continuer ?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: false
+            },
+            function (isConfirm) {
+                if(isConfirm)
+                    window.location.href = url;
+            });
+        return false;
+    });
 });
