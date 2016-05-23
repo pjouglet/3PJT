@@ -93,6 +93,15 @@ supinfo_commander_administration_add_station:
     path: /gestion/station/add
     defaults: { _controller: SupinfoCommanderBundle:Stations:addStation }
 
+supinfo_commander_administration_delete_station:
+    path: /gestion/station/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Stations:deleteStation }
+
+supinfo_commander_administration_edit_station:
+    path: /gestion/station/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Stations:editStation }
+
+#Zones
 supinfo_commander_administration_view_zones:
     path: /gestion/zones
     defaults: { _controller: SupinfoCommanderBundle:Admin:viewZones }

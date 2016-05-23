@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="stations")
  * @ORM\Entity(repositoryClass="Supinfo\CommanderBundle\Repository\UsersRepository")
  */
-class Station{
+class Stations{
     /**
      * @var int
      *
@@ -77,4 +77,11 @@ class Station{
         return $this;
     }
 
+    public function getZone(){
+        return $this->getZoneId();
+    }
+
+    public function setZone($zone){
+        return $this;
+    }
 }

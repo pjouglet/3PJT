@@ -27,6 +27,12 @@ class Zones{
      */
     private $label;
 
+    /**
+     * @return string
+     */
+    public function __toString() {
+        return $this->getLabel();
+    }
 
     public function getId(){
         return $this->id;

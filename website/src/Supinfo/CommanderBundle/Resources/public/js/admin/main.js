@@ -76,4 +76,22 @@ $(document).ready(function(){
             });
         return false;
     });
+
+    //page stations
+    $(".delete_station").click(function(){
+        var url = $(this).children('span').text();
+        swal({
+                title: "Attention",
+                text: "Une station supprimée ne pourra plus être récupérée. Continuer ?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: false
+            },
+            function (isConfirm) {
+                if(isConfirm)
+                    window.location.href = url;
+            });
+        return false;
+    });
 });
