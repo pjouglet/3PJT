@@ -35,7 +35,17 @@ else if ($uri[0] == "journeys")
 {
     if ($uri[1] == "time")
     {
-        $data = findQuickestJourneys($uri[2], $uri[3], $uri[4]);
+        if (isset($uri[5]))
+        {
+            if (is_numeric($uri[5]))
+            {
+                $data = findQuickestJourneysInRange($uri[2], $uri[3], $uri[4], $uri[5]);
+            }
+        }
+        else
+        {
+            $data = findQuickestJourneys($uri[2], $uri[3], $uri[4]);
+        }
     }
 }
 else if ($uri[0] == "station")
@@ -60,6 +70,9 @@ else
     header("HTTP/1.1 " . 405 . " " . "Invalid request.");
     return json_encode($data);
 }
+
+
+
 
 if ($data == null)
 {

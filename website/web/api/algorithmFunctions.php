@@ -14,15 +14,43 @@ function getDBData()
 
 
 
+function findQuickestJourneysInRange($startStationId, $arrivalStationId, $minTime, $maxTime)
+{
+    $journeys = getQuickestJourneysInRange($startStationId, $arrivalStationId, $minTime, $maxTime);
+
+    var_dump($journeys);
+    return ($journeys);
+}
+
+
+
+
 function findQuickestJourneys($startStationId, $arrivalStationId, $startTime)
 {
-    $journeys = null;
+    $minTime = $startTime - 3600;
+    $maxTime = $startTime + 7200;
 
-    for ($i = 0; $i < 3; $i++)
+    $journeys = getQuickestJourneysInRange($startStationId, $arrivalStationId, $minTime, $maxTime);
+
+    $earlyJourneys = array();
+
+    foreach ($journeys as $j)
     {
-        $journeys[] = findQuickestJourney($startStationId, $arrivalStationId, $startTime);
+        if ($j->startTimes[0] < $startTime)
+        {
+            $earlyJourneys[] = $j;
+        }
     }
 
+    if (count($earlyJourneys) >= 2)
+    {
+        for ($i = 0; $i < count($earlyJourneys) - 2; $i++)
+        {
+            array_shift($journeys);
+        }
+    }
+
+    var_dump($journeys);
     return ($journeys);
 }
 
@@ -101,19 +129,31 @@ function findQuickestJourney($startStationId, $arrivalStationId, $startTime)
         //$startNationalStation = new Station(2, "Lille", 1, 0);
         //$arrivalNationalStation = new Station(30, "Marseille", 1, 2);
 
-        $connections = findQuickestJourneyInZone($startStation, $startNationalStation, $startTime);
+        if ($startStation != $startNationalStation)
+        {
+            $connections = findQuickestJourneyInZone($startStation, $startNationalStation, $startTime);
+            if ($connections == null)
+            {
+                return null;
+            }
+            putConnectionsInJourney($journey, $connections);
+        }
+
+
+        if (end($journey->arrivalTimes) != false)
+        {
+            $connections = findQuickestJourneyInZone($startNationalStation, $arrivalNationalStation, end($journey->arrivalTimes));
+        }
+        else
+        {
+            $connections = findQuickestJourneyInZone($startNationalStation, $arrivalNationalStation, $startTime);
+        }
         if ($connections == null)
         {
             return null;
         }
         putConnectionsInJourney($journey, $connections);
 
-        $connections = findQuickestJourneyInZone($startNationalStation, $arrivalNationalStation, end($journey->arrivalTimes));
-        if ($connections == null)
-        {
-            return null;
-        }
-        putConnectionsInJourney($journey, $connections);
 
         if ($arrivalStation != $arrivalNationalStation)
         {
@@ -137,7 +177,6 @@ function findQuickestJourney($startStationId, $arrivalStationId, $startTime)
 
 
 
-
 function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
 {
     // Initialisation
@@ -152,10 +191,15 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
     // If national path
     if ($startStation->isCapital == 1 && $arrivalStation->isCapital == 1)
     {
-        $results = $db->query("SELECT c.stationid, c.pathid, c.start_time, s.start_stationid, s.end_stationid, s.cost, s.duree
+        $timestamp = date('Y-n-j H:i:s', $startTime);
+
+        $results = $db->prepare("SELECT c.stationid, c.pathid, c.start_time, s.start_stationid, s.end_stationid, s.cost, s.duree
                                FROM connections c
                                JOIN segments s ON c.segmentid = s.id
-                               WHERE c.pathid IN (SELECT id FROM paths WHERE is_national = 1);");
+                               WHERE (c.pathid IN (SELECT id FROM paths WHERE is_national = 1))
+                               AND (c.start_time >= DATE(:startTime));");
+        $results->execute(array('startTime' => $timestamp));
+        //var_dump($timestamp);
 
         foreach ($results as $r)
         {
@@ -177,12 +221,17 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
     }*/
     else
     {
+        $timestamp = date('Y-n-j H:i:s', $startTime);
+
         $results = $db->prepare("SELECT c.stationid, c.pathid, c.start_time, s.start_stationid, s.end_stationid, s.cost, s.duree
                                  FROM connections c JOIN segments s ON c.segmentid = s.id
-                                 WHERE c.stationid = (SELECT id FROM stations WHERE c.stationid = id AND zoneid = :zoneid);");
-        $results->execute(array('zoneid' => $startStation->zoneId));
+                                 WHERE (c.stationid = (SELECT id FROM stations WHERE c.stationid = id AND zoneid = :zoneid))
+                                 AND (c.start_time >= DATE(:startTime));");
+        $results->execute(array('zoneid' => $startStation->zoneId, 'startTime' => $timestamp));
         //$result = $results->fetch();
         //$startStation = new Station($result["id"], $result["name"], $result["is_national"], $result["zoneid"]);
+
+
 
         foreach ($results->fetchAll() as $r)
         {
@@ -198,6 +247,11 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
         //$timetable = array(new Connection($stations[3], $stations[2], 150, 900, 3, 9), new Connection($stations[0], $stations[3], 0, 100, 2, 2), new Connection($stations[0], $stations[1], 0, 100, 1, 1), new Connection($stations[1], $stations[2], 110, 250, 1, 5));
     }
 
+    if (!isset($timetable))
+    {
+        return null;
+    }
+
     // Sort connections by start time. Needed for algorithm.
     usort($timetable, "compareConnectionsByStartTime");
 
@@ -208,16 +262,20 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
     {
         if ($arrivalTimestamp[$c->startStationId] <= $c->startTime && $arrivalTimestamp[$c->arrivalStationId] > $c->arrivalTime)
         {
+            //var_dump($inConnection[$c->arrivalStationId]);
             $arrivalTimestamp[$c->arrivalStationId] = $c->arrivalTime;
             $inConnection[$c->arrivalStationId] = $cID;
+            //var_dump($inConnection[$c->arrivalStationId]);
+            //var_dump($cID);
         }
     }
-
+    //var_dump($inConnection[$arrivalStation->id]);
+    /*
     if ($inConnection[$arrivalStation->id] === PHP_INT_MAX)
     {
         echo "NO SOLUTION\n";
         return null;
-    }
+    }*/
 
 
     // On dépile pour afficher les résultats
@@ -240,6 +298,7 @@ function findQuickestJourneyInZone($startStation, $arrivalStation, $startTime)
 
 
 
+
 function compareConnectionsByStartTime($c1, $c2)
 {
     if ($c1->startTime == $c2->startTime)
@@ -248,6 +307,43 @@ function compareConnectionsByStartTime($c1, $c2)
     }
     return ($c1->startTime < $c2->startTime) ? -1 : 1;
 }
+
+
+
+function getQuickestJourneysInRange($startStationId, $arrivalStationId, $minTime, $maxTime)
+{
+    $journeys = null;
+
+    while ($minTime <= $maxTime)
+    {
+        $journey = findQuickestJourney($startStationId, $arrivalStationId, $minTime);
+        if (isset($journey) and $journey != null)
+        {
+            if ($journey->startTimes[0] > $maxTime)
+            {
+                break;
+            }
+            if (isset($journeys))
+            {
+                if (!in_array($journey, $journeys))
+                {
+                    $journeys[] = $journey;
+                    $minTime = $journey->startTimes[0];
+                }
+            }
+            else
+            {
+                $journeys[] = $journey;
+                $minTime = $journey->startTimes[0];
+            }
+        }
+
+        $minTime += 600;
+    }
+
+    return ($journeys);
+}
+
 
 
 function putConnectionsInJourney($journey, $connections)
@@ -306,9 +402,4 @@ function putConnectionsInJourney($journey, $connections)
 
     return $journey;
 }
-
-
-
-// findQuickestJourney(1, 34, 0);
-
 ?>
