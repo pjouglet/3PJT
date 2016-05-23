@@ -43,11 +43,16 @@
             </ul>
         </li>
 
-        <li class="maintab" id="gares">
+        <li class="maintab has_submenu" id="gares">
             <a href="{{ path('supinfo_commander_administration_view_stations') }}" class="title">
                 <i class="glyphicon glyphicon-road"></i>
-                <span>Gares (a faire)</span>
+                <span>Voyages</span>
             </a>
+            <ul class="submenu">
+                <li class="customer_customer"><a href="{{ path('supinfo_commander_administration_view_stations') }}">Stations</a></li>
+                <li class="customer_travels"><a href="">Trajets</a></li>
+                <li class="customer_zones"><a href="">Zones</a></li>
+            </ul>
         </li>
 
         <li class="maintab has_submenu" id="settings">
