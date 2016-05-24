@@ -84,6 +84,7 @@ class DefaultController extends Controller
                     $user->setPassword(sha1($registerForm->get("password")->getData()));
                     $user->setEmail($registerForm->get("email")->getData());
                     $user->setActive(1);
+                    $user->setIp($_SERVER["REMOTE_ADDR"]);
                     if($registerForm->get("newsletter")->getData())
                         $user->setNewletter(1);
                     else
