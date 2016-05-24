@@ -50,9 +50,10 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar_content">
             <ul class="nav navbar-nav">
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
+                {% if app.session.get('email') is defined and app.session.get('email') != "" %}
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Hstorique</a></li>
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if app.session.get('email') is defined and app.session.get('email') != "" %}

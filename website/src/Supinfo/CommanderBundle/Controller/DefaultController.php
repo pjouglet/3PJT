@@ -64,7 +64,7 @@ class DefaultController extends Controller
                     $response->headers->setCookie($cookie);
                     $response->send();
                 }
-                return $this->redirect("/");
+                return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
             }
             else{
                 //Erreur de connection (L'utilisateur n'existe pas ou les mots de passes ne correspondent pas)
@@ -116,7 +116,7 @@ class DefaultController extends Controller
         $response = new Response();
         $response->headers->clearCookie('commander_cookie_login');
         $response->send();
-        return $this->redirect("/");
+        return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
     }
 
     public function cartAction(Request $request){
