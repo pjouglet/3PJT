@@ -64,6 +64,27 @@ class Users
     private $active;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=255)
+     */
+    private $ip;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="register_date", type="datetime")
+     */
+    private $registerDate;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="last_login_date", type="datetime")
+     */
+    private $lastLoginDate;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -205,5 +226,63 @@ class Users
         return $this->active;
     }
 
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp(){
+        return $this->ip;
+    }
 
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     * @return Users
+     */
+    public function setIp($ip){
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
+     * Get registerDate
+     *
+     * @return datetime
+     */
+    public function getRegisterDate(){
+        return $this->registerDate;
+    }
+
+    /**
+     * Set registerDate
+     *
+     * @param datetime $date
+     * @return Users
+     */
+    public function setRegisterDate($date){
+        $this->registerDate = $date;
+        return $this;
+    }
+
+    /**
+     * Get last_login_date
+     *
+     * @return datetime
+     */
+    public function getlastLoginDate(){
+        return $this->lastLoginDate;
+    }
+
+    /**
+     * Set lastLoginDate
+     *
+     * @param datetime $date
+     * @return Users
+     */
+    public function setLastLoginDate($date){
+        $this->lastLoginDate = $date;
+        return $this;
+    }
 }

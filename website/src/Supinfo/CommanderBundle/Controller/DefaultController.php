@@ -5,6 +5,7 @@ namespace Supinfo\CommanderBundle\Controller;
 use Supinfo\CommanderBundle\Entity\Users;
 use Supinfo\CommanderBundle\Form\LoginForm;
 use Supinfo\CommanderBundle\Form\RegisterForm;
+use Supinfo\CommanderBundle\SupinfoCommanderBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,7 @@ class DefaultController extends Controller
 
         //Si l'utilisateur est connecté, on le redirige sur la page d'accueil
         if($session->get('email')){
-            return $this->redirectToRoute("/");
+            return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
         }
 
         $registerForm = $this->createForm(new RegisterForm());
@@ -45,11 +46,16 @@ class DefaultController extends Controller
         //l'utilisateur se connecte
         if($loginForm->isSubmitted()){
             $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
+            /** @var $user Users*/
             $user = $repo->findOneBy(array('email' => $loginForm->get("email_login")->getData()));
 
             if($user && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword()) && $user->getActive() == 1){
                 //User connecté
                 $session->set("email", $loginForm->get("email_login")->getData());
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $user->setIp($_SERVER["REMOTE_ADDR"]);
+                $entityManager->flush();
 
                 //L'utilisateur reste connecté
                 if($loginForm->get("stay_logged")->getData()){
@@ -77,6 +83,7 @@ class DefaultController extends Controller
                     $user->setLastname($registerForm->get("lastname")->getData());
                     $user->setPassword(sha1($registerForm->get("password")->getData()));
                     $user->setEmail($registerForm->get("email")->getData());
+                    $user->setActive(1);
                     if($registerForm->get("newsletter")->getData())
                         $user->setNewletter(1);
                     else

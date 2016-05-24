@@ -20,6 +20,28 @@
                                 <span>Informations principales</span>
                             </div>
                             <div class="panel-body">
+                                <div class="col-lg-6">
+                                    <p>
+                                        <strong>Nom :</strong> {{ user.lastname }}
+                                    </p>
+                                    <p>
+                                        <strong>Adresse email :</strong> {{ user.email }}
+                                    </p>
+                                    <p>
+                                        <strong>Compte actif :</strong> {% if user.getActive == 1 %}Oui{% else %}Non{% endif %}
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>
+                                        <strong>Prénom :</strong> {{ user.firstname }}
+                                    </p>
+                                    <p>
+                                        <strong>Abonné newsletter :</strong> {% if user.newsletter == 1 %}Oui{% else %}Non{% endif %}
+                                    </p>
+                                    <p>
+                                        <strong>Dernière adresse IP :</strong> {{ user.ip }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

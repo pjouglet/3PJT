@@ -61,8 +61,16 @@ class CustomerController extends Controller{
             return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
         }
 
+        $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
+        $user = $repo->findOneBy(array('id'=> $id));
+
+        if(!$user){
+            return $this->redirect($this->generateUrl('supinfo_commander_administration_customers'));
+        }
+
         $param =array(
-            'page_title' => "Informations du client"
+            'page_title' => "Informations du client",
+            'user' => $user
         );
 
         return $this->render('SupinfoCommanderBundle:Gestion:customer/view.html.twig', $param);
