@@ -3,7 +3,7 @@
 require_once "algorithmFunctions.php";
 require_once "dbAccessFunctions.php";
 
-//header("Content-Type: application/json");
+header("Content-Type: application/json");
 
 //echo $_SERVER['REQUEST_URI'];
 $uri = explode("/", $_SERVER['REQUEST_URI']);
@@ -61,7 +61,7 @@ else if ($uri[0] == "users")
 else
 {
     echo "INVALID REQUEST";
-    //header("HTTP/1.1 " . 405 . " " . "Invalid request.");
+    header("HTTP/1.1 " . 405 . " " . "Invalid request.");
     return json_encode($data);
 }
 
@@ -70,11 +70,11 @@ else
 
 if ($data == null)
 {
-    //header("HTTP/1.1 " . 404 . " " . "No results found.");
+    header("HTTP/1.1 " . 404 . " " . "No results found.");
 }
 else
 {
-    //header("HTTP/1.1 " . 200 . " " . "OK.");
+    header("HTTP/1.1 " . 200 . " " . "OK.");
 }
 
 echo json_encode($data);
