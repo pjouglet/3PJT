@@ -432,5 +432,3 @@ function putConnectionsInJourney($journey, $connections)
 
     return $journey;
 }
-
-?>
