@@ -33,9 +33,9 @@ else if ($uri[0] == "journeys")
     {
         if (is_numeric($uri[5]))
             $data = findJourneysInRange($uri[1], $uri[2], $uri[3], $uri[4], $uri[5]);
-        else
-            $data = findJourneys($uri[1], $uri[2], $uri[3], $uri[4]);
     }
+    else
+        $data = findJourneys($uri[1], $uri[2], $uri[3], $uri[4]);
 }
 else if ($uri[0] == "station")
 {

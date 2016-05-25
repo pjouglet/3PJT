@@ -7,7 +7,7 @@ function getAllStations()
 
     $results = $db->query("SELECT id, name FROM stations;");
 
-    if ($results == null)
+    if ($results == null or !isset($results))
         return null;
 
     foreach ($results as $result)
@@ -26,7 +26,7 @@ function getUserById($id)
     $results->execute(array('id' => $id));
     $result = $results->fetch();
 
-    if ($result == null)
+    if ($result == null or !isset($result))
         return null;
     else
         return $result;
@@ -42,7 +42,7 @@ function getHistoriesByUserId($id)
     $results = $db->prepare("SELECT cost, start_time, end_time, start_station, end_station FROM users WHERE userid = :id;");
     $results->execute(array('id' => $id));
 
-    if ($results == null)
+    if ($results == null or !isset($results))
         return null;
 
     foreach ($results as $result)
@@ -53,7 +53,14 @@ function getHistoriesByUserId($id)
 
 
 
-function saveHistory($history)
+function createHistory($history)
+{
+
+}
+
+
+
+function createUser($history)
 {
 
 }
@@ -69,9 +76,9 @@ function isUserAllowed($email, $password)
     $result = $results->fetch();
 
     if ($result == null or !isset($result))
-        return 0;
+        return array("id" => "0");
     if (sha1($password) == $result["password"])
-        return $result["id"];
+        return array("id" => $result["id"]);
     else
-        return 0;
+        return array("id" => "0");
 }
