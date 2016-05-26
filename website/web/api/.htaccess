@@ -1,8 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^stations(/.*)?$ requestDispatcher.php
+    RewriteRule ^user/[0-9]+(/.*)?$ requestDispatcher.php
     RewriteRule ^connect/(.+)@(.+)/(.*)(/.*)?$ requestDispatcher.php
-    RewriteRule ^(station|user)/[0-9]+(/.*)?$ requestDispatcher.php
     RewriteRule ^journey(s)?/(time|cost)(/[0-9]+){3}(/.*)?$ requestDispatcher.php
     RewriteRule ^journey(s)?/(time|cost)(/[0-9]+){4}(/.*)?$ requestDispatcher.php
     RewriteRule ^create/user(/.+){3}/(.+)@(.+)/(0|1)(/.*)?$ requestDispatcher.php

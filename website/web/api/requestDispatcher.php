@@ -37,24 +37,22 @@ else if ($uri[0] == "journeys")
     else
         $data = findJourneys($uri[1], $uri[2], $uri[3], $uri[4]);
 }
-else if ($uri[0] == "station")
-{
-
-}
 else if ($uri[0] == "stations")
     $data = getAllStations();
 
 else if ($uri[0] == "user")
-{
+    $data = getUserById($uri[1]);
 
-}
-else if ($uri[0] == "users")
-{
-
-}
 else if ($uri[0] == "connect")
     $data = isUserAllowed($uri[1], $uri[2]);
 
+else if ($uri[0] == "create")
+{
+    if ($uri[1] == "user")
+        $data = createUser($uri[2], $uri[3], $uri[4], $uri[5], $uri[6]);
+    else if ($uri[1] == "history")
+        $data = createHistory($uri[2], $uri[3], $uri[4], $uri[5], $uri[6], $uri[7]);
+}
 else
 {
     echo "INVALID REQUEST";
@@ -67,7 +65,6 @@ else
 
 if ($data == null)
     header("HTTP/1.1 " . 404 . " " . "No results found.");
-
 else
     header("HTTP/1.1 " . 200 . " " . "OK.");
 

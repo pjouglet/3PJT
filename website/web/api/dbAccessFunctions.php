@@ -53,16 +53,28 @@ function getHistoriesByUserId($id)
 
 
 
-function createHistory($history)
+function createHistory($cost, $startStationName, $arrivalStationName, $startTime, $arrivalTime, $userid)
 {
+    global $db;
+    $timestamp = date('Y-n-j H:i:s', $startTime);
+    $timestamp2 = date('Y-n-j H:i:s', $arrivalTime);
 
+    $request = $db->prepare("INSERT INTO history (cost, start_station, end_station, start_time, end_time, userid) VALUES (:cost, :ssn, :asn, :st, :at, :uid)");
+    $request->execute(array('cost' => $cost, 'ssn' => str_replace('%20', ' ', $startStationName), 'asn' => str_replace('%20', ' ', $arrivalStationName), 'st' => $timestamp, 'at' => $timestamp2, 'uid' => $userid));
+
+    return array("id" => $db->lastInsertId());
 }
 
 
 
-function createUser($history)
+function createUser($fn, $ln, $password, $email, $newsletter)
 {
+    global $db;
 
+    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active) VALUES (:fn, :ln, :pass, :mail, :news, 1)");
+    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'pass' => sha1(str_replace('%20', ' ', $password)), 'mail' => str_replace('%20', ' ', $email), 'news' => $newsletter));
+
+    return array("id" => $db->lastInsertId());
 }
 
 
@@ -77,7 +89,7 @@ function isUserAllowed($email, $password)
 
     if ($result == null or !isset($result))
         return array("id" => "0");
-    if (sha1($password) == $result["password"])
+    if (sha1(str_replace('%20', ' ', $password)) == $result["password"])
         return array("id" => $result["id"]);
     else
         return array("id" => "0");
