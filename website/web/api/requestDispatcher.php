@@ -41,8 +41,14 @@ else if ($uri[0] == "stations")
     $data = getAllStations();
 
 else if ($uri[0] == "user")
-    $data = getUserById($uri[1]);
-
+{
+    if ($uri[1] == "fb")
+        $data = getUserIdByFbId($uri[2]);
+    else if ($uri[1] == "google")
+        $data = getUserIdByGoogleId($uri[2]);
+    else
+        $data = getUserById($uri[1]);
+}
 else if ($uri[0] == "connect")
     $data = isUserAllowed($uri[1], $uri[2]);
 

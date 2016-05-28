@@ -34,6 +34,38 @@ function getUserById($id)
 
 
 
+function getUserIdByFbId($id)
+{
+    global $db;
+
+    $results = $db->prepare("SELECT id FROM users WHERE fbid = :id;");
+    $results->execute(array('id' => $id));
+    $result = $results->fetch();
+
+    if ($result == null or !isset($result))
+        return array("id" => "0");
+    else
+        return array("id" => $result["id"]);
+}
+
+
+
+function getUserIdByGoogleId($id)
+{
+    global $db;
+
+    $results = $db->prepare("SELECT id FROM users WHERE googleid = :id;");
+    $results->execute(array('id' => $id));
+    $result = $results->fetch();
+
+    if ($result == null or !isset($result))
+        return array("id" => "0");
+    else
+        return array("id" => $result["id"]);
+}
+
+
+
 function getHistoriesByUserId($id)
 {
     global $db;
@@ -68,6 +100,30 @@ function createHistory($cost, $startStationName, $arrivalStationName, $startTime
 
 
 function createUser($fn, $ln, $password, $email, $newsletter)
+{
+    global $db;
+
+    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active) VALUES (:fn, :ln, :pass, :mail, :news, 1)");
+    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'pass' => sha1(str_replace('%20', ' ', $password)), 'mail' => str_replace('%20', ' ', $email), 'news' => $newsletter));
+
+    return array("id" => $db->lastInsertId());
+}
+
+
+
+function createUserFb($fn, $ln, $password, $email, $newsletter)
+{
+    global $db;
+
+    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active) VALUES (:fn, :ln, :pass, :mail, :news, 1)");
+    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'pass' => sha1(str_replace('%20', ' ', $password)), 'mail' => str_replace('%20', ' ', $email), 'news' => $newsletter));
+
+    return array("id" => $db->lastInsertId());
+}
+
+
+
+function createUserGoogle($fn, $ln, $password, $email, $newsletter)
 {
     global $db;
 

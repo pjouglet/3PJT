@@ -2,6 +2,7 @@
     RewriteEngine On
     RewriteRule ^stations(/.*)?$ requestDispatcher.php
     RewriteRule ^user/[0-9]+(/.*)?$ requestDispatcher.php
+    RewriteRule ^user/(fb|google)/.*(/.*)?$ requestDispatcher.php
     RewriteRule ^connect/(.+)@(.+)/(.*)(/.*)?$ requestDispatcher.php
     RewriteRule ^journey(s)?/(time|cost)(/[0-9]+){3}(/.*)?$ requestDispatcher.php
     RewriteRule ^journey(s)?/(time|cost)(/[0-9]+){4}(/.*)?$ requestDispatcher.php
