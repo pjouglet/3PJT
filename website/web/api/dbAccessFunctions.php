@@ -5,7 +5,7 @@ function getAllStations()
     global $db;
     $data = array();
 
-    $results = $db->query("SELECT id, name FROM stations;");
+    $results = $db->query("SELECT * FROM stations;");
 
     if ($results == null or !isset($results))
         return null;
@@ -71,7 +71,7 @@ function getHistoriesByUserId($id)
     global $db;
     $data = array();
 
-    $results = $db->prepare("SELECT cost, start_time, end_time, start_station, end_station FROM users WHERE userid = :id;");
+    $results = $db->prepare("SELECT cost, start_time, end_time, start_station, end_station FROM history WHERE userid = :id;");
     $results->execute(array('id' => $id));
 
     if ($results == null or !isset($results))

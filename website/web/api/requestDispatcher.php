@@ -40,6 +40,9 @@ else if ($uri[0] == "journeys")
 else if ($uri[0] == "stations")
     $data = getAllStations();
 
+else if ($uri[0] == "history")
+    $data = getHistoriesByUserId($uri[1]);
+
 else if ($uri[0] == "user")
 {
     if ($uri[1] == "fb")
