@@ -122,3 +122,20 @@ supinfo_commander_administration_edit_zone:
 supinfo_commander_administration_view_travels:
     path: /gestion/travels
     defaults: { _controller: SupinfoCommanderBundle:Travels:viewTravels }
+
+#Segments
+supinfo_commander_administration_view_segments:
+    path: /gestion/segments
+    defaults: { _controller: SupinfoCommanderBundle:Segments:viewSegments }
+
+supinfo_commander_administration_add_segment:
+    path: /gestion/segment/add
+    defaults: { _controller: SupinfoCommanderBundle:Segments:addSegment }
+
+supinfo_commander_administration_delete_segment:
+    path: /gestion/segment/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Segments:deleteSegment }
+
+supinfo_commander_administration_edit_segment:
+    path: /gestion/segment/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Segments:editSegment }

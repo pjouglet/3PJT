@@ -94,4 +94,22 @@ $(document).ready(function(){
             });
         return false;
     });
+
+    //page segment
+    $(".delete_segment").click(function(){
+        var url = $(this).children('span').text();
+        swal({
+                title: "Attention",
+                text: "En supprimant ce segment, vous supprimez aussi tout les trajets associés. Continuer ?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: false
+            },
+            function (isConfirm) {
+                if(isConfirm)
+                    window.location.href = url;
+            });
+        return false;
+    });
 });
