@@ -58,7 +58,14 @@ else if ($uri[0] == "connect")
 else if ($uri[0] == "create")
 {
     if ($uri[1] == "user")
-        $data = createUser($uri[2], $uri[3], $uri[4], $uri[5], $uri[6]);
+    {
+        if ($uri[2] == "fb")
+            $data = createUserFb($uri[3], $uri[4], $uri[5]);
+        else if ($uri[2] == "google")
+            $data = createUserGoogle($uri[3], $uri[4], $uri[5]);
+        else
+            $data = createUser($uri[2], $uri[3], $uri[4], $uri[5], $uri[6]);
+    }
     else if ($uri[1] == "history")
         $data = createHistory($uri[2], $uri[3], $uri[4], $uri[5], $uri[6], $uri[7]);
 }

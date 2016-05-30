@@ -111,24 +111,24 @@ function createUser($fn, $ln, $password, $email, $newsletter)
 
 
 
-function createUserFb($fn, $ln, $password, $email, $newsletter)
+function createUserFb($fn, $ln, $id)
 {
     global $db;
 
-    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active) VALUES (:fn, :ln, :pass, :mail, :news, 1)");
-    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'pass' => sha1(str_replace('%20', ' ', $password)), 'mail' => str_replace('%20', ' ', $email), 'news' => $newsletter));
+    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active, fbid, googleid) VALUES (:fn, :ln, NULL, NULL, 0, 1, :id, NULL)");
+    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'id' => $id));
 
     return array("id" => $db->lastInsertId());
 }
 
 
 
-function createUserGoogle($fn, $ln, $password, $email, $newsletter)
+function createUserGoogle($fn, $ln, $id)
 {
     global $db;
 
-    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active) VALUES (:fn, :ln, :pass, :mail, :news, 1)");
-    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'pass' => sha1(str_replace('%20', ' ', $password)), 'mail' => str_replace('%20', ' ', $email), 'news' => $newsletter));
+    $request = $db->prepare("INSERT INTO users (firstname, lastname, password, email, newsletter, active, fbid, googleid) VALUES (:fn, :ln, NULL, NULL, 0, 1, NULL, :id)");
+    $request->execute(array('fn' => str_replace('%20', ' ', $fn), 'ln' => str_replace('%20', ' ', $ln), 'id' => $id));
 
     return array("id" => $db->lastInsertId());
 }

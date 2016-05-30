@@ -22,6 +22,9 @@ function findJourneys($searchMode, $startStationId, $arrivalStationId, $startTim
 
     $earlyJourneys = array();
 
+    if ($journeys == null || !isset($journeys))
+        return (null);
+
     foreach ($journeys as $j)
     {
         if ($j->startTimes[0] < $startTime)
