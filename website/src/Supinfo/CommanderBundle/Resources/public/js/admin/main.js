@@ -112,4 +112,22 @@ $(document).ready(function(){
             });
         return false;
     });
+
+    //page travel
+    $(".delete_travel").click(function(){
+        var url = $(this).children('span').text();
+        swal({
+                title: "Attention",
+                text: "Vous allez supprimer ce trajet. Continuer ?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                closeOnConfirm: false
+            },
+            function (isConfirm) {
+                if(isConfirm)
+                    window.location.href = url;
+            });
+        return false;
+    });
 });

@@ -1,0 +1,72 @@
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock admin_title %}
+
+{% block admin_content %}
+    <div id="content">
+        <div class="page-head">
+            <h2 class="page-title">Segments</h2>
+        </div>
+
+        <div class="row main">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                <span>Liste des segments</span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="add_station pull-right">
+                                    <a href="{{ path('supinfo_commander_administration_add_segment') }}">
+                                        <button class="btn btn-primary" id="add_employee" type="button">Ajouter un segment</button>
+                                    </a>
+                                </div>
+
+                                <div class="table-responsive col-lg-12">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Coût</th>
+                                            <th>Durée</th>
+                                            <th>Station de départ</th>
+                                            <th>Station d'arrivée</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        {% for segment in segments_list %}
+                                            <tr>
+                                                <td>{{ segment.id }}</td>
+                                                <td>{{ segment.cost }}</td>
+                                                <td>{{ segment.duree }}</td>
+                                                <td>
+                                                    {% for station in stations_list %}
+                                                        {% if station.id == segment.start_stationid %}
+                                                            {{ station.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for station in stations_list %}
+                                                        {% if station.id == segment.end_stationid %}
+                                                            {{ station.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ path('supinfo_commander_administration_edit_segment', {'id': segment.id}) }}" >modifier</a>
+                                                    <a href="#" class="delete_segment">supprimer<span class="hidden">{{ path('supinfo_commander_administration_delete_segment', {'id': segment.id}) }}</span> </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock admin_content %}

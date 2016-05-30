@@ -123,6 +123,18 @@ supinfo_commander_administration_view_travels:
     path: /gestion/travels
     defaults: { _controller: SupinfoCommanderBundle:Travels:viewTravels }
 
+supinfo_commander_administration_add_travel:
+    path: /gestion/travel/add
+    defaults: { _controller: SupinfoCommanderBundle:Travels:addTravel }
+
+supinfo_commander_administration_delete_travel:
+    path: /gestion/travel/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Travels:deleteTravel }
+
+supinfo_commander_administration_edit_travel:
+    path: /gestion/travel/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Travels:editTravel }
+
 #Segments
 supinfo_commander_administration_view_segments:
     path: /gestion/segments

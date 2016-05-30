@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="paths")
  * @ORM\Entity(repositoryClass="Supinfo\CommanderBundle\Repository\UsersRepository")
  */
-class Path{
+class Paths{
     /**
      * @var int
      *
