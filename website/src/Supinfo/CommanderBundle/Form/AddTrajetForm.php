@@ -26,6 +26,7 @@ class AddTrajetForm extends AbstractType{
             )
         ))->add('start_time', DateTimeType::class, array(
             'block_name' => 'start_time',
+            'html5' => true,    
 
         ))->add('stations', 'text', array(
             'block_name' => 'stations',

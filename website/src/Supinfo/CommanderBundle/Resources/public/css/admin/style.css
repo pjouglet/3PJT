@@ -179,3 +179,14 @@ body{
 .list_show .list-group-item:hover{
     cursor: pointer;
 }
+
+/*Bouton de selection du datetime */
+
+#add_trajet_form_start_time_date{
+    float: left;
+}
+
+#start_time select{
+    margin-right: 10px;
+    width: 70px;
+}
