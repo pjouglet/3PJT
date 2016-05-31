@@ -155,4 +155,8 @@ $(document).ready(function(){
         });
         $('.form-group #stations').val('');
     });
+
+    $('#start_time select').each(function(){
+       $(this).addClass('form-control');
+    });
 });

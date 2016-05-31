@@ -182,11 +182,11 @@ body{
 
 /*Bouton de selection du datetime */
 
-#add_trajet_form_start_time_date{
-    float: left;
+#add_trajet_form_start_time_date, #add_trajet_form_start_time_time{
+    display: inline-block;
 }
-
 #start_time select{
     margin-right: 10px;
-    width: 70px;
+    width: 90px;
+    display: inline-block;
 }
