@@ -51,7 +51,7 @@
         <div class="collapse navbar-collapse" id="navbar_content">
             <ul class="nav navbar-nav">
                 {% if app.session.get('email') is defined and app.session.get('email') != "" %}
-                    <li><a href="#">Profil</a></li>
+                    <li><a href="{{ path('supinfo_commander_profil') }}">Profil</a></li>
                     <li><a href="#">Hstorique</a></li>
                 {% endif %}
             </ul>

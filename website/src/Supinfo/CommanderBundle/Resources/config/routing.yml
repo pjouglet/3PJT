@@ -26,6 +26,10 @@ supinfo_commander_admin_login:
     path:     /gestion
     defaults: { _controller: SupinfoCommanderBundle:Admin:login }
 
+supinfo_commander_profil:
+    path:     /profile
+    defaults: { _controller: SupinfoCommanderBundle:Default:profile }
+
 #admin
 supinfo_commander_admin:
     path:     /gestion/index

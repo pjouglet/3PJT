@@ -4,6 +4,7 @@ namespace Supinfo\CommanderBundle\Controller;
 
 use Supinfo\CommanderBundle\Entity\Users;
 use Supinfo\CommanderBundle\Form\LoginForm;
+use Supinfo\CommanderBundle\Form\ProfileForm;
 use Supinfo\CommanderBundle\Form\RegisterForm;
 use Supinfo\CommanderBundle\SupinfoCommanderBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -134,5 +135,60 @@ class DefaultController extends Controller
             $session = $this->get('session');
             $session->set("email", $cookies->get('commander_cookie_login'));
         }
+    }
+
+    public function profileAction(Request $request){
+        $this->checkCookie();
+
+        $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
+        /** @var Users $user */
+        $user = $repo->findOneBy(array('email' => $this->get('session')->get('email')));
+        if($user){
+            $password = $user->getPassword();
+            $email = $user->getEmail();
+        }
+        $form = $this->createForm(new ProfileForm(), $user);
+        $form->handleRequest($request);
+
+        $param = array(
+            'page_title' => 'Page de profil',
+            'form' => $form->createView()
+        );
+
+        if($form->isSubmitted()){
+            if(sha1($form->get('password')->getData()) == $password){
+                $entityManager = $this->getDoctrine()->getManager();
+                if($email == $form->get('email')->getData()){
+                    $user->setFirstname($form->get('firstname')->getData());
+                    $user->setLastname($form->get('lastname')->getData());
+                    $user->setPassword($password);
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                    $param['change_ok'] = true;
+                }
+                else{
+                    /** @var Users $mail */
+                    $mail = $repo->findOneBy(array('email' => $form->get('email')->getData()));
+                    if(!$mail){
+                        $user->setEmail($form->get('email')->getData());
+                        $user->setFirstname($form->get('firstname')->getData());
+                        $user->setLastname($form->get('lastname')->getData());
+                        $user->setPassword($password);
+                        $entityManager->persist($user);
+                        $entityManager->flush();
+                        $this->get('session')->set('email', $form->get('email')->getData());
+                        $param['change_ok'] = true;
+                    }
+                    else{
+                        $param['email_exist'] = true;
+                    }
+                }
+            }
+            else{
+                $param['password_not_ok'] = true;
+            }
+        }
+
+        return $this->render('SupinfoCommanderBundle:Default:profil.html.twig', $param);
     }
 }
