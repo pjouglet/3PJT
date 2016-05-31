@@ -2,8 +2,10 @@
 
 namespace Supinfo\CommanderBundle\Controller;
 
-use Proxies\__CG__\Supinfo\CommanderBundle\Entity\Path;
+use Supinfo\CommanderBundle\Entity\Connection;
+use Supinfo\CommanderBundle\Entity\Connections;
 use Supinfo\CommanderBundle\Entity\Paths;
+use Supinfo\CommanderBundle\Entity\Segments;
 use Supinfo\CommanderBundle\Entity\Stations;
 use Supinfo\CommanderBundle\Form\AddStationForm;
 use Supinfo\CommanderBundle\Form\AddTrajetForm;
@@ -39,12 +41,42 @@ class TravelsController extends Controller{
             $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Paths");
             $entityManager = $this->getDoctrine()->getManager();
             if(!$repo->findOneBy(array('label' => $form->get('label')->getData()))){
+                //Ajout du trajet
                 $travel = new Paths();
                 $travel->setLabel($form->get('label')->getData());
                 $travel->setNational(($form->get('national')->getData() == 'Oui') ? 1 : 0);
-
                 $entityManager->persist($travel);
                 $entityManager->flush();
+
+                //Ajout de la connection
+                /** @var \DateTime $date */
+                $date = $form->get('start_time')->getData();
+                $stations = explode(';', $form->get('stations')->getData());
+                unset($stations[count($stations)-1]);
+                foreach ($stations as $key => $value) {
+                    if($key != count($stations)-1){
+                        $connection = new Connections();
+                        $connection->setStartTime(new \DateTime());
+                        $connection->setStationid($value);
+                        $connection->setPathid($travel->getId());
+                        $segment_repo = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Segments");
+                        /** @var Segments $segment */
+                        $segment = $segment_repo->findOneBy(array('start_stationid' => $value, 'end_stationid' => $stations[$key +1]));
+                        $connection->setSegmentid($segment->getId());
+                        if($key == 0){
+                            $connection->setStartTime($date);
+                        }
+                        else{
+                            /** @var Segments $stationDown */
+                            $stationDown = $segment_repo->findOneBy(array('start_stationid' => $stations[$key -1], 'end_stationid' => $value));
+                            $date->add(\DateInterval::createFromDateString($stationDown->getDuree().' seconds'));
+                            $connection->setStartTime($date);
+                        }
+
+                        $entityManager->persist($connection);
+                        $entityManager->flush();
+                    }
+                }
                 return $this->redirect($this->generateUrl('supinfo_commander_administration_view_travels'));
             }
             else{
@@ -53,7 +85,8 @@ class TravelsController extends Controller{
         }
         $param = array(
             'page_title' => 'Ajouter un trajet',
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'stations_list' => $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Stations")->findAll()
         );
 
         return $this->render('SupinfoCommanderBundle:Gestion:travels/add.html.twig', $param);

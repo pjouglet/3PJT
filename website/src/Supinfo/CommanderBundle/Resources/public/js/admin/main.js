@@ -130,4 +130,29 @@ $(document).ready(function(){
             });
         return false;
     });
+
+    $('.list_show .list-group-item').click(function(){
+        $('.list_show .list-group-item').each(function(){
+            $(this).removeClass('active');
+        });
+        $(this).addClass('active');
+    });
+
+    $('.add_travel_to_list').click(function(){
+        if($('.list_show .active').html() != undefined){
+            $('.list_add .list-group').append('<li class="list-group-item">' + $('.list_show .active').html() + '</li>');
+            $('.list_show .active').addClass('hidden');
+            $('.form-group #stations').val($('.form-group #stations').val() + $('.list_show .active .id').html() + ';')
+        }
+    });
+
+    $('.delete_travel_from_list').click(function(){
+        $('.list_add li').each(function(){
+            $(this).remove();
+        });
+        $('.list_show li.hidden').each(function(){
+            $(this).removeClass('hidden');
+        });
+        $('.form-group #stations').val('');
+    });
 });

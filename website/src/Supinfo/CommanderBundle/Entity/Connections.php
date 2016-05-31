@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="connections")
  * @ORM\Entity(repositoryClass="Supinfo\CommanderBundle\Repository\UsersRepository")
  */
-class Connection{
+class Connections{
 
     /**
      * @var int

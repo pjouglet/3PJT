@@ -174,3 +174,8 @@ body{
 .add_station{
     margin-bottom: 10px;
 }
+
+/* page travels */
+.list_show .list-group-item:hover{
+    cursor: pointer;
+}

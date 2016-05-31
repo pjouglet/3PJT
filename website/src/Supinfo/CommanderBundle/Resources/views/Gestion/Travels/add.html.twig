@@ -7,7 +7,7 @@
 {% block admin_content %}
     <div id="content">
     <div class="page-head">
-        <h2 class="page-title">Ajout d'un segment</h2>
+        <h2 class="page-title">Ajout d'un trajet</h2>
     </div>
 
     <div class="row main">
@@ -39,6 +39,39 @@
                                     <div class="form-group">
                                         <label for="zone">Trajet national :</label>
                                         {{ form_widget(form.national, { 'id': 'national' }) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="start_time">Heure de départ :</label>
+                                        {{ form_widget(form.start_time, { 'id': 'start_time' }) }}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="form-group list_show">
+                                                <ul class="list-group">
+                                                    {% for station in stations_list %}
+                                                        <li class="list-group-item">{{ station.name }} <span class="id hidden">{{ station.id }}</span></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <input type="button" class="btn btn-default add_travel_to_list" value="Ajouter"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="button" class="btn btn-default delete_travel_from_list" value="Reset"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="form-group list_add">
+                                                <ul class="list-group">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.stations, { 'id': 'stations' }) }}
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-default" id="add_button" name="add_button" value="true">Ajouter</button>

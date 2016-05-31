@@ -40,7 +40,7 @@
                                             <td>{{ travel.label }}</td>
                                             <td>{% if travel.isNational == 1 %}<span class="success">Oui</span>{% else %}<span class="warning">Non</span>{% endif %}</td>
                                             <td>
-                                                <a href="{{ path('supinfo_commander_administration_edit_travel', {'id': travel.id}) }}" >modifier</a>
+                                                {#<a href="{{ path('supinfo_commander_administration_edit_travel', {'id': travel.id}) }}" >modifier</a>#}
                                                 <a href="#" class="delete_travel">supprimer<span class="hidden">{{ path('supinfo_commander_administration_delete_travel', {'id': travel.id}) }}</span> </a>
                                             </td>
                                         </tr>
