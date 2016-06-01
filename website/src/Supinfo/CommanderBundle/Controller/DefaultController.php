@@ -16,14 +16,23 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $this->checkCookie();
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+
         return $this->render('SupinfoCommanderBundle:Default:index.html.twig', array(
             'page_title' => "index"
         ));
     }
 
     public function loginAction(Request $request){
-        $this->checkCookie();
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
         $session = $request->getSession();
 
         //Si l'utilisateur est connecté, on le redirige sur la page d'accueil
@@ -104,7 +113,11 @@ class DefaultController extends Controller
 
     public function helpAction()
     {
-        $this->checkCookie();
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
         return $this->render('SupinfoCommanderBundle:Default:help.html.twig', array(
             'page_title' => "help"
         ));
@@ -121,7 +134,15 @@ class DefaultController extends Controller
     }
 
     public function cartAction(Request $request){
-        $this->checkCookie();
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+        $session = $this->get('session');
+        if(!$session->get('email')){
+            return $this->redirect($this->generateUrl('supinfo_commander_login'));
+        }
 
         return $this->render("SupinfoCommanderBundle:Default:cart.html.twig", array(
             'page_title' => "Panier"
@@ -135,10 +156,27 @@ class DefaultController extends Controller
             $session = $this->get('session');
             $session->set("email", $cookies->get('commander_cookie_login'));
         }
+        
+        //page de maintenance
+        if($this->getDoctrine()->getRepository("SupinfoCommanderBundle:Configuration")->findOneBy(array('key' => 'maintenance'))->getValue() == 1){
+            $ip_list = explode(';', $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Configuration")->findOneBy(array('key' => 'maintenance_ip'))->getValue());
+            if(!in_array($_SERVER['REMOTE_ADDR'], $ip_list)){
+                return 'maintenance_ok';
+            }
+        }
     }
 
     public function profileAction(Request $request){
-        $this->checkCookie();
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+
+        $session = $this->get('session');
+        if(!$session->get('email')){
+            return $this->redirect($this->generateUrl('supinfo_commander_login'));
+        }
 
         $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
         /** @var Users $user */

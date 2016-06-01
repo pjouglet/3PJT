@@ -159,4 +159,11 @@ $(document).ready(function(){
     $('#start_time select').each(function(){
        $(this).addClass('form-control');
     });
+
+    //page de maintenance
+
+    $("#add_ip").click(function(){
+        //alert($('.user_ip').attr('value'));
+        $('#ip_list').attr('value', $('#ip_list').attr('value') + ';' + $('.user_ip').attr('value'));
+    });
 });

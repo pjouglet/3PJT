@@ -164,6 +164,14 @@ body{
     margin-top: 15px;
 }
 
+#maintenance_form .submit{
+    margin-top: 15px;
+}
+
+.maintenance_info{
+    text-align: center;
+}
+
 /* page employés*/
 
 .add_employee{
