@@ -71,6 +71,20 @@ class Users
     private $ip;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="fbid", type="string", length=255)
+     */
+    private $fbid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="googleid", type="string", length=255)
+     */
+    private $googleid;
+
+    /**
      * Get id
      *
      * @return integer
@@ -235,6 +249,50 @@ class Users
     public function setIp($ip)
     {
         $this->ip = $ip;
+        return $this;
+    }
+
+    /**
+     * Get fbid
+     *
+     * @return string
+     */
+    public function getFbid()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set fbid
+     *
+     * @param string $id
+     * @return Users
+     */
+    public function setFbid($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * Get googleid
+     *
+     * @return string
+     */
+    public function getGoogleid()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set googleid
+     *
+     * @param string $id
+     * @return Users
+     */
+    public function setGoogleid($id)
+    {
+        $this->googleid = $id;
         return $this;
     }
 }
