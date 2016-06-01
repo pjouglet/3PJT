@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(0);//prod
+//error_reporting(E_ALL);//dev
 require_once("Classes.php");
 
 $db = getDBData();
@@ -189,7 +191,12 @@ function findJourney($searchMode, $startStationId, $arrivalStationId, $startTime
         }
     }
     else
+    {
+        $results->closeCursor();
         return null;
+    }
+
+    $results->closeCursor();
 
     return ($journey);
 }
@@ -332,7 +339,7 @@ function populateTimetable($startStation, $arrivalStation, $startTime)
                                FROM connections c
                                JOIN segments s ON c.segmentid = s.id
                                WHERE (c.pathid IN (SELECT id FROM paths WHERE is_national = 1))
-                               AND (c.start_time >= DATE(:startTime));");
+                               AND (c.start_time >= :startTime);");
         $results->execute(array('startTime' => $timestamp));
 
         foreach ($results as $r)
@@ -344,6 +351,8 @@ function populateTimetable($startStation, $arrivalStation, $startTime)
                 $date->add(new DateInterval('PT' . $r["duree"] . 'S'))->getTimestamp(),
                 $r["pathid"], $r["cost"]);
         }
+
+        $results->closeCursor();
     }
     else
     {
@@ -352,7 +361,7 @@ function populateTimetable($startStation, $arrivalStation, $startTime)
         $results = $db->prepare("SELECT c.stationid, c.pathid, c.start_time, s.start_stationid, s.end_stationid, s.cost, s.duree
                                  FROM connections c JOIN segments s ON c.segmentid = s.id
                                  WHERE (c.stationid = (SELECT id FROM stations WHERE c.stationid = id AND zoneid = :zoneid))
-                                 AND (c.start_time >= DATE(:startTime));");
+                                 AND (c.start_time >= :startTime);");
         $results->execute(array('zoneid' => $startStation->zoneId, 'startTime' => $timestamp));
 
         foreach ($results->fetchAll() as $r)
@@ -364,6 +373,8 @@ function populateTimetable($startStation, $arrivalStation, $startTime)
                 $date->add(new DateInterval('PT' . $r["duree"] . 'S'))->getTimestamp(),
                 $r["pathid"], $r["cost"]);
         }
+
+        $results->closeCursor();
     }
 
     return $timetable;
@@ -432,6 +443,8 @@ function putConnectionsInJourney($journey, $connections)
         $price += $c->price;
         $lastPathConnection = $c;
     }
+
+    $results->closeCursor();
 
     return $journey;
 }
