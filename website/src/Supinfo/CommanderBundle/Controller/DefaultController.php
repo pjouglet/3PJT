@@ -2,6 +2,7 @@
 
 namespace Supinfo\CommanderBundle\Controller;
 
+use Supinfo\CommanderBundle\Entity\History;
 use Supinfo\CommanderBundle\Entity\Users;
 use Supinfo\CommanderBundle\Form\LoginForm;
 use Supinfo\CommanderBundle\Form\ProfileForm;
@@ -58,7 +59,6 @@ class DefaultController extends Controller
             $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
             /** @var $user Users*/
             $user = $repo->findOneBy(array('email' => $loginForm->get("email_login")->getData()));
-
             if($user && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword()) && $user->getActive() == 1){
                 //User connecté
                 $session->set("email", $loginForm->get("email_login")->getData());
@@ -193,6 +193,10 @@ class DefaultController extends Controller
             'form' => $form->createView()
         );
 
+        $history = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findBy(array('userid' => $user->getId()));
+        if(count($history) > 0)
+            $param['history'] = $history;
+
         if($form->isSubmitted()){
             if(sha1($form->get('password')->getData()) == $password){
                 $entityManager = $this->getDoctrine()->getManager();
@@ -228,5 +232,43 @@ class DefaultController extends Controller
         }
 
         return $this->render('SupinfoCommanderBundle:Default:profil.html.twig', $param);
+    }
+
+    public function printTravelAction($id, Request $request){
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+
+        $session = $this->get('session');
+        if(!$session->get('email')){
+            return $this->redirect($this->generateUrl('supinfo_commander_login'));
+        }
+
+        /** @var Users $currentUser */
+        $currentUser = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findOneBy(array('email' => $session->get('email')));
+        /** @var History $travel */
+        $travel = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findOneBy(array('id' => $id, 'userid' => $currentUser->getId()));
+        if($travel){
+            try{
+                $pdf = new \HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', 0);
+                $pdf->pdf->SetDisplayMode('fullpage');
+                $content = $this->renderView("SupinfoCommanderBundle:Default:ticket.html.twig", array('ticket' => $travel, 'firstname' => $currentUser->getFirstname(), 'lastname' => $currentUser->getLastname()));
+                $pdf->writeHTML($content, false);
+                $file = $pdf->Output('commande.pdf');
+                $response = new Response();
+                //$response->clearHttpHeaders();
+                $response->setContent(file_get_contents($file));
+                $response->headers->set('Content-Type', 'application/force-download');
+                $response->headers->set('Content-disposition', 'filename='. $file);
+
+                return $response;
+            }
+            catch (\HTML2PDF_exception $ex){
+                echo $ex;
+                die;
+            }
+        }
     }
 }

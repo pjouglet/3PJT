@@ -103,3 +103,7 @@ body{
 .cart-totals th{
     font-weight: 400;
 }
+
+.table td{
+    font-size: 12px;
+}

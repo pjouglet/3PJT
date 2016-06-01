@@ -30,6 +30,10 @@ supinfo_commander_profil:
     path:     /profile
     defaults: { _controller: SupinfoCommanderBundle:Default:profile }
 
+supinfo_commander_print_travel:
+    path:     /cart/print/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Default:printTravel }
+
 #admin
 supinfo_commander_admin:
     path:     /gestion/index

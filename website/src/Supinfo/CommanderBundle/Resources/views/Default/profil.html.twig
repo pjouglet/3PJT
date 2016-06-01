@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 {% if change_ok is defined %}
                     <div class="col-lg-12">
                         <div class="alert alert-success">
@@ -67,12 +67,29 @@
                         {{ form_widget(form.password, { 'id': 'password' }) }}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default" id="add_button" name="add_button" value="true">Modifier</button>
+                        <button type="submit" class="btn btn-default" id="add_button" name="add_button" value="true">
+                            Modifier
+                        </button>
                     </div>
                 </form>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <h4>Commandes</h4>
+                {% if history is defined %}
+                    <table class="table table-hover">
+                        {% for command in history %}
+                            <tr>
+                                <td>{{ command.start_time|date("m/d/Y") }}</td>
+                                <td>{{ command.start_station }} - {{ command.end_station }}</td>
+                                <td><a href="{{ path('supinfo_commander_print_travel', {'id': command.id}) }}">Imprimer</a> - Recommander</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>
+                        Aucune commande effectuée pour le moment.
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>

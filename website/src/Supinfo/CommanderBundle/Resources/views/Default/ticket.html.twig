@@ -1,0 +1,50 @@
+<style>
+    .ticket {
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 50%;
+        height: 200px;
+        margin-left: 200px;
+        margin-top: 100px;
+    }
+
+    .number {
+        margin-left: 170px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .start, .arrival {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .bottom{
+        margin-top: 50px;
+    }
+    .bottom .name{
+        margin-left: 10px;
+    }
+    .bottom .price{
+        margin-left: 200px;
+    }
+</style>
+
+<page>
+    <div class="ticket">
+        <div class="number">
+            <strong>Ticket n° {{ ticket.id }}</strong>
+        </div>
+        <div class="start">
+            Départ le {{ ticket.start_time|date("d/m/Y") }} à {{ ticket.start_time|date("H:i") }} en gare de
+            <i>{{ ticket.start_station }}</i>
+        </div>
+        <div class="arrival">
+            Arrivée le {{ ticket.end_time|date("d/m/Y") }} à {{ ticket.end_time|date("H:i") }} en gare de
+            <i>{{ ticket.end_station }}</i>
+        </div>
+        <div class="bottom">
+            <span class="name"> {{ firstname }} {{ lastname }}</span>
+            <span class="price">{{ ticket.cost }}€</span>
+        </div>
+    </div>
+</page>
