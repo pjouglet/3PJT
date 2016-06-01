@@ -82,6 +82,7 @@ Class History
     public $startTime;
     public $arrivalTime;
     public $price;
+    public $commandTime;
 
     /**
      * History constructor.
@@ -91,13 +92,14 @@ Class History
      * @param $arrivalTime
      * @param $price
      */
-    public function __construct($startStation, $arrivalStation, $startTime, $arrivalTime, $price)
+    public function __construct($startStation, $arrivalStation, $startTime, $arrivalTime, $price, $commandTime)
     {
         $this->startStation = $startStation;
         $this->arrivalStation = $arrivalStation;
         $this->startTime = $startTime;
         $this->arrivalTime = $arrivalTime;
         $this->price = $price;
+        $this->commandTime = $commandTime;
     }
 }
 

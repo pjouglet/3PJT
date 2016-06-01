@@ -5,6 +5,7 @@ require_once "dbAccessFunctions.php";
 
 header("Content-Type: application/json");
 
+// Call appropriate functions depending on the requested URI
 $uri = explode("/", $_SERVER['REQUEST_URI']);
 
 array_shift($uri);
@@ -70,13 +71,17 @@ else
 
 
 
-
+// Close the database connection and send result as JSON
 if ($data == null)
     header("HTTP/1.1 " . 404 . " " . "No results found.");
 else
     header("HTTP/1.1 " . 200 . " " . "OK.");
 
+global $db;
+$db = null;
 
 echo json_encode($data);
 
 return json_encode($data);
+
+?>
