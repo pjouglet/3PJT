@@ -5,16 +5,8 @@ require_once "dbAccessFunctions.php";
 
 header("Content-Type: application/json");
 
-//echo $_SERVER['REQUEST_URI'];
 $uri = explode("/", $_SERVER['REQUEST_URI']);
-foreach ($uri as $i => $item)
-{
-    if($i == 0 || $i == 1) // || $i == count($uri)-1
-        continue;
-    //var_dump($item);
-}
 
-array_shift($uri);
 array_shift($uri);
 
 foreach ($uri as $i => $item)
