@@ -2,6 +2,8 @@
 
 namespace Supinfo\CommanderBundle\Controller;
 
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Facebook;
 use Supinfo\CommanderBundle\Entity\History;
 use Supinfo\CommanderBundle\Entity\Users;
 use Supinfo\CommanderBundle\Form\LoginForm;
@@ -78,7 +80,7 @@ class DefaultController extends Controller
         $session = $request->getSession();
 
         //Si l'utilisateur est connecté, on le redirige sur la page d'accueil
-        if($session->get('email')){
+        if($session->get('id')){
             return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
         }
 
@@ -109,13 +111,14 @@ class DefaultController extends Controller
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
+                $session->set('id', $user->getId());
             }else{
                 if($user->getGoogleid() != $google_auth->userinfo->get()->getId()){
                     $user->setGoogleid($google_auth->userinfo->get()->getId());
                     $this->getDoctrine()->getManager()->flush();
+                    $session->set('id', $user->getId());
                 }
             }
-            $session->set("email", $google_auth->userinfo->get()->getEmail());
             return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
         }
 
@@ -132,6 +135,14 @@ class DefaultController extends Controller
             'google_auth_url' => $client->createAuthUrl()
         );
 
+        //Facebook Auth
+        $facebook = new Facebook([
+            'app_id' => $this->getParameter('client_id_facebook'),
+            'app_secret' => $this->getParameter('client_id_secret_facebook'),
+            'default_graph_version' => 'v2.5',
+        ]);
+        $helper = $facebook->getRedirectLoginHelper();
+        $param['facebook_login_url'] = $helper->getLoginUrl('http://train-commander.dev'.$this->generateUrl('supinfo_commander_facebook'));
 
         //l'utilisateur se connecte
         if($loginForm->isSubmitted()){
@@ -140,7 +151,7 @@ class DefaultController extends Controller
             $user = $repo->findOneBy(array('email' => $loginForm->get("email_login")->getData()));
             if($user && !is_null($loginForm->get('password_login')->getData()) && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword()) && $user->getActive() == 1){
                 //User connecté
-                $session->set("email", $loginForm->get("email_login")->getData());
+                $session->set("id", $user->getId());
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $user->setIp($_SERVER["REMOTE_ADDR"]);
@@ -148,7 +159,7 @@ class DefaultController extends Controller
 
                 //L'utilisateur reste connecté
                 if($loginForm->get("stay_logged")->getData()){
-                    $cookie = new Cookie('commander_cookie_login', $loginForm->get('email_login')->getData(), time() + 3600 * 24 * 365);
+                    $cookie = new Cookie('commander_cookie_login', $user->getId(), time() + 3600 * 24 * 365);
                     $response = new Response();
                     $response->headers->setCookie($cookie);
                     $response->send();
@@ -219,7 +230,7 @@ class DefaultController extends Controller
             ));
         }
         $session = $this->get('session');
-        if(!$session->get('email')){
+        if(!$session->get('id')){
             return $this->redirect($this->generateUrl('supinfo_commander_login'));
         }
 
@@ -233,7 +244,7 @@ class DefaultController extends Controller
         $cookies = $request->cookies;
         if($cookies->has('commander_cookie_login')){
             $session = $this->get('session');
-            $session->set("email", $cookies->get('commander_cookie_login'));
+            $session->set("id", $cookies->get('commander_cookie_login'));
         }
         
         //page de maintenance
@@ -253,13 +264,13 @@ class DefaultController extends Controller
         }
 
         $session = $this->get('session');
-        if(!$session->get('email')){
+        if(!$session->get('id')){
             return $this->redirect($this->generateUrl('supinfo_commander_login'));
         }
 
         $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
         /** @var Users $user */
-        $user = $repo->findOneBy(array('email' => $this->get('session')->get('email')));
+        $user = $repo->findOneBy(array('id' => $this->get('session')->get('id')));
         if($user){
             $password = $user->getPassword();
             $email = $user->getEmail();
@@ -297,7 +308,7 @@ class DefaultController extends Controller
                         $user->setPassword($password);
                         $entityManager->persist($user);
                         $entityManager->flush();
-                        $this->get('session')->set('email', $form->get('email')->getData());
+                        $this->get('session')->set('id', $user->getId());
                         $param['change_ok'] = true;
                     }
                     else{
@@ -321,12 +332,12 @@ class DefaultController extends Controller
         }
 
         $session = $this->get('session');
-        if(!$session->get('email')){
+        if(!$session->get('id')){
             return $this->redirect($this->generateUrl('supinfo_commander_login'));
         }
 
         /** @var Users $currentUser */
-        $currentUser = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findOneBy(array('email' => $session->get('email')));
+        $currentUser = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findOneBy(array('id' => $session->get('id')));
         /** @var History $travel */
         $travel = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findOneBy(array('id' => $id, 'userid' => $currentUser->getId()));
         if($travel){
@@ -348,6 +359,51 @@ class DefaultController extends Controller
                 echo $ex;
                 die;
             }
+        }
+    }
+
+    public function facebookAction(Request $request){
+
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+
+        //Facebook Auth
+        $facebook = new Facebook([
+            'app_id' => $this->getParameter('client_id_facebook'),
+            'app_secret' => $this->getParameter('client_id_secret_facebook'),
+            'default_graph_version' => 'v2.5',
+        ]);
+        $helper = $facebook->getRedirectLoginHelper();
+
+        $access_token = $helper->getAccessToken();
+
+        if(isset($access_token)){
+            $facebook->setDefaultAccessToken($access_token);
+            $response = $facebook->get('/me');
+            $user = $response->getGraphUser();
+
+            /** @var Users $fbUser */
+            $fbUser = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findOneBy(array('fbid' => $user->getId()));
+            if($user && !$fbUser){
+                $fbUser = new Users();
+                $fbUser->setEmail($user->getEmail());
+                $fbUser->setFirstname($user->getFirstName());
+                $fbUser->setLastname($user->getLastName());
+                $fbUser->setFbid($user->getId());
+                $fbUser->setActive(1);
+                $fbUser->setNewletter(0);
+                $fbUser->setIp($_SERVER["REMOTE_ADDR"]);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($fbUser);
+                $entityManager->flush();
+                $this->get('session')->set("id", $fbUser->getId());
+            }else{
+                $this->get('session')->set("id", $fbUser->getId());
+            }
+            return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
         }
     }
 }

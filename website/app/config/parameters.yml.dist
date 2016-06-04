@@ -20,5 +20,9 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     #Google auth
-     client_id_google: 123877190777-05bapmbrelcjfrif480d31m2v1r2jgjo.apps.googleusercontent.com
-     client_id_secret_google: duvvkKgkNWl6Icsux4GM8Vb_
+    client_id_google: ~
+    client_id_secret_google: ~
+
+    #Facebook auth
+    client_id_facebook: ~
+    client_id_secret_facebook: ~

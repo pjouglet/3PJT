@@ -50,13 +50,13 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar_content">
             <ul class="nav navbar-nav">
-                {% if app.session.get('email') is defined and app.session.get('email') != "" %}
+                {% if app.session.get('id') is defined and app.session.get('id') != "" %}
                     <li><a href="{{ path('supinfo_commander_profil') }}">Profil</a></li>
                     <li><a href="{{ path('supinfo_commander_homepage') }}">Chercher un trajet</a> </li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if app.session.get('email') is defined and app.session.get('email') != "" %}
+                {% if app.session.get('id') is defined and app.session.get('id') != "" %}
                     <li><a href="{{ path('supinfo_commander_cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a> </li>
                     <li><a href="{{ path('supinfo_commander_logout') }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a> </li>
                 {% else %}
