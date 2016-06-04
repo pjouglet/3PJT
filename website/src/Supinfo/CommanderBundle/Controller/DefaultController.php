@@ -7,7 +7,7 @@ use Supinfo\CommanderBundle\Entity\Users;
 use Supinfo\CommanderBundle\Form\LoginForm;
 use Supinfo\CommanderBundle\Form\ProfileForm;
 use Supinfo\CommanderBundle\Form\RegisterForm;
-use Supinfo\CommanderBundle\SupinfoCommanderBundle;
+use Supinfo\CommanderBundle\Form\SearchTravelForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +23,50 @@ class DefaultController extends Controller
             ));
         }
 
-        return $this->render('SupinfoCommanderBundle:Default:index.html.twig', array(
-            'page_title' => "index"
-        ));
+        //print_r($request);die;
+
+        $form = $this->createForm(new SearchTravelForm());
+        $form->handleRequest($request);
+
+        $param = array(
+            'page_title' => "index",
+            'form' => $form->createView()
+        );
+
+        if($form->isSubmitted()){
+            if($form->get('start_station')->getData() != $form->get('end_station')->getData()){
+                $station_startId = $this->getDoctrine()->getRepository('SupinfoCommanderBundle:Stations')->findOneBy(array('name' => $form->get('start_station')->getData()));
+                $station_endId = $this->getDoctrine()->getRepository('SupinfoCommanderBundle:Stations')->findOneBy(array('name' => $form->get('end_station')->getData()));
+                /** @var \DateTime $dateStart */
+                $dateStart = $form->get('start_day')->getData();
+                /** @var \DateTime $timeStart */
+                $timeStart = $form->get('start_time')->getData();
+
+                $dateStart->setTime($timeStart->format('H'), $timeStart->format('i'), $timeStart->format('s'));
+
+                /** @var \DateTime $dateEnd */
+                $dateEnd = $form->get('end_day')->getData();
+                /** @var \DateTime $timeEnd */
+                $timeEnd = $form->get('end_time')->getData();
+                $dateStart->setTime($timeStart->format('H'), $timeStart->format('i'), $timeStart->format('s'));
+                $dateEnd->setTime($timeEnd->format('H'), $timeEnd->format('i'), $timeEnd->format('s'));
+
+                $start = $dateStart->getTimestamp() + 7200;
+                $end = $dateEnd->getTimestamp() + 7200;
+
+                $result = @file_get_contents('http://notemonminou.hol.es/api/journeys/time/'.$station_startId->getId().'/'.$station_endId->getId().'/'.$start.'/'.$end);
+                if($result != null){
+
+                }
+                else{
+                    $param['travel_not_found'] = true;
+                }
+            }
+            else{
+                $param['same_station'] = true;
+            }
+        }
+        return $this->render('SupinfoCommanderBundle:Default:index.html.twig', $param);
     }
 
     public function loginAction(Request $request){
@@ -41,6 +82,43 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
         }
 
+        //Google Auth
+        $client = new \Google_Client();
+        $client->setClientId($this->getParameter('client_id_google'));
+        $client->setClientSecret($this->getParameter('client_id_secret_google'));
+        $client->setRedirectUri("http://train-commander.dev".$this->generateUrl('supinfo_commander_login'));
+        $client->addScope("email");
+        $client->addScope("profile");
+
+        if (isset($_GET['code'])) {
+            $client->authenticate($_GET['code']);
+
+            $google_auth = new \Google_Service_Oauth2($client);
+            /** @var Users $user */
+            $user = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findOneBy(array('email' => $google_auth->userinfo->get()->getEmail()));
+            if(!$user){
+                $user = new Users();
+                $user->setFirstname($google_auth->userinfo->get()->getName());
+                $user->setLastname($google_auth->userinfo->get()->getFamilyName());
+                $user->setEmail($google_auth->userinfo->get()->getEmail());
+                $user->setActive(1);
+                $user->setNewletter(0);
+                $user->setGoogleid($google_auth->userinfo->get()->getId());
+                $user->setIp($_SERVER["REMOTE_ADDR"]);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }else{
+                if($user->getGoogleid() != $google_auth->userinfo->get()->getId()){
+                    $user->setGoogleid($google_auth->userinfo->get()->getId());
+                    $this->getDoctrine()->getManager()->flush();
+                }
+            }
+            $session->set("email", $google_auth->userinfo->get()->getEmail());
+            return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
+        }
+
         $registerForm = $this->createForm(new RegisterForm());
         $registerForm->handleRequest($request);
 
@@ -50,7 +128,8 @@ class DefaultController extends Controller
         $param = array(
             "page_title" => "login",
             "register_form" => $registerForm->createView(),
-            'login_form' => $loginForm->createView()
+            'login_form' => $loginForm->createView(),
+            'google_auth_url' => $client->createAuthUrl()
         );
 
 
@@ -59,7 +138,7 @@ class DefaultController extends Controller
             $repo= $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users");
             /** @var $user Users*/
             $user = $repo->findOneBy(array('email' => $loginForm->get("email_login")->getData()));
-            if($user && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword()) && $user->getActive() == 1){
+            if($user && !is_null($loginForm->get('password_login')->getData()) && (sha1($loginForm->get('password_login')->getData()) == $user->getPassword()) && $user->getActive() == 1){
                 //User connecté
                 $session->set("email", $loginForm->get("email_login")->getData());
 

@@ -13,15 +13,26 @@ $(document).ready(function(){
                 gares.push(value.name);
             });
             console.log(gares);
-            $("#gare_depart").autocomplete({
+            $("#start_station").autocomplete({
+                source : gares
+            });
+            $("#end_station").autocomplete({
                 source : gares
             });
         }
     });
 
-    //Datepicker pour la date de départ
-    $("#date_voyage").datepicker({
-        todayHighlight: true,
-        todayBtn: "linked"
+    $('.input-group select').each(function(){
+        $(this).addClass('form-control');
     });
+
+    var today = new Date();
+    console.log(today.getMonth());
+    /*$("#search").click(function(){
+        var start_station = $('#start_station');
+        var end_station = $('#end_station').attr('value');
+        console.log(start_station);
+        console.log(end_station);
+        return false;
+    });*/
 })

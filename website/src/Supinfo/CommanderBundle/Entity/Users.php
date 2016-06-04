@@ -38,7 +38,7 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
@@ -73,14 +73,14 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="fbid", type="string", length=255)
+     * @ORM\Column(name="fbid", type="string", length=255, nullable=true)
      */
     private $fbid;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="googleid", type="string", length=255)
+     * @ORM\Column(name="googleid", type="string", length=255, nullable=true)
      */
     private $googleid;
 
@@ -259,7 +259,7 @@ class Users
      */
     public function getFbid()
     {
-        return $this->ip;
+        return $this->fbid;
     }
 
     /**
@@ -270,7 +270,7 @@ class Users
      */
     public function setFbid($id)
     {
-        $this->id = $id;
+        $this->fbid= $id;
         return $this;
     }
 
@@ -281,7 +281,7 @@ class Users
      */
     public function getGoogleid()
     {
-        return $this->ip;
+        return $this->googleid;
     }
 
     /**

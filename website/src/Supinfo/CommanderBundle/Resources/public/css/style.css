@@ -107,3 +107,16 @@ body{
 .table td{
     font-size: 12px;
 }
+
+.input-group select{
+    width: 30%!important;
+    display: inline-block;
+}
+
+#start_time select{
+    width: 40%!important;
+}
+
+#end_time select{
+    width: 40%!important;
+}

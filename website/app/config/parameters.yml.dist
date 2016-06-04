@@ -18,3 +18,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    #Google auth
+     client_id_google: 123877190777-05bapmbrelcjfrif480d31m2v1r2jgjo.apps.googleusercontent.com
+     client_id_secret_google: duvvkKgkNWl6Icsux4GM8Vb_
