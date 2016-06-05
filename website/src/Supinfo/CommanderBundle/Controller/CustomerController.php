@@ -73,6 +73,11 @@ class CustomerController extends Controller{
             'user' => $user
         );
 
+        $history = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findBy(array('userid' => $user->getId()));
+        if($history){
+            $param['histories'] = $history;
+        }
+
         return $this->render('SupinfoCommanderBundle:Gestion:customer/view.html.twig', $param);
     }
     

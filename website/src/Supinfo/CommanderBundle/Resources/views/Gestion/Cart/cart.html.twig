@@ -20,6 +20,38 @@
                                 <span>Liste des commandes</span>
                             </div>
                             <div class="panel-body">
+                                <div class="table-responsive col-lg-12">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Date de commande</th>
+                                            <th>Coût</th>
+                                            <th>Station de départ</th>
+                                            <th>Heure de départ</th>
+                                            <th>Station d'arrivée</th>
+                                            <th>Heure d'arrivée</th>
+                                            <th>Utilisateur</th>
+                                        </tr>
+                                        {% for cart in carts %}
+                                            <tr>
+                                                <td>{{ cart.id }}</td>
+                                                <td>{{ cart.command_time|date('d/m/Y à H:i') }}</td>
+                                                <td>{{ cart.cost }}€</td>
+                                                <td>{{ cart.start_station }}</td>
+                                                <td>{{ cart.start_time|date('d/m/Y à H:i') }}</td>
+                                                <td>{{ cart.end_station }}</td>
+                                                <td>{{ cart.end_time|date('d/m/Y à H:i') }}</td>
+                                                <td>
+                                                    {% for user in users %}
+                                                        {% if user.id == cart.userid %}
+                                                            {{ user.lastname }} {{ user.firstname }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

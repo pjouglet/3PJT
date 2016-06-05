@@ -28,7 +28,8 @@
                                         <strong>Adresse email :</strong> {{ user.email }}
                                     </p>
                                     <p>
-                                        <strong>Compte actif :</strong> {% if user.getActive == 1 %}Oui{% else %}Non{% endif %}
+                                        <strong>Compte actif
+                                            :</strong> {% if user.getActive == 1 %}Oui{% else %}Non{% endif %}
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
@@ -36,7 +37,8 @@
                                         <strong>Prénom :</strong> {{ user.firstname }}
                                     </p>
                                     <p>
-                                        <strong>Abonné newsletter :</strong> {% if user.newsletter == 1 %}Oui{% else %}Non{% endif %}
+                                        <strong>Abonné newsletter
+                                            :</strong> {% if user.newsletter == 1 %}Oui{% else %}Non{% endif %}
                                     </p>
                                     <p>
                                         <strong>Dernière adresse IP :</strong> {{ user.ip }}
@@ -53,6 +55,17 @@
                                 <span>Commandes passées</span>
                             </div>
                             <div class="panel-body">
+                                {% if histories is defined %}
+                                    <ul class="list-group">
+                                        {% for history in histories %}
+                                            <li class="list-group-item">
+                                                Le {{ history.command_time|date('d/m/Y') }} à {{ history.command_time|date('H') }}h{{ history.command_time|date('i') }}, de {{ history.start_station }} à {{ history.end_station }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    Cet utilisateur n'a passé aucune commande.
+                                {% endif %}
                             </div>
                         </div>
                     </div>

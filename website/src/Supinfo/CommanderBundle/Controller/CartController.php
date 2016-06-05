@@ -14,7 +14,9 @@ class CartController extends Controller{
         }
 
         $param = array(
-            'page_title' => "Paniers"
+            'page_title' => "Paniers",
+            'carts' => $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findAll(),
+            'users' =>$this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findAll()
         );
 
         return $this->render('SupinfoCommanderBundle:Gestion:cart/cart.html.twig', $param);
