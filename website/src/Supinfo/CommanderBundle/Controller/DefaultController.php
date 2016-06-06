@@ -541,6 +541,9 @@ class DefaultController extends Controller
             );
         $this->get('mailer')->send($message);
 
+        $session->set('result', null);
+        $session->set('result_search', null);
+
         return $this->render($this->generateUrl('supinfo_commander_homepage'));
     }
 
