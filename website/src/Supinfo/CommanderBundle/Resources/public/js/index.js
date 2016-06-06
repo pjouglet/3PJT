@@ -12,7 +12,6 @@ $(document).ready(function(){
             $.each(data, function (key, value) {
                 gares.push(value.name);
             });
-            console.log(gares);
             $("#start_station").autocomplete({
                 source : gares
             });
@@ -27,12 +26,54 @@ $(document).ready(function(){
     });
 
     var today = new Date();
-    console.log(today.getMonth());
-    /*$("#search").click(function(){
-        var start_station = $('#start_station');
-        var end_station = $('#end_station').attr('value');
-        console.log(start_station);
-        console.log(end_station);
-        return false;
-    });*/
+    $("#search_travel_form_start_day_month").children('option').each(function(){
+        if($(this).attr('value') == today.getMonth() +1)
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_start_day_day").children('option').each(function(){
+        if($(this).attr('value') == today.getDate())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_start_day_year").children('option').each(function(){
+        if($(this).attr('value') == today.getFullYear())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_start_time_hour").children('option').each(function(){
+        if($(this).attr('value') == today.getHours())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_start_time_minute").children('option').each(function(){
+        if($(this).attr('value') == today.getMinutes())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_end_day_month").children('option').each(function(){
+        if($(this).attr('value') == today.getMonth() +1)
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_end_day_day").children('option').each(function(){
+        if($(this).attr('value') == today.getDate())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_end_day_year").children('option').each(function(){
+        if($(this).attr('value') == today.getFullYear())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_end_time_hour").children('option').each(function(){
+        if($(this).attr('value') == today.getHours())
+            $(this).attr('selected', 'selected');
+    });
+
+    $("#search_travel_form_end_time_minute").children('option').each(function(){
+        if($(this).attr('value') == today.getMinutes())
+            $(this).attr('selected', 'selected');
+    });
+
 })

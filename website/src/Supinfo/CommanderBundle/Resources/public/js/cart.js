@@ -9,4 +9,5 @@ $(document).ready(function(){
     });
     $(".cart-totals .subtotals .amount").html(total + "€");
     $(".cart-totals .grand .amount").html($(".cart-totals .subtotals .amount").html());
+    $("#total_pay").attr('value',total)
 });

@@ -2,8 +2,17 @@
 
 namespace Supinfo\CommanderBundle\Controller;
 
-use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Facebook;
+use PayPal\Api\Amount;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Exception\PayPalConnectionException;
+use PayPal\Rest\ApiContext;
 use Supinfo\CommanderBundle\Entity\History;
 use Supinfo\CommanderBundle\Entity\Users;
 use Supinfo\CommanderBundle\Form\LoginForm;
@@ -14,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller
 {
@@ -53,12 +63,18 @@ class DefaultController extends Controller
                 $dateStart->setTime($timeStart->format('H'), $timeStart->format('i'), $timeStart->format('s'));
                 $dateEnd->setTime($timeEnd->format('H'), $timeEnd->format('i'), $timeEnd->format('s'));
 
-                $start = $dateStart->getTimestamp() + 7200;
-                $end = $dateEnd->getTimestamp() + 7200;
+                $start = $dateStart->getTimestamp();
+                $end = $dateEnd->getTimestamp();
 
                 $result = @file_get_contents('http://notemonminou.hol.es/api/journeys/time/'.$station_startId->getId().'/'.$station_endId->getId().'/'.$start.'/'.$end);
                 if($result != null){
-
+                    $results = json_decode($result);
+                    $this->get('session')->set('search_result', $result);
+                    $param = array(
+                        'page_title' => 'Résultat de la recherche',
+                        'results' => $results
+                    );
+                    return $this->render('SupinfoCommanderBundle:Default:choice.html.twig', $param);
                 }
                 else{
                     $param['travel_not_found'] = true;
@@ -88,7 +104,7 @@ class DefaultController extends Controller
         $client = new \Google_Client();
         $client->setClientId($this->getParameter('client_id_google'));
         $client->setClientSecret($this->getParameter('client_id_secret_google'));
-        $client->setRedirectUri("http://train-commander.dev".$this->generateUrl('supinfo_commander_login'));
+        $client->setRedirectUri($this->getParameter('base_url').$this->generateUrl('supinfo_commander_login'));
         $client->addScope("email");
         $client->addScope("profile");
 
@@ -142,7 +158,7 @@ class DefaultController extends Controller
             'default_graph_version' => 'v2.5',
         ]);
         $helper = $facebook->getRedirectLoginHelper();
-        $param['facebook_login_url'] = $helper->getLoginUrl('http://train-commander.dev'.$this->generateUrl('supinfo_commander_facebook'));
+        $param['facebook_login_url'] = $helper->getLoginUrl($this->getParameter('base_url').$this->generateUrl('supinfo_commander_facebook'));
 
         //l'utilisateur se connecte
         if($loginForm->isSubmitted()){
@@ -164,6 +180,7 @@ class DefaultController extends Controller
                     $response->headers->setCookie($cookie);
                     $response->send();
                 }
+
                 return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
             }
             else{
@@ -192,6 +209,16 @@ class DefaultController extends Controller
                     $entityManager->persist($user);
                     $entityManager->flush();
                     $param["user_created"] = "true";
+
+                    //Envoie de mail au client pour confirmer son inscription
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Merci de vous être inscrit !')
+                        ->setFrom($this->getParameter('mailer_from'))
+                        ->setTo($user->getEmail())
+                        ->setBody(
+                            $this->renderView('Emails/registration.html.twig', array('user' => $user)), 'text/html'
+                        );
+                    $this->get('mailer')->send($message);
                 }
                 else{
                     $param["user_exist"] = "true";
@@ -223,7 +250,7 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
     }
 
-    public function cartAction(Request $request){
+    public function cartAction($id = null, Request $request){
         if($this->checkCookie() == "maintenance_ok"){
             return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
                 'page_title' => "Maintenance"
@@ -234,9 +261,58 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('supinfo_commander_login'));
         }
 
-        return $this->render("SupinfoCommanderBundle:Default:cart.html.twig", array(
+        $param = array(
             'page_title' => "Panier"
-        ));
+        );
+
+        if($id == null)
+            $param['no_result'] = true;
+        else{
+            if($session->get('search_result') != null){
+                $result = json_decode($session->get('search_result'));
+                $param['result'] = $result[$id];
+                $session->set('result',$result[$id]);
+
+                var_dump($session->get('result'));die;
+
+                $context = new ApiContext(new OAuthTokenCredential(
+                    'AZCKtnAXRbHuVB9TyswDNXBdSyOJMLt1eWxg-sZZqsigcD6L9eIVhKeaRB-QkPlAOF0kGpw15ubeYJu9',
+                    'EG2yploW1bJI8pMqFALpgtXEDK7L6qLkJ-WS-zBekCm42Xa_HjTYmmmgKES8U15IgJdXXuX3ML4iS0_N'
+                ));
+
+                $payer = new Payer();
+                $payer->setPaymentMethod('paypal');
+                $item = new Item();
+                $item->setName("Train-commander voyage")->setCurrency('EUR')->setQuantity(1)->setPrice($param['result']->price);
+
+                $itemlist = new ItemList();
+                $itemlist->setItems(array($item));
+
+                $amount = new Amount();
+                $amount->setCurrency("EUR")->setTotal($param['result']->price);
+
+                $transaction = new Transaction();
+                $transaction->setAmount($amount)->setItemList($itemlist)->setInvoiceNumber(uniqid());
+
+                $redirecturl = new RedirectUrls();
+                $redirecturl->setReturnUrl($this->getParameter('base_url').$this->generateUrl('supinfo_commander_paypal'))
+                    ->setCancelUrl($this->getParameter('base_url').$this->generateUrl('supinfo_commander_homepage'));
+                $payment = new Payment();
+                $payment->setIntent('sale')->setRedirectUrls($redirecturl)->setTransactions(array($transaction))->setPayer($payer);
+
+                try{
+                    $payment->create($context);
+                    $param['paypal_url'] = $payment->getApprovalLink();
+                }
+                catch (PayPalConnectionException $ex){
+                    echo $ex->getCode();
+                    echo $ex->getData();die;
+                    //die($ex);
+                }
+            }
+        }
+
+        return $this->render("SupinfoCommanderBundle:Default:cart.html.twig", $param);
     }
 
     private function checkCookie(){
@@ -405,5 +481,97 @@ class DefaultController extends Controller
             }
             return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
         }
+    }
+
+    public function deleteCartAction(Request $request){
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+        $session = $this->get('session');
+        if(!$session->get('id')){
+            return $this->redirect($this->generateUrl('supinfo_commander_login'));
+        }
+
+        $session->set('search_result', null);
+        return $this->redirect($this->generateUrl('supinfo_commander_cart'));
+    }
+
+    public function paypalAction(Request $request){
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+        $session = $this->get('session');
+        if(!$session->get('id')){
+            return $this->redirect($this->generateUrl('supinfo_commander_login'));
+        }
+
+        $result = $session->get('result');
+
+        $dateStart = new \DateTime();
+        $dateStart->setTimestamp($result->startTimes);
+        $dateEnd = new \DateTime();
+        $dateEnd->setTimestamp($result->endTimes);
+
+        $history = new History();
+        $history->setCost($result->price);
+        $history->setStart_time($dateStart);
+        $history->setEnd_time($dateEnd);
+        $history->setStart_station($result->stations[0]);
+        $history->setEnd_station($result->stations[1]);
+        $history->setUserid($session->get('id'));
+        $history->setCommand_time(new \DateTime('now'));
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($history);
+        $entityManager->flush();
+
+        //Envoie de mail au client pour confirmer son achat
+        /** @var Users $user */
+        $user = $this->getDoctrine()->getRepository('SupinfoCommanderBundle:Users')->findOneBy(array('id' => $session->get('id')));
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Merci de vous être inscrit !')
+            ->setFrom($this->getParameter('mailer_from'))
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView('Emails/confirmation.html.twig', array('user' => $user, 'result' => $result)), 'text/html'
+            );
+        $this->get('mailer')->send($message);
+
+        return $this->render($this->generateUrl('supinfo_commander_homepage'));
+    }
+
+    public function rebuyAction($id, Request $request){
+        if($this->checkCookie() == "maintenance_ok"){
+            return $this->render("SupinfoCommanderBundle:Default:maintenance.html.twig", array(
+                'page_title' => "Maintenance"
+            ));
+        }
+
+        $session = $this->get('session');
+        if(!$session->get('id')){
+            return $this->redirect($this->generateUrl('supinfo_commander_login'));
+        }
+
+        /** @var Users $currentUser */
+        $currentUser = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findOneBy(array('id' => $session->get('id')));
+        /** @var History $travel */
+        $travel = $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findOneBy(array('id' => $id, 'userid' => $currentUser->getId()));
+        if($travel){
+            $form = $this->createForm(new SearchTravelForm());
+            $form->handleRequest($request);
+
+            $param = array(
+                'page_title' => "index",
+                'form' => $form->createView(),
+                'start_station' => $travel->getStart_station(),
+                'end_station' => $travel->getEnd_station()
+            );
+            return $this->render("SupinfoCommanderBundle:Default:index.html.twig", $param);
+        }
+        return $this->redirect($this->generateUrl('supinfo_commander_profil'));
     }
 }

@@ -19,12 +19,28 @@ supinfo_commander_logout:
     defaults: { _controller: SupinfoCommanderBundle:Default:logout }
 
 supinfo_commander_cart:
-    path:     /cart
+    path:     /cart/
     defaults: { _controller: SupinfoCommanderBundle:Default:cart }
+
+supinfo_commander_cart_search:
+    path:     /cart/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Default:cart }
+
+supinfo_commander_cart_delete:
+    path:     /deletecart
+    defaults: { _controller: SupinfoCommanderBundle:Default:deleteCart }
+
+supinfo_commander_rebuy:
+    path:     /travel/again/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Default:rebuy }
 
 supinfo_commander_accept_cookies:
     path:     /accept_cookie
     defaults: { _controller: SupinfoCommanderBundle:CookieLaw:acceptLawCookie }
+
+supinfo_commander_paypal:
+    path: /paypal
+    defaults: { _controller: SupinfoCommanderBundle:Default:paypal }
 
 supinfo_commander_admin_login:
     path:     /gestion

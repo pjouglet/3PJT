@@ -22,7 +22,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "spipu/html2pdf": "^4.6",
         "google/apiclient": "1.1.*",
-        "facebook/php-sdk-v4": "^5.2"
+        "facebook/php-sdk-v4": "^5.2",
+        "paypal/rest-api-sdk-php": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

@@ -89,7 +89,7 @@ body{
     text-align: center;
 }
 
-.cart-summary button{
+.cart-summary #validate{
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -113,10 +113,26 @@ body{
     display: inline-block;
 }
 
+#search_travel_form_start_day_month, #search_travel_form_end_day_month{
+    width: 32%!important;
+}
+
+#search_travel_form_start_day_year, #search_travel_form_end_day_year{
+    width: 38%!important;
+}
+
 #start_time select{
     width: 40%!important;
 }
 
 #end_time select{
     width: 40%!important;
+}
+
+#validate a {
+    color: #FFFFFF;
+}
+
+#validate a:hover{
+    color: #FFFFFF;
 }

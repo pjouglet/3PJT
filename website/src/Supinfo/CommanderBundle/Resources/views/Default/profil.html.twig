@@ -81,7 +81,7 @@
                             <tr>
                                 <td>{{ command.start_time|date("m/d/Y") }}</td>
                                 <td>{{ command.start_station }} - {{ command.end_station }}</td>
-                                <td><a href="{{ path('supinfo_commander_print_travel', {'id': command.id}) }}">Imprimer</a> - Recommander</td>
+                                <td><a href="{{ path('supinfo_commander_print_travel', {'id': command.id}) }}">Imprimer</a> - <a href="{{ path('supinfo_commander_rebuy', {'id': command.id }) }}">Recommander</a> </td>
                             </tr>
                         {% endfor %}
                     </table>

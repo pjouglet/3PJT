@@ -12,17 +12,17 @@
                 <div class="alert alert-danger">
                     <p>
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <p>
-                            Aucun voyage n'a été trouvé.
-                        </p>
-                        <p>
-                            Essayez avec des horaires différents.
-                        </p>
+                    <p>
+                        Aucun voyage n'a été trouvé.
+                    </p>
+                    <p>
+                        Essayez avec des horaires différents.
+                    </p>
                     </p>
                 </div>
             </div>
         {% endif %}
-        <form role="form" method="POST">
+        <form role="form" method="POST" action="{{ path('supinfo_commander_homepage') }}">
             <div class="col-lg-5 col-lg-offset-1">
                 <h4>Départ</h4>
                 <div class="input-group">
@@ -57,31 +57,16 @@
                 </div>
             </div>
         </form>
-        <!--<div class="col-sm-3">
-                <div class="input-group">
-                    <label for="gare_depart">Gare de départ :</label>
-                    {{ form_widget(form.start_station, { 'id': 'start_station' }) }}
-                </div>
-                <div class="input-group">
-                    <label for="gare_arrivee">Gare d'arrivée :</label>
-                    {{ form_widget(form.end_station, { 'id': 'end_station' }) }}
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-                <label>Indiquez la date de départ et la date d'arrivée</label>
-                <div class="input-group input-daterange" id="date_voyage">
-                    <input type="text" class="form-control" name="date_depart"/>
-                    <span class="input-group-addon">→</span>
-                    <input type="text" class="form-control" name="date_arrivee"/>
-                </div>
-            </div>
-        </div>-->
     </div>
 
     <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/index.js') }}"></script>
+    {% if start_station is defined and end_station is defined %}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#start_station").attr('value', '{{ start_station }}');
+                $("#end_station").attr('value', '{{ end_station }}');
+            });
+        </script>
+    {% endif %}
 
     {% endblock content %}
-
-    {#{% include 'SupinfoCommanderBundle:Default:header.html.twig' %}
-    {% include 'SupinfoCommanderBundle:Default:footer.html.twig' %}#}

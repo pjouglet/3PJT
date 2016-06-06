@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-heading">Il y a {{ results|length }} trajet{% if results|length > 1 %}s{% endif %}
+                    trouvé{% if results|length > 1 %}s{% endif %} pour le voyage <i>{{ results[0].stations[0] }}
+                        - {{ results[0].stations[1] }}</i></h4>
+            </div>
+            <div class="col-lg-10 col-lg-offset-1">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Jour de départ</th>
+                        <th>Heure de départ</th>
+                        <th>Jour d'arrivée</th>
+                        <th>Heure d'arrivée</th>
+                        <th>Coût</th>
+                        <th>Réservation</th>
+                    </tr>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ result.startTimes[0]|date('d m Y') }}</td>
+                            <td>{{ result.startTimes[0]|date('H:i:s') }}</td>
+                            <td>{{ result.arrivalTimes[0]|date('d m Y') }}</td>
+                            <td>{{ result.arrivalTimes[0]|date('H:i:s') }}</td>
+                            <td>{{ result.price }} €</td>
+                            <td><a href="{{ path('supinfo_commander_cart_search', {'id': loop.index0}) }}" class="btn btn-primary">Réserver ce voyage</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Merci de vous être inscrit</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                <h4>Nous vous remercions de votre inscription</h4>
+                <p>
+                    Bienvenue {{ user.firstname }} !
+                </p>
+                <p>
+                    Nous sommes heureux de vous compter parmis nos client.<br />
+                    Rendez-vous dès à présent sur <a href="{{ path('supinfo_commander_homepage') }}">notre page de recherche</a> pour commander un trajet !
+                </p>
+
+                <p class="pull-right">
+                    L'équipe train-commander
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
