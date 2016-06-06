@@ -273,8 +273,6 @@ class DefaultController extends Controller
                 $param['result'] = $result[$id];
                 $session->set('result',$result[$id]);
 
-                var_dump($session->get('result'));die;
-
                 $context = new ApiContext(new OAuthTokenCredential(
                     'AZCKtnAXRbHuVB9TyswDNXBdSyOJMLt1eWxg-sZZqsigcD6L9eIVhKeaRB-QkPlAOF0kGpw15ubeYJu9',
                     'EG2yploW1bJI8pMqFALpgtXEDK7L6qLkJ-WS-zBekCm42Xa_HjTYmmmgKES8U15IgJdXXuX3ML4iS0_N'
@@ -512,9 +510,9 @@ class DefaultController extends Controller
         $result = $session->get('result');
 
         $dateStart = new \DateTime();
-        $dateStart->setTimestamp($result->startTimes);
+        $dateStart->setTimestamp($result->startTimes[0]);
         $dateEnd = new \DateTime();
-        $dateEnd->setTimestamp($result->endTimes);
+        $dateEnd->setTimestamp($result->arrivalTimes[0]);
 
         $history = new History();
         $history->setCost($result->price);
@@ -544,7 +542,7 @@ class DefaultController extends Controller
         $session->set('result', null);
         $session->set('result_search', null);
 
-        return $this->render($this->generateUrl('supinfo_commander_homepage'));
+        return $this->redirect($this->generateUrl('supinfo_commander_homepage'));
     }
 
     public function rebuyAction($id, Request $request){

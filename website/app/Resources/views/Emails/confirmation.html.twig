@@ -15,7 +15,7 @@
                 Vous avez commandé un voyage au départ de {{ result.stations[0] }} à destination de {{ result.stations[1] }}.
             </p>
             <p>
-                Votre train démarrera le {{ result.startTimes|date('d/m/Y') }} à {{ result.startTimes|date('H') }}:{{ result.startTimes|date('i') }}.<br />
+                Votre train démarrera le {{ result.startTimes[0]|date('d/m/Y') }} à {{ result.startTimes[0]|date('H') }}:{{ result.startTimes[0]|date('i') }}.<br />
                 Nous vous souhaitons bon voyage.
             </p>
             <p class="pull-right">
