@@ -136,3 +136,15 @@ body{
 #validate a:hover{
     color: #FFFFFF;
 }
+
+#search{
+    margin-top: 10px;
+}
+
+.choice{
+    text-align: center;
+}
+
+.choice td, .validating td{
+    font-size: 14px;
+}

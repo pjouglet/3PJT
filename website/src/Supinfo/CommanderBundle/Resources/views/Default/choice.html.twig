@@ -13,7 +13,7 @@
                         - {{ results[0].stations[1] }}</i></h4>
             </div>
             <div class="col-lg-10 col-lg-offset-1">
-                <table class="table table-hover">
+                <table class="table table-hover choice">
                     <tr>
                         <th>Jour de départ</th>
                         <th>Heure de départ</th>
@@ -24,9 +24,9 @@
                     </tr>
                     {% for result in results %}
                         <tr>
-                            <td>{{ result.startTimes[0]|date('d m Y') }}</td>
+                            <td>{{ result.startTimes[0]|date('d/m/Y') }}</td>
                             <td>{{ result.startTimes[0]|date('H:i:s') }}</td>
-                            <td>{{ result.arrivalTimes[0]|date('d m Y') }}</td>
+                            <td>{{ result.arrivalTimes[0]|date('d/m/Y') }}</td>
                             <td>{{ result.arrivalTimes[0]|date('H:i:s') }}</td>
                             <td>{{ result.price }} €</td>
                             <td><a href="{{ path('supinfo_commander_cart_search', {'id': loop.index0}) }}" class="btn btn-primary">Réserver ce voyage</a></td>
