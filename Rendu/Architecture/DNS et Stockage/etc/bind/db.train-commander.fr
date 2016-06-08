@@ -1,0 +1,18 @@
+; Configure any IP that client cant access
+; Use external IPs
+;
+$TTL	86400
+@	IN	SOA	train-commander.fr. root.train-commander.fr. (
+			      1		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			  86400 )	; Negative Cache TTL
+;
+@	IN	NS	ns.train-commander.fr.		; DNS server
+@	IN	MX 10	mail.train-commander.fr.	; mail server
+ns	IN	A	192.168.152.5	; DNS server
+www	IN	A	192.168.152.6	; Web server
+api	IN	A	192.168.152.6	; Api server
+mail	IN	A	192.168.152.7	; mail server
+pop	IN	CNAME	mail		; mail server

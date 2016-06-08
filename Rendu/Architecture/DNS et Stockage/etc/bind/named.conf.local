@@ -1,0 +1,26 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// External zone
+zone "train-commander.fr" {
+	type master;
+	file "/etc/bind/db.train-commander.fr";
+};
+
+// Local zone
+zone "train-commander.lan" {
+	type master;
+	file "/etc/bind/db.train-commander.lan";
+
+// configure name resolution forwarding if name can't be found
+	forwarders {
+		192.168.152.2;
+		8.8.8.8;
+		4.4.4.4;
+	};
+};

@@ -1,0 +1,26 @@
+; local zone, any server that is accessible from local network has to be set
+;
+$TTL	86400
+@	IN	SOA	train-commander.lan. root.train-commander.lan. (
+			      1		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			  86400 )	; Negative Cache TTL
+;
+@	IN	NS	ns.train-commander.lan.	;DNS server
+ns	IN	A	192.168.152.5	;DNS server
+www	IN	A	192.168.152.6	;Web server
+api	IN	A	192.168.152.6	;api server
+sql	IN	A	192.168.152.6	;sql server
+storage	IN	A	192.168.152.5	;nfs server
+h1s1	IN	A	192.168.152.10	;hypervisor 1
+h2s1	IN	A	192.168.152.60	;hypervisor 2
+www1	IN	A	192.168.152.11	;clsuter web server 1
+www2	IN	A	192.168.152.61	;cluster web server 2
+proxy1	IN	A	192.168.152.20	;cluster proxy server 1
+proxy2	IN	A	192.168.152.70	;cluster proxy server 2
+api1	IN	A	192.168.152.12	;cluster api server 1
+api2	IN	A	192.168.152.62	;cluster api server 2
+sql1	IN	A	192.168.152.13	;cluster sql server 1
+sql2	IN	A	192.168.152.63	;cluster sql server 2

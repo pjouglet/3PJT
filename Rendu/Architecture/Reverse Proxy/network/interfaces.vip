@@ -1,0 +1,6 @@
+# Haproxy Virtual IP
+auto eth0:0
+allow-hotplug eth0:0
+iface eth0:0 inet static
+	address 192.168.152.6
+	netmask 255.255.255.0
