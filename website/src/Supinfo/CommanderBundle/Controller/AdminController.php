@@ -48,7 +48,13 @@ class AdminController extends Controller
         if(!$session->get('email_admin')){
             return $this->redirect($this->generateUrl('supinfo_commander_admin_login'));
         }
-        return $this->render('SupinfoCommanderBundle:Gestion:index.html.twig', array('page_title' => "Panneau d'administration"));
+
+        $param = array(
+            'page_title' => "Panneau d'administration",
+            'users' => $this->getDoctrine()->getRepository("SupinfoCommanderBundle:Users")->findAll(),
+            'carts' => $this->getDoctrine()->getRepository("SupinfoCommanderBundle:History")->findAll()
+        );
+        return $this->render('SupinfoCommanderBundle:Gestion:index.html.twig', $param);
     }
 
     public function websiteAction(Request $request){
