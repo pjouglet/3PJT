@@ -64,7 +64,8 @@ class DefaultController extends Controller
 
                 $start = $dateStart->getTimestamp();
                 $end = $dateEnd->getTimestamp();
-
+                $url = 'http://notemonminou.hol.es/api/journeys/time/'.$station_startId->getId().'/'.$station_endId->getId().'/'.$start.'/'.$end;
+                //var_dump($url);die;
                 $result = @file_get_contents('http://notemonminou.hol.es/api/journeys/time/'.$station_startId->getId().'/'.$station_endId->getId().'/'.$start.'/'.$end);
                 if($result != null){
                     $results = json_decode($result);

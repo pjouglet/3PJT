@@ -145,6 +145,23 @@ body{
     text-align: center;
 }
 
+.choice tr:hover{
+    cursor: pointer;
+}
+
 .choice td, .validating td{
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.travel_details{
+    margin-left: 50px;
+    margin-bottom: 10px;
+}
+
+.travel_details div{
+    font-size: 16px;
+}
+
+.result{
+    margin-bottom: 100px;
 }

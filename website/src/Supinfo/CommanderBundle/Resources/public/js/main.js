@@ -27,4 +27,14 @@ $(document).ready(function(){
         $(".cookies_law").hide();
     });
 
+    $('.choice tr').click(function(){
+        var target = $(this).attr('data-target')
+        $('.result').each(function(){
+           if("#" + $(this).attr('id') != target){
+              if($(this).hasClass('in'))
+                  $(this).removeClass('in');
+           }
+        });
+    });
+
 })
