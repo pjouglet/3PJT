@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.supinfo.traincommander.SearchTrainActivity"
+    android:background="@drawable/wallpaper">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Start station : "
+        android:id="@+id/startStation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/departure"
+        android:layout_below="@+id/startStation"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Arrival station : "
+        android:id="@+id/arrivalStation"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/departure"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/arrival"
+        android:layout_below="@+id/arrivalStation"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/dateView"
+        android:onClick="setDate"
+        android:layout_below="@+id/arrival"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <Button
+        android:text="Search"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:background="@drawable/button_design"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="00H00"
+        android:layout_marginTop="20dp"
+        android:id="@+id/after"
+        android:onClick="setHourStart"
+        android:layout_below="@+id/dateView"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="00H00"
+        android:onClick="setHourEnd"
+        android:layout_marginTop="10dp"
+        android:id="@+id/before"
+        android:layout_below="@+id/after"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="After : "
+        android:id="@+id/textView6"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/dateView"
+        android:layout_toLeftOf="@+id/after"
+        android:layout_toStartOf="@+id/after"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Before : "
+        android:id="@+id/textView7"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView6"
+        android:layout_toLeftOf="@+id/before"
+        android:layout_toStartOf="@+id/before"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sorting :"
+        android:id="@+id/sortingText"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="20sp"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sort"
+        android:layout_below="@+id/sortingText"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

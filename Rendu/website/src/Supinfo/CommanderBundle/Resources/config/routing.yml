@@ -1,0 +1,181 @@
+supinfo_commander_homepage:
+    path:     /
+    defaults: { _controller: SupinfoCommanderBundle:Default:index }
+
+supinfo_commander_help:
+    path:     /help
+    defaults: { _controller: SupinfoCommanderBundle:Default:help }
+
+supinfo_commander_login:
+    path:     /login
+    defaults: { _controller: SupinfoCommanderBundle:Default:login }
+
+supinfo_commander_facebook:
+    path:     /facebook
+    defaults: { _controller: SupinfoCommanderBundle:Default:facebook }
+
+supinfo_commander_logout:
+    path:     /logout
+    defaults: { _controller: SupinfoCommanderBundle:Default:logout }
+
+supinfo_commander_cart:
+    path:     /cart/
+    defaults: { _controller: SupinfoCommanderBundle:Default:cart }
+
+supinfo_commander_cart_search:
+    path:     /cart/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Default:cart }
+
+supinfo_commander_cart_delete:
+    path:     /deletecart
+    defaults: { _controller: SupinfoCommanderBundle:Default:deleteCart }
+
+supinfo_commander_rebuy:
+    path:     /travel/again/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Default:rebuy }
+
+supinfo_commander_accept_cookies:
+    path:     /accept_cookie
+    defaults: { _controller: SupinfoCommanderBundle:CookieLaw:acceptLawCookie }
+
+supinfo_commander_paypal:
+    path: /paypal
+    defaults: { _controller: SupinfoCommanderBundle:Default:paypal }
+
+supinfo_commander_admin_login:
+    path:     /gestion
+    defaults: { _controller: SupinfoCommanderBundle:Admin:login }
+
+supinfo_commander_profil:
+    path:     /profile
+    defaults: { _controller: SupinfoCommanderBundle:Default:profile }
+
+supinfo_commander_print_travel:
+    path:     /cart/print/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Default:printTravel }
+
+#admin
+supinfo_commander_admin:
+    path:     /gestion/index
+    defaults: { _controller: SupinfoCommanderBundle:Admin:index }
+
+supinfo_commander_back_website:
+    path:     /gestion/website
+    defaults: { _controller: SupinfoCommanderBundle:Admin:website }
+
+supinfo_commander_settings_infos:
+    path:     /gestion/settings/informations
+    defaults: { _controller: SupinfoCommanderBundle:Settings:informations }
+
+supinfo_commander_administration_maintenance:
+    path:     /gestion/admin/maintenance
+    defaults: { _controller: SupinfoCommanderBundle:Administration:maintenance }
+
+#Employés
+supinfo_commander_administration_employees:
+    path:   /gestion/admin/employees
+    defaults: { _controller: SupinfoCommanderBundle:Employees:employees }
+
+supinfo_commander_administration_add_employee:
+    path:   /gestion/admin/employee/add
+    defaults: { _controller: SupinfoCommanderBundle:Employees:addEmployee }
+
+supinfo_commander_administration_delete_employee:
+    path: /gestion/user/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Employees:deleteEmployee }
+
+supinfo_commander_administration_edit_employee:
+    path: /gestion/user/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Employees:editEmployee }
+
+#Clients
+
+supinfo_commander_administration_customers:
+    path:   /gestion/customers
+    defaults: { _controller: SupinfoCommanderBundle:Customer:customers }
+
+supinfo_commander_administration_delete_customer:
+    path:   /gestion/customers/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Customer:deleteCustomer }
+
+supinfo_commander_administration_activate_customer:
+    path:   /gestion/customers/activate/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Customer:activateCustomer }
+
+supinfo_commander_administration_view_customer:
+    path:   /gestion/customers/view/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Customer:viewCustomer }
+
+#Paniers
+
+supinfo_commander_administration_view_carts:
+    path:   /gestion/carts
+    defaults: { _controller: SupinfoCommanderBundle:Cart:viewAllCarts }
+
+#Gares
+supinfo_commander_administration_view_stations:
+    path: /gestion/stations
+    defaults: { _controller: SupinfoCommanderBundle:Stations:viewAllStations }
+
+supinfo_commander_administration_add_station:
+    path: /gestion/station/add
+    defaults: { _controller: SupinfoCommanderBundle:Stations:addStation }
+
+supinfo_commander_administration_delete_station:
+    path: /gestion/station/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Stations:deleteStation }
+
+supinfo_commander_administration_edit_station:
+    path: /gestion/station/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Stations:editStation }
+
+#Zones
+supinfo_commander_administration_view_zones:
+    path: /gestion/zones
+    defaults: { _controller: SupinfoCommanderBundle:Admin:viewZones }
+
+supinfo_commander_administration_add_zone:
+    path: /gestion/zone/add
+    defaults: { _controller: SupinfoCommanderBundle:Admin:addZone }
+
+supinfo_commander_administration_delete_zone:
+    path: /gestion/zone/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Admin:deleteZone }
+
+supinfo_commander_administration_edit_zone:
+    path: /gestion/zone/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Admin:editZone }
+
+#Trajets
+supinfo_commander_administration_view_travels:
+    path: /gestion/travels
+    defaults: { _controller: SupinfoCommanderBundle:Travels:viewTravels }
+
+supinfo_commander_administration_add_travel:
+    path: /gestion/travel/add
+    defaults: { _controller: SupinfoCommanderBundle:Travels:addTravel }
+
+supinfo_commander_administration_delete_travel:
+    path: /gestion/travel/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Travels:deleteTravel }
+
+#supinfo_commander_administration_edit_travel:
+    #path: /gestion/travel/edit/{id}
+    #defaults: { _controller: SupinfoCommanderBundle:Travels:editTravel }
+
+#Segments
+supinfo_commander_administration_view_segments:
+    path: /gestion/segments
+    defaults: { _controller: SupinfoCommanderBundle:Segments:viewSegments }
+
+supinfo_commander_administration_add_segment:
+    path: /gestion/segment/add
+    defaults: { _controller: SupinfoCommanderBundle:Segments:addSegment }
+
+supinfo_commander_administration_delete_segment:
+    path: /gestion/segment/delete/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Segments:deleteSegment }
+
+supinfo_commander_administration_edit_segment:
+    path: /gestion/segment/edit/{id}
+    defaults: { _controller: SupinfoCommanderBundle:Segments:editSegment }

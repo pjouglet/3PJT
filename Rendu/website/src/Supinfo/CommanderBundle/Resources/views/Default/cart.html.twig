@@ -1,0 +1,92 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container main-container" xmlns="http://www.w3.org/1999/html">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-heading">Récapitulatif de votre commande</h4>
+            </div>
+        </div>
+        <div class="row">
+            {% if result is defined %}
+                <div class="col-sm-8">
+                    <table class="table validating">
+                        <thead>
+                        <tr>
+                            <th class="col">Voyage</th>
+                            <th class="col">Dates</th>
+                            <th class="col">Prix</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col">{{ result.stations[0] }} - {{ result.stations[1] }}</td>
+                            <td class="col">
+                                <div class="arrival">
+                                    <p>
+                                        Départ le : {{ result.startTimes[0]|date('d/m/Y') }}
+                                        à {{ result.startTimes[0]|date('H') }}h{{ result.startTimes[0]|date('i') }}
+                                    </p>
+                                </div>
+                                <div class="departure">
+                                    <p>
+                                        Arrivée le : {{ result.arrivalTimes[0]|date('d/m/Y') }}
+                                        à {{ result.arrivalTimes[0]|date('H') }}h{{ result.arrivalTimes[0]|date('i') }}
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="col"><span class="trip_price">{{ result.price }}</span>€</td>
+                            <td class="col"><a href="{{ path('supinfo_commander_cart_delete') }}"><span
+                                            class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="cart-summary">
+                        <h4>Total</h4>
+                        <div class="cart-totals">
+                            <form method="post" role="form">
+                                <table class="table totals>">
+                                    <tbody>
+                                    <tr class="totals subtotals">
+                                        <th>Sous-total</th>
+                                        <td class="amount"></td>
+                                    </tr>
+                                    <tr class="totals tax">
+                                        <th>Taxes</th>
+                                        <td class="amount">0€</td>
+                                    </tr>
+                                    <tr class="grand total">
+                                        <th><strong>Total</strong></th>
+                                        <td class="amount"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" id="total_pay" value="" name="total_pay"/>
+                                <!--<input type="submit" class="btn btn-primary" id="validate" value="Valider la commande">-->
+                                <button class="btn btn-primary" id="validate"><a href="{{ paypal_url }}">Valider la commande</a></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-lg-8 col-lg-offset-2">
+                    <p>
+                        Oups...<br />
+                        Il semblerait que votre panier soit vide.
+                    </p>
+                    <p>
+                        Rendez vous sur notre page de <a href="{{ path('supinfo_commander_homepage') }}">recherche de trajet</a> afin de le remplir !
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/cart.js') }}"></script>
+{% endblock content %}

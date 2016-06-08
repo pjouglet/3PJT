@@ -1,0 +1,85 @@
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock admin_title %}
+
+{% block admin_content %}
+    <div id="content" xmlns="http://www.w3.org/1999/html">
+        <div class="page-head">
+            <h2 class="page-title">Informations</h2>
+        </div>
+
+        <div class="row main">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                <span>Informations sur les clients</span>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Il y a un total de <strong>{{ users|length }}</strong> personnes inscrites.
+                                </p>
+                                <p>
+                                    {% set google = 0 %}
+                                    {% set facebook = 0 %}
+                                    {% set unactive = 0 %}
+                                    {% for user in users %}
+                                        {% if user.fbid != null %}
+                                            {% set facebook = facebook +1 %}
+                                        {% endif %}
+
+                                        {% if user.googleid != null %}
+                                            {% set google = google +1 %}
+                                        {% endif %}
+
+                                        {% if user.active == 0 %}
+                                            {% set unactive = unactive +1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <strong>{{ facebook }}</strong> possédent un compte facebook.
+                                </p>
+                                <p>
+                                    <strong>{{ google }}</strong> possédent un compte google.
+                                </p>
+                                <p>
+                                    Il y a <strong>{{ unactive }}</strong> compte{% if unactive > 1 %}s{% endif %} inactif{% if unactive > 1 %}s{% endif %}.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                <span>Informations sur les commandes</span>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    {% set nbr = 0 %}
+                                    {% set money = 0 %}
+                                    {% for cart in carts %}
+                                        {% set money = money + cart.cost %}
+                                        {% if cart.command_time|date('m') == "now"|date('m') %}
+                                            {% set nbr = nbr + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    Il y a un total de <strong>{{ carts|length }}</strong> commandes passées dont <strong>{{ nbr }}</strong> ce mois-ci.
+                                </p>
+                                <p>
+                                    Il y a une moyenne de {{ carts|length / users|length }} commande{% if carts|length / users|length > 1 %}s{% endif %} par client.
+                                </p>
+                                <p>
+                                    Le panier moyen est de <strong>{{ (money /users|length)|number_format(2, '.', ',') }}€</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock admin_content %}

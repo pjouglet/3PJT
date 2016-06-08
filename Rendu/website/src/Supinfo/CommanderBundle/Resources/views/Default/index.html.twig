@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+<div class="container main-container">
+    <div class="row">
+        {% if travel_not_found is defined %}
+            <div class="col-sm-12">
+                <div class="alert alert-danger">
+                    <p>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <p>
+                        Aucun voyage n'a été trouvé.
+                    </p>
+                    <p>
+                        Essayez avec des horaires différents.
+                    </p>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+        <form role="form" method="POST" action="{{ path('supinfo_commander_homepage') }}">
+            <div class="col-lg-5 col-lg-offset-1">
+                <h4>Départ</h4>
+                <div class="input-group">
+                    <label for="gare_depart">Gare de départ :</label>
+                    {{ form_widget(form.start_station, { 'id': 'start_station' }) }}
+                </div>
+                <div class="input-group">
+                    <label for="gare_depart">Jour de départ :</label>
+                    {{ form_widget(form.start_day, { 'id': 'start_day' }) }}
+                </div>
+                <div class="input-group">
+                    <label for="gare_depart">Heure de départ :</label>
+                    {{ form_widget(form.start_time, { 'id': 'start_time' }) }}
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" id="search" value="Rechercher"/>
+                </div>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1">
+                <h4>Arrivée</h4>
+                <div class="input-group">
+                    <label for="gare_arrivee">Gare d'arrivée :</label>
+                    {{ form_widget(form.end_station, { 'id': 'end_station' }) }}
+                </div>
+                <div class="input-group">
+                    <label for="gare_depart">Jour d'arrivée :</label>
+                    {{ form_widget(form.end_day, { 'id': 'end_day' }) }}
+                </div>
+                <div class="input-group">
+                    <label for="gare_depart">Heure d'arrivée :</label>
+                    {{ form_widget(form.end_time, { 'id': 'end_time' }) }}
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/index.js') }}"></script>
+    {% if start_station is defined and end_station is defined %}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#start_station").attr('value', '{{ start_station }}');
+                $("#end_station").attr('value', '{{ end_station }}');
+            });
+        </script>
+    {% endif %}
+
+    {% endblock content %}

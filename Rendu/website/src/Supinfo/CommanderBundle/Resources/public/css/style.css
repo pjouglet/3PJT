@@ -1,0 +1,167 @@
+body{
+    background-image: url("../img/photo-1437623889155-075d40e2e59f.png");
+}
+
+.main-container{
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #18125D;
+    font-size: 20px;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-top: 50px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.label_checkbox{
+    font-size: 15px;
+}
+
+.cookies_law{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: #000000;
+    border-color: #000000;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    z-index: 9999;
+    padding: 13px;
+    -webkit-box-shadow: 0px 1px 5px 0px #000000;
+    -moz-box-shadow: 0px 1px 5px 0px #000000;
+    box-shadow: 0px 1px 5px 0px #000000;
+    opacity: 0.8;
+}
+
+.cookies_law input{
+    background-color: #8BC954;
+    borde-color: #8BC954;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.cookies_law input:hover{
+    background-color: #8BC954;
+    borde-color: #8BC954;
+    color: #FFFFFF;
+}
+
+.cookies_law > form a{
+    background-color: #5BC0DE;
+    border-color: #5BC0DE;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.cookies_law .cookies_button, .close_button{
+    display: inline;
+}
+
+.cookies_law .close_button{
+    position: relative;
+    top: -5px;
+    right: -15px;
+}
+
+.page-heading{
+    text-transform: uppercase;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #AEA9A9;
+}
+
+.cart-summary{
+    border: 1px solid #AEA9A9;
+    font-size: 22px;
+    padding: 1px 20px 25px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 50px;
+}
+
+.cart-summary h4{
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-summary #validate{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.cart-totals{
+    color: #5F59A4;
+}
+
+.cart-totals th{
+    font-weight: 400;
+}
+
+.table td{
+    font-size: 12px;
+}
+
+.input-group select{
+    width: 30%!important;
+    display: inline-block;
+}
+
+#search_travel_form_start_day_month, #search_travel_form_end_day_month{
+    width: 32%!important;
+}
+
+#search_travel_form_start_day_year, #search_travel_form_end_day_year{
+    width: 38%!important;
+}
+
+#start_time select{
+    width: 40%!important;
+}
+
+#end_time select{
+    width: 40%!important;
+}
+
+#validate a {
+    color: #FFFFFF;
+}
+
+#validate a:hover{
+    color: #FFFFFF;
+}
+
+#search{
+    margin-top: 10px;
+}
+
+.choice{
+    text-align: center;
+}
+
+.choice tr:hover{
+    cursor: pointer;
+}
+
+.choice td, .validating td{
+    font-size: 16px;
+}
+
+.travel_details{
+    margin-left: 50px;
+    margin-bottom: 10px;
+}
+
+.travel_details div{
+    font-size: 16px;
+}
+
+.result{
+    margin-bottom: 100px;
+}

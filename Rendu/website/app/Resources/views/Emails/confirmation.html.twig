@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Confirmation de votre achât</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <h4>{{ user.firstname }}, voici votre récapitulatif de commande</h4>
+            <p>
+                Vous avez commandé un voyage au départ de {{ result.stations[0] }} à destination de {{ result.stations[1] }}.
+            </p>
+            <p>
+                Votre train démarrera le {{ result.startTimes[0]|date('d/m/Y') }} à {{ result.startTimes[0]|date('H') }}:{{ result.startTimes[0]|date('i') }}.<br />
+                Nous vous souhaitons bon voyage.
+            </p>
+            <p class="pull-right">
+                L'équipe train-commander
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

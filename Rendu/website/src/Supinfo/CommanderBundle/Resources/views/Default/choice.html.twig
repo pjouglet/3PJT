@@ -1,0 +1,74 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-heading">Il y a {{ results|length }} trajet{% if results|length > 1 %}s{% endif %}
+                    trouvé{% if results|length > 1 %}s{% endif %} pour le voyage <i>{{ results[0].stations[0] }}
+                        - {{ results[0].stations[results[0].stations|length -1] }}</i></h4>
+            </div>
+            <div class="col-lg-12">
+                <table class="table table-hover choice">
+                    <tr>
+                        <th>Jour de départ</th>
+                        <th>Heure de départ</th>
+                        <th>Jour d'arrivée</th>
+                        <th>Heure d'arrivée</th>
+                        <th>Correspondances</th>
+                        <th>Coût</th>
+                        <th>Réservation</th>
+                    </tr>
+                    {#{% for result in results %}
+                        <tr>
+                            <td>{{ result.startTimes[0]|date('d/m/Y') }}</td>
+                            <td>{{ result.startTimes[0]|date('H:i:s') }}</td>
+                            <td>{{ result.arrivalTimes[0]|date('d/m/Y') }}</td>
+                            <td>{{ result.arrivalTimes[0]|date('H:i:s') }}</td>
+                            <td>{{ result.price }} €</td>
+                            <td><a href="{{ path('supinfo_commander_cart_search', {'id': loop.index0}) }}" class="btn btn-primary">Réserver ce voyage</a></td>
+                        </tr>
+                    {% endfor %}#}
+                    {% for result in results %}
+                        <div id="result{{ loop.index }}" class="collapse result">
+                                {% set value = 0 %}
+                                {% for i in 0..result.stations|length -1 %}
+                                    {% if i%2 == 0 %}
+                                        <div class="travel_details">
+                                            <div class="col-lg-4 col-lg-offset-1">
+                                                {{ result.stations[i] }} le {{ result.startTimes[value]|date('d/m/Y') }} à {{ result.startTimes[value]|date('H:i:s') }}
+                                            </div>
+                                            <div class="col-lg-1">→</div>
+                                            <div class="col-lg-4">
+                                                {{ result.stations[i+1] }} le {{ result.arrivalTimes[value]|date('d/m/Y') }} à {{ result.arrivalTimes[value]|date('H:i:s') }}
+                                            </div>
+                                        </div>
+                                        {% set value = value +1 %}
+                                    {% endif %}
+                                {% endfor %}
+                        </div>
+                        <tr data-toggle="collapse" data-target="#result{{ loop.index }}">
+                            <td>{{ result.startTimes[0]|date('d/m/Y') }}</td>
+                            <td>{{ result.startTimes[0]|date('H:i:s') }}</td>
+                            <td>{{ result.arrivalTimes[result.arrivalTimes|length -1]|date('d/m/Y') }}</td>
+                            <td>{{ result.arrivalTimes[result.arrivalTimes|length -1]|date('H:i:s') }}</td>
+                            <td>
+                                {% for i in 1..result.stations|length -1 %}
+                                    {% if i%2 == 0 %}
+                                        {{ result.stations[i] }}<br />
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ result.price }} €</td>
+                            <td><a href="{{ path('supinfo_commander_cart_search', {'id': loop.index0}) }}" class="btn btn-primary">Réserver ce voyage</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

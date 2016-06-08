@@ -1,0 +1,54 @@
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock admin_title %}
+
+{% block admin_content %}
+    <div id="content">
+    <div class="page-head">
+        <h2 class="page-title">Zones</h2>
+    </div>
+
+    <div class="row main">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <span>Liste des zones</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="add_station pull-right">
+                                <a href="{{ path('supinfo_commander_administration_add_zone') }}">
+                                    <button class="btn btn-primary" id="add_employee" type="button">Ajouter une zone</button>
+                                </a>
+                            </div>
+
+                            <div class="table-responsive col-lg-12">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Label</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {% for zone in zones_list %}
+                                        <tr>
+                                            <td>{{ zone.id }}</td>
+                                            <td>{{ zone.label }}</td>
+                                            <td>
+                                                <a href="{{ path('supinfo_commander_administration_edit_zone', {'id': zone.id}) }}" >modifier</a>
+                                                <a href="#" class="delete_zone">supprimer<span class="hidden">{{ path('supinfo_commander_administration_delete_zone', {'id': zone.id}) }}</span> </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock admin_content %}

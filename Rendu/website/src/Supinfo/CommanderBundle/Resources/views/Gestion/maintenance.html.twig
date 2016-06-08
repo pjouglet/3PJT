@@ -1,0 +1,73 @@
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock admin_title %}
+
+{% block admin_content %}
+    <div id="content">
+        <div class="page-head">
+            <h2 class="page-title">Maintenance</h2>
+        </div>
+
+        <div class="row main">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Paramètres de maintenance
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-lg-12 maintenance_info">
+                                    {% if maintenance == 0 %}
+                                        <p>
+                                            Le site est actuellement <strong><span class="success">ACTIF</span></strong>.
+                                            Vous pouvez le désactiver en cliquant sur le bouton "NON".
+                                        </p>
+                                        <p>
+                                            Vous pouvez également ajouter de nouvelles adresses IP dans la liste afin d'y autoriser l'accès au site durant la maintenance.
+                                            (x.x.x.x;y.y.y.y)
+                                        </p>
+                                    {% else %}
+                                        <p>
+                                            Le site est actuellement <strong><span
+                                                        class="warning">INACTIF</span></strong>. Vous pouvez l'activer
+                                            en cliquant sur le bouton "OUI".
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                <div class="form-wrapper">
+                                    <form method="post" id="maintenance_form" role="form">
+                                        <div class="form-group">
+                                            <label class="col-lg-3">Activer le site</label>
+                                            <div class="col-lg-9">
+                                                <button class="btn btn-primary" name="btn_activate" value="true">OUI
+                                                </button>
+                                                <button class="btn btn-danger" name="btn_desactivate" value="true">NON
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-3">IPs de maintenance</label>
+                                            <div class="col-lg-6">
+                                                <input type="hidden" class="user_ip" value="{{ user_ip }}"/>
+                                                <input type="text" class="form-control" id="ip_list" name="ip_list"
+                                                       value="{{ ips }}"/>
+                                                <input type="button" class="btn btn-default" id="add_ip"
+                                                       value="Ajouter mon ip"/>
+                                                <button class="btn btn-primary submit" id="submit_maintenance">Valider
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock admin_content %}

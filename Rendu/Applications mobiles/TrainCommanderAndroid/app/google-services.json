@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "123877190777",
+    "project_id": "astute-arcanum-132123"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123877190777:android:becf7e2ade7dccc1",
+        "android_client_info": {
+          "package_name": "com.example.supinfo.traincommander"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123877190777-qj5ccl0sa66bfv539872srdrt2of7och.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.supinfo.traincommander",
+            "certificate_hash": "757068E03A768167B11A9DDC585EB2DCCC2B1F4D"
+          }
+        },
+        {
+          "client_id": "123877190777-05bapmbrelcjfrif480d31m2v1r2jgjo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf7hEfWsY5L6MmLHrzJbbxkyyBZCryT4g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

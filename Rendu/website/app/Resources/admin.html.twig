@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block admin_title %}{% endblock admin_title %}</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/sweetalert.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/supinfocommander/js/sweetalert.min.js') }}"></script>
+    <!-- Common CSS and javascfript files -->
+    <link rel="stylesheet" href="{{ asset('bundles/supinfocommander/css/admin/style.css') }}"/>
+</head>
+<body>
+<nav class="navbar nav-sidebar" role="navigation">
+    <ul class="menu">
+        <li class="maintab" id="back-website">
+            <a href="{{ path('supinfo_commander_back_website') }}" class="title">
+                <i class="glyphicon glyphicon-off"></i>
+                <span>Retour au site</span>
+            </a>
+        </li>
+
+        <li class="maintab" id="admin-dashboard">
+            <a href="{{ path('supinfo_commander_admin') }}" class="title">
+                <i class="glyphicon glyphicon-dashboard"></i>
+                <span>Tableau de bord</span>
+            </a>
+        </li>
+
+        <li class="maintab has_submenu" id="customer">
+            <a href="{{ path('supinfo_commander_administration_customers') }}" class="title">
+                <i class="glyphicon glyphicon-user"></i>
+                <span>Clients</span>
+            </a>
+            <ul class="submenu">
+                <li class="customer_customer"><a href="{{ path('supinfo_commander_administration_customers') }}">Clients</a></li>
+                <li class="customer_carts"><a href="{{ path('supinfo_commander_administration_view_carts') }}">Paniers</a></li>
+            </ul>
+        </li>
+
+        <li class="maintab has_submenu" id="gares">
+            <a href="{{ path('supinfo_commander_administration_view_stations') }}" class="title">
+                <i class="glyphicon glyphicon-road"></i>
+                <span>Voyages</span>
+            </a>
+            <ul class="submenu">
+                <li class="stations_stations"><a href="{{ path('supinfo_commander_administration_view_stations') }}">Stations</a></li>
+                <li class="stations_travels"><a href="{{ path('supinfo_commander_administration_view_travels') }}">Trajets</a></li>
+                <li class="stations_segments"><a href="{{ path('supinfo_commander_administration_view_segments') }}">Segments</a></li>
+                <li class="stations_zones"><a href="{{ path('supinfo_commander_administration_view_zones') }}">Zones</a></li>
+            </ul>
+        </li>
+
+        <li class="maintab has_submenu" id="settings">
+            <a href="" class="title">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span>Paramètres</span>
+            </a>
+            <ul class="submenu">
+                <li class="settings_infos"><a href="{{ path('supinfo_commander_settings_infos') }}">Informations</a></li>
+                {#<li class="settings_emails"><a href="/gestion/settings/emails">Emails (a faire)</a></li>#}
+            </ul>
+        </li>
+
+        <li class="maintab has_submenu" id="admin">
+            <a href="" class="title">
+                <i class="glyphicon glyphicon-alert"></i>
+                <span>Administration</span>
+            </a>
+            <ul class="submenu">
+                <li class="admin_employees"><a href="{{ path('supinfo_commander_administration_employees') }}">Employés</a></li>
+                <li class="admin_maintenance"><a href="{{ path('supinfo_commander_administration_maintenance') }}">Maintenance</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+{% block admin_content %}
+{% endblock admin_content %}
+<script type="text/javascript" src="{{ asset("bundles/supinfocommander/js/admin/main.js") }}"></script>
+
+</body>
+</html>

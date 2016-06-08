@@ -1,0 +1,56 @@
+{% extends 'admin.html.twig' %}
+
+{% block admin_title %}
+    {{ page_title }}
+{% endblock admin_title %}
+
+{% block admin_content %}
+    <div id="content">
+    <div class="page-head">
+        <h2 class="page-title">Trajets</h2>
+    </div>
+
+    <div class="row main">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <span>Liste des trajets</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="add_station pull-right">
+                                <a href="{{ path('supinfo_commander_administration_add_travel') }}">
+                                    <button class="btn btn-primary" id="add_employee" type="button">Ajouter un trajet</button>
+                                </a>
+                            </div>
+
+                            <div class="table-responsive col-lg-12">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nom</th>
+                                        <th>Trajet national</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {% for travel in travels_list %}
+                                        <tr>
+                                            <td>{{ travel.id }}</td>
+                                            <td>{{ travel.label }}</td>
+                                            <td>{% if travel.isNational == 1 %}<span class="success">Oui</span>{% else %}<span class="warning">Non</span>{% endif %}</td>
+                                            <td>
+                                                {#<a href="{{ path('supinfo_commander_administration_edit_travel', {'id': travel.id}) }}" >modifier</a>#}
+                                                <a href="#" class="delete_travel">supprimer<span class="hidden">{{ path('supinfo_commander_administration_delete_travel', {'id': travel.id}) }}</span> </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock admin_content %}
